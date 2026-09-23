@@ -864,3 +864,22 @@
     margin-top: 8px;
   }
 }
+
+.practice-theme-links {
+  margin: 22px 0;
+  padding: 15px 18px;
+  background: var(--sage);
+  border-radius: 5px;
+}
+.practice-theme-links > .eyebrow {
+  font-size: 9px;
+}
+.practice-theme-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 10px;
+}
+.practice-theme-links .text-link {
+  font-size: 12px;
+}

@@ -142,7 +142,7 @@ export const readings = {
     "AAP/AAPD sedation monitoring · reaffirmed 2025",
     "monitoring-and-management-of-pediatric-patients-before-during-and-after-sedation-for-diagnostic-and-therapeutic-procedures",
   ),
-  emergencies: reference("Medical emergencies · revised 2026", "management-of-medical-emergencies"),
+  emergencies: reference("Medical emergencies · revised 2025", "management-of-medical-emergencies"),
   consent: reference("Informed consent", "informed-consent"),
   records: reference("Recordkeeping · revised 2026", "record-keeping"),
   safety: reference("Patient safety", "patient-safety"),
@@ -269,7 +269,7 @@ export const domains: Domain[] = [
     essentials: [
       "Integrate symptoms, clinical findings, and radiographs to assess pulp status. Identify whether the tooth is primary or permanent and whether root development is complete.",
       "Compare appropriate vital and nonvital options, extraction, and referral in context. Discuss the tooth’s value, restorability, alternatives, and expected outcome.",
-      "Review the 2026 best practice alongside the dedicated guidelines. It includes selected circumstances for complete pulpotomy in teeth with signs of irreversible pulpitis; use the full selection criteria rather than a blanket rule.",
+      "Read the 2026 best practice alongside the dedicated 2024 primary and 2025 permanent vital-pulp guidelines. Selected primary and permanent teeth with signs of irreversible pulpitis may receive pulpotomy without clinical or radiographic infection; use the full selection criteria, including bleeding control.",
     ],
     prompt:
       "A deeply carious molar has a complex pain history. Explain how you establish the pulpal diagnosis and select an evidence-supported option.",

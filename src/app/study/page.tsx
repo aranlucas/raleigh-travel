@@ -5,6 +5,7 @@ import Link from "next/link";
 import { StudyHeader } from "@/components/study-header";
 import { ExternalLink } from "@/components/ui";
 import { domains, officialResources, practiceBlocks, studySources } from "@/lib/study";
+import { studyThemes } from "@/lib/study-themes";
 
 import "./study.css";
 
@@ -37,8 +38,11 @@ export default function StudyPage() {
               say your reasoning out loud, and use the original sources to close the gaps.
             </p>
             <div className="study-hero-actions">
-              <a className="solid-link" href="#sat-cases">
-                Start Saturday’s practice <ArrowRight size={17} aria-hidden="true" />
+              <Link className="solid-link" href="/study/themes">
+                Learn the themes <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+              <a className="text-link" href="#sat-cases">
+                Your practice plan
               </a>
               <Link className="text-link" href="/study/recap">
                 <FileText size={16} aria-hidden="true" /> One-page recap
@@ -117,6 +121,9 @@ export default function StudyPage() {
               <Link href="/study/recap">
                 <strong>Print your recap sheet ↗</strong>
               </Link>
+              <Link href="/study/themes">
+                <strong>Theme notes & decision maps ↗</strong>
+              </Link>
             </nav>
           </aside>
           <div className="study-main">
@@ -156,6 +163,22 @@ export default function StudyPage() {
                     </li>
                   ))}
                 </ol>
+                <div className="practice-theme-links">
+                  <span className="eyebrow">REVIEW FOR THIS SESSION</span>
+                  <div>
+                    {studyThemes
+                      .filter((theme) => theme.sessionIds.includes(block.id))
+                      .map((theme) => (
+                        <Link
+                          className="text-link"
+                          href={`/study/themes#${theme.id}`}
+                          key={theme.id}
+                        >
+                          {theme.shortTitle} <ArrowRight size={13} aria-hidden="true" />
+                        </Link>
+                      ))}
+                  </div>
+                </div>
                 {block.domains.length > 0 && (
                   <div className="domain-list">
                     {block.domains.map((id) => {

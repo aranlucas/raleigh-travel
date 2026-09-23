@@ -24,6 +24,9 @@ export default function RecapPage() {
           <Link className="text-link" href="/study">
             <ArrowLeft size={16} aria-hidden="true" /> Back to the study guide
           </Link>
+          <Link className="text-link" href="/study/themes">
+            Theme notes & decisions
+          </Link>
           <RecapPrintButton />
         </div>
         <article className="recap-paper">
