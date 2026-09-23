@@ -36,6 +36,7 @@ The configuration accounts for the automatic JSX runtime and CSS side-effect imp
 - `/study/recap`: a printable one-page review sheet with editable reminders. Reminders remain in the current tab and are included when printing or saving as PDF; they are not sent to a server or saved after navigation.
 - A print layout covering all five days regardless of the selected day or filter.
 - Keyboard navigation, responsive layouts, and reduced-motion support.
+- Tailwind CSS defaults for the system sans-serif font, type scale, colors, spacing, radii, and shadows. There are no downloaded Google fonts or custom Tailwind theme overrides; the existing page layouts use the standard theme tokens.
 
 The itinerary is a static snapshot, not a live Gmail or airline integration. Sources were reviewed September 23, 2026. Monday registration is at 2:45 PM. The approximately 6:15 PM hotel return is tentative. Outings, meals, transfers, and study blocks are suggestions, not bookings.
 
