@@ -1,0 +1,69 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "react", "jsx-a11y", "nextjs", "import", "promise"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "error",
+    "perf": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "maxWarnings": 0
+  },
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "ignorePatterns": [".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts"],
+  "rules": {
+    "eslint/eqeqeq": ["error", "always"],
+    "eslint/curly": ["error", "all"],
+    "eslint/no-console": "error",
+    "eslint/no-debugger": "error",
+    "eslint/no-unused-vars": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/await-thenable": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "react/react-in-jsx-scope": "off",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": ["**/*.css"]
+      }
+    ],
+    "eslint/max-lines": "off",
+    "eslint/max-lines-per-function": "off",
+    "typescript/prefer-readonly-parameter-types": [
+      "error",
+      {
+        "ignoreInferredTypes": true,
+        "allow": ["ReactNode", "KeyboardEvent"]
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "linkComponents": [
+        {
+          "name": "Link",
+          "linkAttribute": "href"
+        }
+      ]
+    },
+    "jsx-a11y": {
+      "components": {
+        "Link": "a"
+      }
+    }
+  }
+}
