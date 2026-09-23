@@ -127,10 +127,6 @@ export function TripDetails() {
           </p>
           <dl className="facts">
             <div>
-              <dt>Personal buffer</dt>
-              <dd>2:00 PM</dd>
-            </div>
-            <div>
               <dt>Leave the hotel</dt>
               <dd>About 2:25 PM</dd>
             </div>
@@ -194,10 +190,10 @@ export function TripDetails() {
         <h3>Where the plan comes from</h3>
         <p>
           Hotel and exam logistics come from the Gmail confirmations reviewed September 23, 2026.
-          You supplied the flight schedules and confirmed that 2 PM is a personal buffer. Flight
-          status is not live. Meals, study blocks, transfers, and outings are suggestions; no
-          restaurant reservations have been made. Meal choices favor local restaurants and value;
-          budgets are per-person estimates for food before tax, tip, and drinks.
+          You supplied the flight schedules. Flight status is not live. Meals, study blocks,
+          transfers, and outings are suggestions; no restaurant reservations have been made. Meal
+          choices favor local restaurants and value; budgets are per-person estimates for food
+          before tax, tip, and drinks.
         </p>
         <p>
           Flight times are local to each airport: PT in Seattle, CT in Dallas, ET in Charlotte and

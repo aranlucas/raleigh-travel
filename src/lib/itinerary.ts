@@ -418,7 +418,7 @@ export const days: Day[] = [
     label: "Board day",
     title: "Monday, October 5",
     description: "You have made space for this. Keep the morning simple.",
-    takeaway: "2 PM is your personal buffer. Official registration is at 2:45 PM.",
+    takeaway: "Registration is at 2:45 PM. Leave the hotel around 2:25 PM.",
     activities: [
       {
         id: "mon-breakfast",
@@ -460,7 +460,7 @@ export const days: Day[] = [
         details: [
           "A Raleigh-grown counter-service option at 200 Park at North Hills Street, Suite 101, open 8 AM–8 PM daily. This is the practical exam-day pick: fresh bowls, salads, and a short trip back to your room.",
           "Choose ingredients you already enjoy. Planning budget: $14–20 per person for food, before tax, tip, and drinks. For a table-service alternative, Coquette also serves weekday lunch nearby.",
-          "Be back at the hotel by 12:30 PM. Your 2 PM buffer stays completely clear.",
+          "Be back at the hotel by 12:30 PM to get ready at your own pace.",
         ],
         links: [
           { label: "Happy + Hale location & hours", href: sources.happyHale },
@@ -473,7 +473,7 @@ export const days: Day[] = [
       },
       {
         id: "mon-ready",
-        time: "12:30–2:00 PM",
+        time: "12:30–2:25 PM",
         category: "exam",
         title: "Get ready, at your pace",
         description: "Outfit, photo ID, and your latest exam instructions.",
@@ -482,17 +482,6 @@ export const days: Day[] = [
           "Your confirmation lists Session 3. Registration does not open before the listed time.",
         ],
         links: [{ label: "Official ABPD exam information", href: sources.abpd }],
-      },
-      {
-        id: "buffer",
-        time: "2:00–2:25 PM",
-        category: "exam",
-        title: "Your calm buffer",
-        description: "Be ready at 2 PM. Nothing else goes in this space.",
-        details: [
-          "You confirmed that 2 PM is your personal buffer, not the registration time.",
-          "Use this time at the hotel to settle yourself before the short walk.",
-        ],
       },
       {
         id: "walk-exam",

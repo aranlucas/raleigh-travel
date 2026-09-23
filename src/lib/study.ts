@@ -540,7 +540,7 @@ export const practiceBlocks: PracticeBlock[] = [
     domains: [],
     resources: [officialResources[3]],
     finish:
-      "Stop at 9:45 AM. Lunch is at 11:30; your personal buffer begins at 2 PM and registration at 2:45 PM.",
+      "Stop at 9:45 AM. Lunch is at 11:30; leave the hotel around 2:25 PM for registration at 2:45 PM.",
   },
 ];
 

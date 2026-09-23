@@ -19,10 +19,6 @@ export function TripSidebar({
         <p className="exam-organization">ABPD Oral Clinical Examination</p>
         <ol className="exam-times">
           <li>
-            <span>2:00 PM</span>
-            <span>Your calm buffer</span>
-          </li>
-          <li>
             <span>2:45 PM</span>
             <span>Registration · Session 3</span>
           </li>

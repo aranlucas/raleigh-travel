@@ -82,7 +82,7 @@ export default function RecapPage() {
           <section className="recap-logistics">
             <strong>MONDAY, OCTOBER 5</strong>
             <p>
-              2:00 PM personal buffer · 2:25 PM walk · 2:45 PM registration
+              2:25 PM walk · 2:45 PM registration
               <br />
               AIME Center · 4208 Six Forks Road · Government photo ID
             </p>

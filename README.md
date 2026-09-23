@@ -36,7 +36,7 @@ The configuration accounts for the automatic JSX runtime and CSS side-effect imp
 - A print layout covering all five days regardless of the selected day or filter.
 - Keyboard navigation, responsive layouts, and reduced-motion support.
 
-The itinerary is a static snapshot, not a live Gmail or airline integration. Sources were reviewed September 23, 2026. The 2 PM Monday buffer is user-confirmed; registration is at 2:45 PM. The approximately 6:15 PM hotel return is tentative. Outings, meals, transfers, and study blocks are suggestions, not bookings.
+The itinerary is a static snapshot, not a live Gmail or airline integration. Sources were reviewed September 23, 2026. Monday registration is at 2:45 PM. The approximately 6:15 PM hotel return is tentative. Outings, meals, transfers, and study blocks are suggestions, not bookings.
 
 ## Editing
 
