@@ -36,13 +36,13 @@ The configuration accounts for the automatic JSX runtime and CSS side-effect imp
 - `/study/recap`: a printable one-page review sheet with editable reminders. Reminders remain in the current tab and are included when printing or saving as PDF; they are not sent to a server or saved after navigation.
 - A print layout covering all five days regardless of the selected day or filter.
 - Keyboard navigation, responsive layouts, and reduced-motion support.
-- Tailwind CSS defaults for the system sans-serif font, type scale, colors, spacing, radii, and shadows. There are no downloaded Google fonts or custom Tailwind theme overrides; the existing page layouts use the standard theme tokens.
+- Tailwind utility classes throughout the components, using the default system sans-serif font, type scale, colors, spacing, radii, and shadows. Study activities use emerald, breaks and cautions use amber, and travel uses sky blue. There are no downloaded Google fonts or custom Tailwind theme overrides.
 
 The itinerary is a static snapshot, not a live Gmail or airline integration. Sources were reviewed September 23, 2026. Monday registration is at 2:45 PM. The approximately 6:15 PM hotel return is tentative. Outings, meals, transfers, and study blocks are suggestions, not bookings.
 
 ## Editing
 
-`src/lib/itinerary.ts` contains the daily plan and source links. `src/lib/study.ts` contains the study sessions, topic notes, and original-source links. `src/lib/study-themes.ts` contains the merged review notes and PDF source metadata; cited page numbers count from the first PDF page. Presentation lives in `src/components`; shared design tokens are in `src/app/globals.css` and study/recap styles are in `src/app/study/study.css`.
+`src/lib/itinerary.ts` contains the daily plan and source links. `src/lib/study.ts` contains the study sessions, topic notes, and original-source links. `src/lib/study-themes.ts` contains the merged review notes and PDF source metadata; cited page numbers count from the first PDF page. Presentation uses Tailwind utilities in `src/components` and the page components in `src/app`. `src/app/globals.css` only imports Tailwind and sets the printed page margin; responsive, focus, reduced-motion, and print styles live alongside their components.
 
 The public version retains the approved trip schedule, hotel, and examination location. Personal names, reservation/ticket identifiers, payment details, and Gmail message links are omitted. No mailbox credentials or live integrations are included. Search-engine indexing is disabled; this is not authentication.
 

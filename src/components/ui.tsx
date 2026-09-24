@@ -6,7 +6,7 @@ import type { PlanLink } from "@/lib/itinerary";
 export function ToothMark({ className = "" }: Readonly<{ className?: string }>) {
   return (
     <svg
-      className={className}
+      className={`shrink-0 ${className}`}
       width="36"
       height="40"
       viewBox="0 0 36 40"
@@ -20,22 +20,29 @@ export function ToothMark({ className = "" }: Readonly<{ className?: string }>) 
         strokeLinejoin="round"
       />
       <path d="M14 15c2 2 6 2 8 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M31 2v5M28.5 4.5h5" stroke="#b66e38" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        className="stroke-amber-700"
+        d="M31 2v5M28.5 4.5h5"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 export function ExternalLink({ href, label }: PlanLink) {
+  const className =
+    "inline-flex items-center gap-2 text-sm font-medium leading-relaxed text-emerald-700 underline underline-offset-4 transition-colors hover:text-amber-700 motion-reduce:transition-none";
   if (href.startsWith("/")) {
     return (
-      <Link className="text-link" href={href}>
+      <Link className={className} href={href}>
         {label}
         <ArrowUpRight size={15} aria-hidden="true" />
       </Link>
     );
   }
   return (
-    <a className="text-link" href={href} target="_blank" rel="noopener noreferrer">
+    <a className={className} href={href} target="_blank" rel="noopener noreferrer">
       {label}
       <ArrowUpRight size={15} aria-hidden="true" />
       <span className="sr-only"> (opens in a new tab)</span>
