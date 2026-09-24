@@ -1,266 +1,290 @@
-import { ArrowDown, ArrowRight, CalendarClock, TriangleAlert } from "lucide-react";
-import { Fragment } from "react";
+import { hierarchy, tree } from "d3-hierarchy";
+import { ArrowRight, ChevronDown, TriangleAlert } from "lucide-react";
 
 import type { DecisionBranch, DecisionMap } from "@/lib/study-themes";
 
-/*
- * Layouts respond to the figure's width (`@container` on the parent), not the viewport.
- * Connectors are drawn only at widths where every branch sits in a single row.
- */
-
-type RowLayout = Readonly<{ grid: string; bar: string; stem: string; arrow: string }>;
-
-const rowLayouts: Readonly<Record<number, RowLayout>> = {
-  1: { grid: "", bar: "hidden", stem: "", arrow: "hidden" },
-  2: {
-    grid: "@2xl:grid-cols-2",
-    bar: "hidden @2xl:block",
-    stem: "@2xl:pt-4 @2xl:before:block",
-    arrow: "@2xl:grid",
-  },
-  3: {
-    grid: "@4xl:grid-cols-3",
-    bar: "hidden @4xl:block",
-    stem: "@4xl:pt-4 @4xl:before:block",
-    arrow: "@4xl:grid",
-  },
-  4: {
-    grid: "@2xl:grid-cols-2 @5xl:grid-cols-4",
-    bar: "hidden @5xl:block",
-    stem: "@5xl:pt-4 @5xl:before:block",
-    arrow: "@5xl:grid",
-  },
+type TreeData = {
+  id: string;
+  branch?: DecisionBranch;
+  label?: string;
+  children?: TreeData[];
 };
-const wrappedLayout: RowLayout = {
-  grid: "@2xl:grid-cols-2 @4xl:grid-cols-3",
-  bar: "hidden",
-  stem: "",
-  arrow: "hidden",
-};
+type Point = { x: number; y: number };
 
-function layoutFor(count: number) {
-  return rowLayouts[count] ?? wrappedLayout;
+const NODE_WIDTH = 196;
+const NODE_HEIGHT = 210;
+const ROOT_HEIGHT = 112;
+const RANK_GAP = 56;
+const MARGIN = 24;
+
+function toTree(branch: DecisionBranch, id: string): TreeData {
+  return {
+    id,
+    branch,
+    children: branch.children?.map((child, index) => toTree(child, `${id}-${index}`)),
+  };
 }
 
-function Section({ label, items }: Readonly<{ label: string; items?: readonly string[] }>) {
-  if (items === undefined || items.length === 0) {
-    return null;
+function buildGraph(map: DecisionMap) {
+  const choices = map.branches.filter((branch) => branch.tone !== "always");
+  const root: TreeData = { id: "start", label: map.question };
+
+  if (map.sequence === true) {
+    let current = root;
+    choices.forEach((branch, index) => {
+      const next = toTree(branch, `branch-${index}`);
+      current.children = [next];
+      current = next;
+    });
+  } else {
+    root.children = choices.map((branch, index) => toTree(branch, `branch-${index}`));
   }
+
+  const positioned = tree<TreeData>()
+    .nodeSize([NODE_HEIGHT + 24, NODE_WIDTH + RANK_GAP])
+    .separation((a, b) => (a.parent === b.parent ? 1 : 1.3))(hierarchy(root));
+  const descendants = positioned.descendants();
+  const minX = Math.min(...descendants.map((node) => node.x));
+  const maxX = Math.max(...descendants.map((node) => node.x));
+  const maxDepth = Math.max(...descendants.map((node) => node.depth));
+  const vertical = map.sequence === true;
+  const position = (node: Readonly<{ x: number; y: number }>): Point => ({
+    x: vertical ? MARGIN + NODE_WIDTH / 2 + node.x - minX : MARGIN + NODE_WIDTH / 2 + node.y,
+    y: vertical ? MARGIN + NODE_HEIGHT / 2 + node.y : MARGIN + NODE_HEIGHT / 2 + node.x - minX,
+  });
+
+  return {
+    width: vertical
+      ? maxX - minX + NODE_WIDTH + MARGIN * 2
+      : (maxDepth + 1) * NODE_WIDTH + maxDepth * RANK_GAP + MARGIN * 2,
+    height: vertical
+      ? maxDepth * (NODE_WIDTH + RANK_GAP) + NODE_HEIGHT + MARGIN * 2
+      : maxX - minX + NODE_HEIGHT + MARGIN * 2,
+    vertical,
+    nodes: descendants.map((node) => ({
+      id: node.data.id,
+      branch: node.data.branch,
+      label: node.data.label,
+      width: NODE_WIDTH,
+      height: node.depth === 0 ? ROOT_HEIGHT : NODE_HEIGHT,
+      position: position(node),
+    })),
+    edges: positioned.links().map((link) => {
+      const source = position(link.source);
+      const target = position(link.target);
+      return {
+        from: link.source.data.id,
+        to: link.target.data.id,
+        source: vertical
+          ? { x: source.x, y: source.y + (link.source.depth === 0 ? ROOT_HEIGHT : NODE_HEIGHT) / 2 }
+          : { x: source.x + NODE_WIDTH / 2, y: source.y },
+        target: vertical
+          ? { x: target.x, y: target.y - NODE_HEIGHT / 2 }
+          : { x: target.x - NODE_WIDTH / 2, y: target.y },
+      };
+    }),
+  };
+}
+
+function BranchOutline({ branch }: Readonly<{ branch: DecisionBranch }>) {
   return (
-    <div className="mt-2.5">
-      <span className="text-[0.6875rem] font-semibold tracking-wider text-muted uppercase">
-        {label}
-      </span>
-      <ul className="mt-0.5 space-y-0.5">
-        {items.map((item) => (
-          <li
-            className="relative pl-3 text-sm leading-snug text-ink-soft before:absolute before:top-[0.55em] before:left-0 before:size-1 before:rounded-full before:bg-pine/50"
-            key={item}
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <li className="border-l-2 border-pine/30 pl-4">
+      <p className="font-semibold text-ink">
+        {branch.when} <ArrowRight size={14} className="inline text-pine" aria-hidden="true" />{" "}
+        {branch.action}
+      </p>
+      {branch.criteria !== undefined && branch.criteria.length > 0 && (
+        <div className="mt-2">
+          <strong className="text-sm text-muted">Findings</strong>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink-soft">
+            {branch.criteria.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {branch.details !== undefined && branch.details.length > 0 && (
+        <div className="mt-2">
+          <strong className="text-sm text-muted">Clinical details</strong>
+          <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-ink-soft">
+            {branch.details.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {branch.followUp !== undefined && (
+        <p className="mt-2 text-sm text-ink-soft">
+          <strong>Follow-up:</strong> {branch.followUp}
+        </p>
+      )}
+      {branch.children !== undefined && (
+        <ul className="mt-4 space-y-4">
+          {branch.children.map((child) => (
+            <BranchOutline branch={child} key={child.when} />
+          ))}
+        </ul>
+      )}
+    </li>
   );
 }
 
-function BranchCard({
-  branch,
-  className = "",
-  hideWhen = "",
-}: Readonly<{ branch: DecisionBranch; className?: string; hideWhen?: string }>) {
-  const urgent = branch.tone === "urgent";
+function BranchPreview({ branch }: Readonly<{ branch: DecisionBranch }>) {
   return (
-    <div
-      className={`flex flex-col rounded-md border p-3.5 ${urgent ? "border-cardinal/35 bg-cardinal-wash" : "border-line bg-surface"} ${className}`}
-      data-branch={branch.when}
-    >
-      {urgent ? (
-        <span className="eyebrow mb-1 gap-1 text-cardinal">
-          <TriangleAlert size={12} aria-hidden="true" /> Escalate
-        </span>
-      ) : null}
+    <li className="rounded-md border border-line-strong bg-surface p-4">
       <strong
-        className={`block text-xs font-semibold tracking-wide uppercase ${urgent ? "text-cardinal" : "text-pine"} ${hideWhen}`}
+        className={`text-sm ${branch.tone === "urgent" ? "text-cardinal" : "text-pine-deep"}`}
       >
         {branch.when}
       </strong>
-      <p className="mt-1 text-[0.9375rem] leading-snug font-semibold text-ink">{branch.action}</p>
-      <Section label="Findings" items={branch.criteria} />
-      <Section label="Details" items={branch.details} />
-      {branch.children === undefined ? null : (
-        <p className="mt-auto flex items-center gap-1 pt-3 text-sm font-medium text-pine">
-          {branch.children.length} options below <ArrowDown size={13} aria-hidden="true" />
-        </p>
+      <p className="mt-1 text-sm leading-relaxed text-ink-soft">{branch.action}</p>
+      {branch.children !== undefined && (
+        <ul className="mt-3 space-y-2 border-l-2 border-pine/30 pl-3">
+          {branch.children.map((child) => (
+            <BranchPreview branch={child} key={child.when} />
+          ))}
+        </ul>
       )}
-      {branch.followUp === undefined ? null : (
-        <p className="mt-auto flex items-start gap-1.5 pt-3 text-sm leading-snug text-muted">
-          <CalendarClock size={14} className="mt-0.5 text-pine" aria-hidden="true" />
-          <span>
-            <span className="sr-only">Follow-up: </span>
-            {branch.followUp}
-          </span>
-        </p>
-      )}
-    </div>
-  );
-}
-
-function Stem() {
-  return <div className="mx-auto h-4 w-px bg-line-strong" aria-hidden="true" />;
-}
-
-/** One row of alternatives, joined to the node above by a bar when they fit on one line. */
-function BranchRow({ branches }: Readonly<{ branches: readonly DecisionBranch[] }>) {
-  const layout = layoutFor(branches.length);
-  const inset = `calc(50% / ${branches.length})`;
-  return (
-    <ul className={`relative grid gap-3 ${layout.grid}`}>
-      <span
-        className={`absolute top-0 h-px bg-line-strong ${layout.bar}`}
-        style={{ left: inset, right: inset }}
-        aria-hidden="true"
-      />
-      {branches.map((branch) => (
-        <li
-          className={`relative flex flex-col before:absolute before:top-0 before:left-1/2 before:hidden before:h-4 before:w-px before:bg-line-strong ${layout.stem}`}
-          key={branch.when}
-        >
-          <BranchCard branch={branch} className="flex-1" />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Tree({ map }: Readonly<{ map: DecisionMap }>) {
-  const choices = map.branches.filter((branch) => branch.tone !== "always");
-  const always = map.branches.filter((branch) => branch.tone === "always");
-  return (
-    <>
-      <Stem />
-      <BranchRow branches={choices} />
-      {choices.map((branch) =>
-        branch.children === undefined ? null : (
-          <div className="mt-5" key={branch.when}>
-            <div className="mx-auto max-w-xl rounded-md border border-pine/30 bg-pine-wash px-4 py-2 text-center text-[0.9375rem] font-semibold text-pine-deep">
-              {branch.when}: which option?
-            </div>
-            <Stem />
-            <BranchRow branches={branch.children} />
-          </div>
-        ),
-      )}
-      {always.map((branch) => (
-        <div
-          className="mt-3 rounded-md border border-dashed border-pine/45 bg-pine-wash px-3.5 py-3"
-          data-branch={branch.when}
-          key={branch.when}
-        >
-          <span className="eyebrow text-pine">Always · {branch.when}</span>
-          <p className="mt-0.5 text-[0.9375rem] leading-snug font-semibold text-ink">
-            {branch.action}
-          </p>
-          <div className="grid gap-x-8 @2xl:grid-cols-2">
-            <Section label="Findings" items={branch.criteria} />
-            <Section label="Details" items={branch.details} />
-          </div>
-          {branch.followUp === undefined ? null : (
-            <p className="mt-2.5 flex items-start gap-1.5 text-sm leading-snug text-muted">
-              <CalendarClock size={14} className="mt-0.5 text-pine" aria-hidden="true" />
-              <span>
-                <span className="sr-only">Follow-up: </span>
-                {branch.followUp}
-              </span>
-            </p>
-          )}
-        </div>
-      ))}
-    </>
-  );
-}
-
-function Sequence({ map }: Readonly<{ map: DecisionMap }>) {
-  const count = map.branches.length;
-  const layout = layoutFor(count);
-  return (
-    <ol className={`mt-3 grid gap-3 ${layout.grid}`}>
-      {map.branches.map((branch, index) => (
-        <li className="relative flex flex-col" key={branch.when}>
-          <span className="type-data absolute -top-2 -left-2 z-10 grid size-6 place-items-center rounded-full bg-pine-deep text-xs font-semibold text-white">
-            {index + 1}
-          </span>
-          <BranchCard branch={branch} className="flex-1" />
-          {index < count - 1 ? (
-            <span
-              className={`absolute top-1/2 -right-3 hidden h-6 w-3 -translate-y-1/2 place-items-center text-muted ${layout.arrow}`}
-              aria-hidden="true"
-            >
-              <ArrowRight size={12} />
-            </span>
-          ) : null}
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-const matrixColumns: Readonly<Record<number, string>> = {
-  2: "@3xl:grid-cols-[auto_repeat(2,minmax(0,1fr))]",
-  3: "@3xl:grid-cols-[auto_repeat(3,minmax(0,1fr))]",
-};
-
-function Matrix({ map }: Readonly<{ map: DecisionMap }>) {
-  const axes = map.axes;
-  if (axes === undefined) {
-    return null;
-  }
-  return (
-    <div className={`mt-3 grid gap-2 ${matrixColumns[axes.columns.length] ?? ""}`}>
-      <span className="hidden @3xl:block" />
-      {axes.columns.map((column) => (
-        <span
-          className="hidden justify-self-center rounded-full bg-surface px-2.5 py-0.5 text-xs font-semibold text-pine-deep ring-1 ring-pine/20 @3xl:block"
-          key={column}
-        >
-          {column}
-        </span>
-      ))}
-      {axes.rows.map((row, rowIndex) => (
-        <Fragment key={row}>
-          <span className="hidden rotate-180 self-center text-xs font-semibold tracking-wide text-pine-deep [writing-mode:vertical-rl] @3xl:block">
-            {row}
-          </span>
-          {axes.columns.map((column, columnIndex) => {
-            const branch = map.branches.find(
-              (item) => item.cell?.[0] === rowIndex && item.cell[1] === columnIndex,
-            );
-            return branch === undefined ? (
-              <span className="rounded-md border border-dashed border-line" key={column} />
-            ) : (
-              <BranchCard branch={branch} hideWhen="@3xl:sr-only" key={column} />
-            );
-          })}
-        </Fragment>
-      ))}
-    </div>
+    </li>
   );
 }
 
 export function DecisionDiagram({ map }: Readonly<{ map: DecisionMap }>) {
+  const markerId = `decision-arrow-${map.question.toLowerCase().replaceAll(/[^a-z0-9]+/gu, "-")}`;
+  const universal = map.branches.filter((branch) => branch.tone === "always");
+  const choices = map.branches.filter((branch) => branch.tone !== "always");
+  const ChoiceList = map.sequence === true ? "ol" : "ul";
+  const graph = buildGraph(map);
   return (
-    <>
-      <div className="mx-auto max-w-2xl rounded-md bg-pine-deep px-4 py-2.5 text-center font-display text-lg leading-snug text-white">
+    <div>
+      <h4 className="font-display text-xl leading-snug text-pine-deep min-[800px]:sr-only print:not-sr-only">
         {map.question}
+      </h4>
+      <p className="mt-1 text-sm text-muted">
+        {map.sequence === true
+          ? "Follow the arrows in order."
+          : "Follow the arrow from the question to the matching finding, then any follow-up choice."}
+      </p>
+      <div className="mt-4 rounded-md border border-line bg-canvas p-3 min-[800px]:hidden print:block">
+        <ChoiceList
+          className={`space-y-2 ${map.sequence === true ? "list-decimal pl-5 marker:font-semibold marker:text-pine" : ""}`}
+        >
+          {choices.map((branch) => (
+            <BranchPreview branch={branch} key={branch.when} />
+          ))}
+        </ChoiceList>
       </div>
-      {map.sequence === true ? (
-        <Sequence map={map} />
-      ) : map.axes === undefined ? (
-        <Tree map={map} />
-      ) : (
-        <Matrix map={map} />
-      )}
-    </>
+      <div className="mt-4 hidden overflow-x-auto rounded-md border border-line bg-canvas min-[800px]:block print:hidden">
+        <div
+          className="relative mx-auto"
+          style={{ width: graph.width, height: graph.height }}
+          aria-hidden="true"
+        >
+          <svg
+            className="absolute inset-0"
+            width={graph.width}
+            height={graph.height}
+            viewBox={`0 0 ${graph.width} ${graph.height}`}
+          >
+            <defs>
+              <marker
+                id={markerId}
+                viewBox="0 0 8 8"
+                refX="7"
+                refY="4"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto"
+              >
+                <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--color-pine)" />
+              </marker>
+            </defs>
+            {graph.edges.map((edge) => (
+              <path
+                key={`${edge.from}-${edge.to}`}
+                d={
+                  graph.vertical
+                    ? `M ${edge.source.x} ${edge.source.y} C ${edge.source.x} ${(edge.source.y + edge.target.y) / 2}, ${edge.target.x} ${(edge.source.y + edge.target.y) / 2}, ${edge.target.x} ${edge.target.y}`
+                    : `M ${edge.source.x} ${edge.source.y} C ${(edge.source.x + edge.target.x) / 2} ${edge.source.y}, ${(edge.source.x + edge.target.x) / 2} ${edge.target.y}, ${edge.target.x} ${edge.target.y}`
+                }
+                fill="none"
+                stroke="var(--color-pine)"
+                strokeWidth="1.5"
+                markerEnd={`url(#${markerId})`}
+              />
+            ))}
+          </svg>
+          {graph.nodes.map((node) => (
+            <div
+              key={node.id}
+              className={`absolute flex flex-col justify-center rounded-md border px-4 py-3 shadow-card ${node.branch?.tone === "urgent" ? "border-cardinal/50 bg-cardinal-wash" : node.branch === undefined ? "border-pine-deep bg-pine-deep text-white" : "border-line-strong bg-surface"}`}
+              style={{
+                width: node.width,
+                height: node.height,
+                left: node.position.x - node.width / 2,
+                top: node.position.y - node.height / 2,
+              }}
+            >
+              {node.branch === undefined ? (
+                <span className="text-center text-sm font-semibold">{node.label}</span>
+              ) : (
+                <>
+                  <strong
+                    className={`text-sm leading-snug ${node.branch.tone === "urgent" ? "text-cardinal" : "text-pine-deep"}`}
+                  >
+                    {node.branch.tone === "urgent" && (
+                      <TriangleAlert size={14} className="mr-1 inline" aria-hidden="true" />
+                    )}
+                    {node.branch.when}
+                  </strong>
+                  <p className="mt-2 text-sm leading-snug text-ink-soft">{node.branch.action}</p>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      {universal.map((branch) => (
+        <div
+          className="mt-3 rounded-md border-l-4 border-pine bg-pine-wash px-4 py-3"
+          key={branch.when}
+        >
+          <strong className="text-sm text-pine-deep">Applies to every path</strong>
+          <p className="mt-1 text-sm leading-relaxed text-ink-soft">{branch.action}</p>
+        </div>
+      ))}
+      <details className="group mt-3 rounded-md border border-line bg-surface">
+        <summary className="flex items-center gap-2 px-4 py-3 text-sm font-semibold text-pine-deep hover:bg-pine-wash">
+          Read the full decision path and clinical details
+          <ChevronDown
+            size={16}
+            className="ml-auto transition-transform group-open:rotate-180"
+            aria-hidden="true"
+          />
+        </summary>
+        <div className="border-t border-line px-4 py-5">
+          <p className="mb-4 text-sm text-muted">
+            {map.sequence === true
+              ? "Work through these steps in order."
+              : "Choose the matching finding; nested options follow their parent path."}
+          </p>
+          <ChoiceList className="space-y-5">
+            {choices.map((branch) => (
+              <BranchOutline branch={branch} key={branch.when} />
+            ))}
+          </ChoiceList>
+          {universal.length > 0 && (
+            <div className="mt-5 border-t border-line pt-4">
+              <h5 className="mb-3 font-semibold text-pine-deep">For every path</h5>
+              <ul className="space-y-4">
+                {universal.map((branch) => (
+                  <BranchOutline branch={branch} key={branch.when} />
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </details>
+    </div>
   );
 }
