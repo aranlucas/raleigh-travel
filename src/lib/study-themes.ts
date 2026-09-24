@@ -37,6 +37,8 @@ export type DecisionMap = Readonly<{
   axes?: Readonly<{ rows: readonly string[]; columns: readonly string[] }>;
   branches: readonly DecisionBranch[];
   evidence: readonly Evidence[];
+  /** Content that goes beyond what the cited pages state, eg standard board teaching. */
+  note?: string;
 }>;
 export type StudyTheme = Readonly<{
   id: string;

@@ -1,4 +1,4 @@
-import { ArrowUpRight, BookOpen, ChevronDown } from "lucide-react";
+import { ArrowUpRight, BookOpen, ChevronDown, Info } from "lucide-react";
 import Link from "next/link";
 
 import { practiceBlocks } from "@/lib/study";
@@ -102,6 +102,15 @@ export function ThemeNotes({ theme, index }: Readonly<{ theme: StudyTheme; index
                 key={map.question}
               >
                 <DecisionDiagram map={map} />
+                {map.note === undefined ? null : (
+                  <p className="mt-4 flex items-start gap-1.5 text-sm leading-snug text-muted">
+                    <Info size={14} className="mt-0.5 shrink-0 text-ochre" aria-hidden="true" />
+                    <span>
+                      <strong className="font-semibold text-ochre">Beyond the PDF:</strong>{" "}
+                      {map.note}
+                    </span>
+                  </p>
+                )}
                 <EvidenceLinks evidence={map.evidence} className="mt-4" />
               </figure>
             ))}

@@ -387,6 +387,305 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         },
       ],
     },
+    {
+      question: "Space & eruption problem → which appliance?",
+      branches: [
+        {
+          when: "Premature primary tooth loss",
+          action:
+            "Space maintainer matched to the site: fixed unilateral, fixed bilateral, or removable.",
+          criteria: [
+            "Tooth lost, time elapsed, space analysis, dental age",
+            "Successor present, its root development and bone cover",
+            "Health, cooperation, active habits, oral hygiene",
+          ],
+          details: [
+            "Fixed unilateral: band and loop, crown and loop, distal shoe",
+            "Fixed bilateral: lower lingual holding arch, Nance appliance, transpalatal arch",
+            "Removable: partial denture, Hawley-type appliance",
+            "Kits/direct-bonded: single visit, but mixed longevity vs custom lab appliances",
+            "Mean survival ≤2 y (except crown and loop); decementation is the top failure",
+          ],
+          followUp:
+            "Check band, cement seal, and retention; keep until the successor erupts into position",
+        },
+        {
+          when: "Space already lost",
+          action: "Regain only after a records-based space analysis, then hold the space.",
+          criteria: [
+            "Space loss interferes with eruption of the permanent tooth",
+            "Weigh age at loss, tooth lost, space available vs needed, other ortho problems",
+          ],
+          details: [
+            "Fixed: active lingual arch, pendulum, Halterman-type appliance, lip bumper",
+            "Removable: Hawley appliance with springs or screws",
+            "Extraoral: headgear",
+          ],
+          followUp:
+            "Hold regained space until adjacent permanent teeth erupt or comprehensive ortho starts",
+        },
+        {
+          when: "Leeway space / incisor crowding",
+          action: "Passive lower lingual holding arch until premolars and canines erupt.",
+          criteria: [
+            "Mixed dentition arch length shortage",
+            "Crowding often self-corrects; arch holds against worsening",
+          ],
+          details: [
+            "Lingual arch + 2 mm expansion fits all teeth in ~9 of 10; 60% need none",
+            "Lower primary canine extraction aligns incisors but costs up to 2.7 mm",
+            "If lower primary canines are removed, place a passive lingual arch",
+            "Interproximal stripping of primary canines can align crowded laterals",
+            "No extractions for crowding without space analysis + ortho plan",
+          ],
+        },
+        {
+          when: "Ectopic first permanent molar",
+          action: "Mild: separators to wedge the molar distally. Severe: tip it distally.",
+          criteria: [
+            "71% self-correct by age 9",
+            "Bigger impaction, more E resorption, bilateral → likely irreversible",
+          ],
+          details: [
+            "Mild (little of the crown under the E): elastic or metal separators",
+            "Severe: brass wire or removable appliance with springs",
+            "Fixed: sectional wire + open coil spring, slingshot-type, Halterman appliance",
+          ],
+        },
+        {
+          when: "Palatally displaced maxillary canine",
+          action:
+            "Extract the primary canine; in early mixed dentition consider RME ± cervical headgear.",
+          criteria: [
+            "Canine bulge not palpable, asymmetric eruption, peg laterals",
+            "Canine overlaps the formed lateral incisor root on radiograph",
+          ],
+          details: [
+            "Primary canine extraction: 67–69% corrected vs 39–42% controls",
+            "Found at 11–16 y and not horizontal: extraction → 75% erupt",
+            "RME alone or with cervical pull headgear raises eruption potential",
+            "CBCT localizes better than panoramic; ortho usually still needed",
+          ],
+        },
+        {
+          when: "Ankylosis or PFE",
+          action:
+            "Ankylosed E with successor: keep until it causes problems, then extract + lingual arch. PFE: no ortho force.",
+          criteria: [
+            "Ankylosis: infraocclusion, no mobility, dull percussion",
+            "PFE: posterior open bite, normal vertical growth, family history (85%)",
+          ],
+          details: [
+            "Extract ankylosed E if it blocks eruption or adjacent teeth tip; lingual arch or other fixed",
+            "No successor: extract before a large vertical step, or decoronate to keep bone",
+            "PFE teeth may ankylose under force; avoid early ortho intervention",
+            "PFE: space maintenance, prevent supraeruption, plan prosthetics after growth",
+          ],
+        },
+      ],
+      evidence: [
+        {
+          source: "growth",
+          pages: "6–10",
+        },
+      ],
+    },
+    {
+      question: "Which primary tooth was lost → which space maintainer?",
+      branches: [
+        {
+          when: "Primary incisor",
+          action:
+            "Space rarely closes once primary canines erupt; replace for esthetics or speech, not space.",
+          details: [
+            "Fixed: Groper appliance (bands on primary molars, acrylic teeth)",
+            "Removable: partial denture with acrylic teeth",
+            "Check for successor and cooperation first",
+          ],
+        },
+        {
+          when: "First primary molar (D), one side",
+          action: "Band and loop on the E; crown and loop if the E needs an SSC anyway.",
+          details: [
+            "Loop rests against the distal of the canine",
+            "Loop wide enough for the premolar to erupt through",
+            "Crown and loop is hard to adjust; band and loop is easy to remove",
+          ],
+          followUp: "Remove once the first premolar erupts",
+        },
+        {
+          when: "Second primary molar (E), 6 erupted",
+          action: "Band and loop from the first permanent molar to the D.",
+          details: [
+            "Band the 6; loop contacts the distal of the D",
+            "Lower bilateral losses: switch to a lingual holding arch",
+          ],
+          followUp: "Remove once the second premolar erupts",
+        },
+        {
+          when: "E lost before the 6 erupts",
+          action: "Distal shoe on the D guides the unerupted first permanent molar.",
+          criteria: [
+            "Contraindicated: bacteremia risk (endocarditis risk, immunosuppressed)",
+            "Contraindicated: poor hygiene or cooperation, multiple missing teeth",
+          ],
+          details: [
+            "Blade sits ~1 mm below the 6's mesial marginal ridge",
+            "Radiograph at delivery confirms blade position",
+            "Removable alternative: partial denture with an acrylic extension",
+          ],
+          followUp: "Convert to band and loop on the 6 once it erupts",
+        },
+        {
+          when: "Both sides, lower arch",
+          action: "Lower lingual holding arch once the permanent incisors have erupted.",
+          details: [
+            "Before incisors erupt: bilateral band and loops (they erupt lingually)",
+            "Bands on 6s or Es; wire rests on incisor cingula",
+            "Also holds leeway space for the late mixed dentition",
+          ],
+        },
+        {
+          when: "Both sides, upper arch",
+          action: "Nance appliance; transpalatal arch when one side's anchorage is intact.",
+          details: [
+            "Nance: acrylic button on the anterior palate resists mesial drift",
+            "Nance button can irritate or embed in the palatal tissue",
+            "TPA: wire across the palate; weaker bilateral anchorage (molars tip together)",
+          ],
+        },
+        {
+          when: "Every space maintainer",
+          tone: "always",
+          action:
+            "Pick fixed over removable when compliance is doubtful; recheck cement and fit every visit.",
+          details: [
+            "Removable partial denture: several teeth lost incl. anterior, cooperative child",
+            "Removable appliances fail without daily wear",
+            "Clean around bands; cement loss and caries under bands are the usual failures",
+          ],
+        },
+      ],
+      evidence: [
+        {
+          source: "growth",
+          pages: "9",
+        },
+      ],
+      note: "Tooth-by-tooth choices are standard pediatric board teaching. The AAPD guideline lists these appliances but doesn't assign them to specific teeth.",
+    },
+    {
+      question: "Bite or habit problem → which appliance?",
+      branches: [
+        {
+          when: "Simple anterior crossbite",
+          action:
+            "Align as soon as noted if space allows: incline plane, springs, or fixed springs.",
+          criteria: [
+            "Class I molars; abnormal incisor inclination (dental)",
+            "Rule out skeletal Class III (basal bone position)",
+          ],
+          details: [
+            "Acrylic incline plane",
+            "Acrylic retainer with lingual springs",
+            "Fixed appliance with springs",
+            "Space needed: add an expansion appliance",
+          ],
+        },
+        {
+          when: "Posterior crossbite / functional shift",
+          action:
+            "Correct early: equilibration, fixed or removable appliance, extractions, or a combination.",
+          criteria: [
+            "Unilateral crossbite is usually bilateral constriction with a mandibular shift",
+            "Eliminate shifts early to avoid TMD and asymmetric growth",
+          ],
+          details: [
+            "Skeletal: fixed or removable palatal expander until midpalatal suture fusion",
+            "Pick by movement: tipping vs bodily, dental vs orthopedic",
+            "…space, AP/transverse/vertical skeleton, growth status, cooperation",
+            "Skeletal Class III or asymmetry: comprehensive treatment",
+          ],
+        },
+        {
+          when: "Class II",
+          action:
+            "Headgear or functional appliance for growth modification; fixed appliances, extraction + elastics, or surgery.",
+          criteria: [
+            "Overjet >3 mm raises incisor injury risk; >8 mm → trauma in >40%",
+            "Overjet ≥5 mm: early treatment may reduce trauma",
+          ],
+          details: [
+            "Single- and 2-phase both correct Class II (RCTs); 2-phase takes longer",
+            "Growth response to headgear/functional appliances varies; no reliable predictor",
+            "Early treatment may help self-esteem, facial convexity, trauma risk",
+            "Weigh growth pattern, AP discrepancy, age, compliance, space, anchorage",
+          ],
+        },
+        {
+          when: "Class III",
+          action:
+            "Start in primary/early mixed: protraction ± RPE, functional appliance, miniplate elastics, or chin cup.",
+          criteria: [
+            "Dental, skeletal, or anterior functional shift",
+            "Hereditary (clefts, syndromes) or environmental (habits, OSA, trauma)",
+          ],
+          details: [
+            "Protraction therapy with or without rapid palatal expansion",
+            "Intermaxillary elastics with modified miniplates",
+            "Growth is longer and less predictable; surgery may still be needed",
+            "Surgery signs: mandible forward, long mandible, short ramus, obtuse gonial angle",
+          ],
+        },
+        {
+          when: "Sucking or tongue habit",
+          action:
+            "Counsel first; add appliance therapy or referral when the habit threatens development.",
+          criteria: [
+            "Frequency, duration, intensity; resting pressure matters most",
+            "Open bite, posterior crossbite, overjet, forward resting tongue",
+          ],
+          details: [
+            "Guide families to stop nonnutritive sucking by 36 mo or younger",
+            "Counseling, behavior modification, myofunctional therapy",
+            "Appliance therapy: intraoral or extraoral",
+            "Refer: orthodontist, psychologist, myofunctional therapist, ENT",
+            "Tongue thrust swallow with normal resting posture: no treatment",
+          ],
+        },
+        {
+          when: "Bruxism or self-injury",
+          action:
+            "Bruxism: education, then occlusal splint. Self-injury: lip bumper, bite appliance, or padding.",
+          criteria: [
+            "Juvenile bruxism is self-limiting; separate attrition from erosion",
+            "Self-injury: developmental disability, Lesch-Nyhan, Rett, others",
+          ],
+          details: [
+            "Bruxism: behavioral or psychological strategies, medication",
+            "Self-injury: occlusal/bite-opening appliance, protective padding",
+            "Also recontouring, extraction; medical: drugs, botulinum toxin",
+          ],
+        },
+        {
+          when: "Before any appliance",
+          tone: "always",
+          action:
+            "Name the objective, timing, and exit point; appliances only work with compliance and review.",
+          details: [
+            "Records: photos, casts, panoramic/intraoral films, ceph as indicated",
+            "Treatment must fit the child's development, comprehension, cooperation",
+            "Plan for repair, recementation, or replacement as the dentition changes",
+          ],
+        },
+      ],
+      evidence: [
+        {
+          source: "growth",
+          pages: "2, 4–5, 9–11",
+        },
+      ],
+    },
   ],
   "practice-safety": [
     {
