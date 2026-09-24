@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, ChevronDown, Clock3, FileText, Leaf } from "lucide-react";
+import { ArrowRight, BookOpen, FileText, Leaf } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -14,7 +14,6 @@ import {
   practiceBlocks,
   studySources,
 } from "@/lib/study";
-import { studyThemes } from "@/lib/study-themes";
 
 export const metadata: Metadata = {
   title: "OCE study guide · Boards & beyond",
@@ -33,22 +32,22 @@ export default function StudyPage() {
         <section className="grid grid-cols-[minmax(0,1fr)_330px] items-center gap-20 pt-14 pb-13 max-lg:grid-cols-[minmax(0,1fr)_280px] max-lg:gap-9 max-md:grid-cols-1 max-md:gap-7 max-md:pt-10 max-md:pb-8">
           <div>
             <p className="eyebrow">
-              <BookOpen size={16} aria-hidden="true" /> YOUR OCE FIELD NOTES
+              <BookOpen size={16} aria-hidden="true" /> ABPD ORAL CLINICAL EXAM
             </p>
             <h1 className="type-display mt-5 mb-6">
-              Practice with a plan.
+              Study plan
               <br />
-              <em className="text-pine">Then take a breath.</em>
+              <em className="text-pine">for the oral exam.</em>
             </h1>
             <p className="type-lead max-w-[36rem]">
-              A focused crash course for pediatric dental oral boards. Review the decision points,
-              say your reasoning out loud, and use the original sources to close the gaps.
+              Seven timed sessions across the weekend, covering all ten ABPD blueprint domains. Say
+              your answers out loud and check anything uncertain against the cited source.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-6 max-sm:gap-4">
               <Link className="btn btn-primary" href="/study/themes">
                 Learn the themes <ArrowRight size={17} aria-hidden="true" />
               </Link>
-              <a className="link" href="#sat-cases">
+              <a className="link" href="#sessions">
                 Your practice plan
               </a>
               <Link className="link" href="/study/recap">
@@ -63,10 +62,7 @@ export default function StudyPage() {
               strokeWidth={1.4}
               aria-hidden="true"
             />
-            <h2 className="type-heading mt-3">
-              Enough structure.
-              <br className="max-md:hidden" /> Room to breathe.
-            </h2>
+            <h2 className="type-heading mt-3">At a glance</h2>
             <dl className="mt-6 mb-4">
               <div className="flex justify-between gap-2 border-t border-line py-2 text-sm">
                 <dt className="text-muted">Focused preparation</dt>
@@ -116,188 +112,57 @@ export default function StudyPage() {
           </div>
         </section>
 
-        <div className="mt-10 grid grid-cols-[245px_minmax(0,1fr)] items-start gap-19 max-lg:grid-cols-[190px_minmax(0,1fr)] max-lg:gap-9 max-md:mt-7 max-md:block">
-          <aside className="sticky top-5 max-md:static max-md:mb-7">
-            <nav
-              className="flex flex-col max-md:grid max-md:grid-cols-2 max-md:gap-x-2 max-md:gap-y-1"
-              aria-label="Practice blocks"
-            >
-              <p className={`eyebrow mb-4 max-md:col-span-full max-md:mb-2`}>
-                YOUR PRACTICE BLOCKS
-              </p>
-              {practiceBlocks.map((block) => (
-                <a
-                  className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
-                  key={block.id}
-                  href={`#${block.id}`}
-                >
-                  <span className="text-sm text-muted">{block.day}</span>
-                  <strong className="text-sm font-medium">{block.time}</strong>
-                  <small className="mt-0 text-sm text-muted max-md:hidden">{block.title}</small>
-                </a>
-              ))}
-              <a
-                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
-                href="#blueprint"
-              >
-                <strong className="text-sm font-medium">Blueprint at a glance</strong>
-              </a>
-              <a
-                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
-                href="#official-resources"
-              >
-                <strong className="text-sm font-medium">Official resource library</strong>
-              </a>
-              <Link
-                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
-                href="/study/recap"
-              >
-                <strong className="text-sm font-medium">Print your recap sheet ↗</strong>
-              </Link>
-              <Link
-                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
-                href="/study/themes"
-              >
-                <strong className="text-sm font-medium">Theme notes & decision maps ↗</strong>
-              </Link>
-            </nav>
-          </aside>
-          <div className="min-w-0">
+        <section className="scroll-mt-6 pt-12" id="sessions" aria-labelledby="sessions-heading">
+          <p className="eyebrow">YOUR PRACTICE SESSIONS</p>
+          <h2 className="type-title mt-3" id="sessions-heading">
+            Practice sessions
+          </h2>
+          <p className="mt-3 max-w-[60ch] text-base text-muted">
+            Open a session when it is time to study. Each one has timed steps, the blueprint domains
+            it covers, and what comes next in your day.
+          </p>
+          <ol className="mt-7 grid list-none gap-3 md:grid-cols-2">
             {practiceBlocks.map((block, index) => (
-              <section
-                className="scroll-mt-6 border-b border-line py-9"
-                id={block.id}
-                key={block.id}
-                aria-labelledby={`${block.id}-heading`}
-              >
-                <div className="flex items-start gap-4 max-md:flex-wrap max-md:gap-3">
+              <li key={block.id}>
+                <Link
+                  className="card group flex h-full gap-4 p-5 text-ink no-underline hover:border-pine sm:p-6"
+                  href={`/study/sessions/${block.id}`}
+                  id={block.id}
+                >
                   <span className="type-data pt-1 text-sm text-muted" aria-hidden="true">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className="max-md:flex-1">
-                    <p className="eyebrow">
-                      {block.day} · {block.time}
-                    </p>
-                    <h2 className="type-title mt-2" id={`${block.id}-heading`}>
-                      {block.title}
-                    </h2>
-                  </div>
-                  <span className="ml-auto flex items-center gap-1 whitespace-nowrap rounded-full bg-pine-wash px-2 py-1 text-sm max-md:ml-8">
-                    <Clock3 size={14} aria-hidden="true" />
-                    {block.minutes} min
-                  </span>
-                </div>
-                <p className="my-4 mb-6 max-w-[65ch] text-base text-muted">{block.purpose}</p>
-                <ol className="mb-6 list-none p-0">
-                  {block.steps.map((step) => (
-                    <li
-                      className="grid grid-cols-[65px_minmax(0,1fr)] gap-4 py-2 text-base max-md:grid-cols-[54px_minmax(0,1fr)] max-md:gap-3"
-                      key={step.task}
-                    >
-                      <span className="type-data pt-0.5 text-sm text-ochre">
-                        {step.minutes} min
+                  <span className="flex min-w-0 flex-1 flex-col">
+                    <span className="eyebrow">
+                      {block.day} · {block.time} · {block.minutes} min
+                    </span>
+                    <span className="type-heading mt-2 group-hover:text-pine">{block.title}</span>
+                    <span className="mt-1.5 text-[0.9375rem] leading-relaxed text-muted">
+                      {block.purpose}
+                    </span>
+                    {block.domains.length > 0 ? (
+                      <span className="mt-3 flex flex-wrap gap-1.5">
+                        {block.domains.map((id) => (
+                          <span
+                            className="rounded-full bg-pine-wash px-2 py-0.5 text-xs text-pine-deep"
+                            key={id}
+                          >
+                            {domains.find((domain) => domain.id === id)?.title ?? id}
+                          </span>
+                        ))}
                       </span>
-                      <p>{step.task}</p>
-                    </li>
-                  ))}
-                </ol>
-                <div className="my-6 rounded-md bg-sunk px-4 py-4">
-                  <span className="eyebrow">REVIEW FOR THIS SESSION</span>
-                  <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
-                    {studyThemes
-                      .filter((theme) => theme.sessionIds.includes(block.id))
-                      .map((theme) => (
-                        <Link className="link" href={`/study/themes#${theme.id}`} key={theme.id}>
-                          {theme.shortTitle} <ArrowRight size={13} aria-hidden="true" />
-                        </Link>
-                      ))}
-                  </div>
-                </div>
-                {block.domains.length > 0 && (
-                  <div className="card overflow-hidden">
-                    {block.domains.map((id) => {
-                      const domain = domains.find((item) => item.id === id);
-                      if (domain === undefined) {
-                        throw new Error(`Unknown study domain: ${id}`);
-                      }
-                      return (
-                        <details
-                          className="group scroll-mt-6 border-t border-line first:border-t-0"
-                          key={id}
-                          id={`domain-${id}`}
-                        >
-                          <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-4 hover:bg-pine-wash max-md:gap-2 max-md:px-3">
-                            <span className="type-data min-w-10 text-sm font-medium text-pine max-md:min-w-[26px] max-md:text-sm">
-                              {domain.weight}%
-                            </span>
-                            <span>
-                              <strong className="type-subhead block">{domain.title}</strong>
-                              <small className="mt-1 block text-sm text-muted">
-                                {domain.checkpoint}
-                              </small>
-                            </span>
-                            <ChevronDown
-                              size={18}
-                              className="ml-auto transition-transform group-open:rotate-180"
-                              aria-hidden="true"
-                            />
-                          </summary>
-                          <div className="px-6 pb-6 text-base max-md:px-4 max-md:pb-5">
-                            <h3 className="pt-3 text-sm font-semibold">
-                              Decision points to rehearse
-                            </h3>
-                            <ul className="mt-2 list-disc pl-5">
-                              {domain.essentials.map((point) => (
-                                <li
-                                  className="max-w-[65ch] py-1 pl-1 leading-relaxed text-ink-soft"
-                                  key={point}
-                                >
-                                  {point}
-                                </li>
-                              ))}
-                            </ul>
-                            <div className="my-5 mb-2 space-y-2 rounded-md bg-pine-wash px-5 py-4 leading-relaxed">
-                              <p className="eyebrow">SAY IT OUT LOUD · ORIGINAL PRACTICE PROMPT</p>
-                              <p>{domain.prompt}</p>
-                              <p>
-                                <strong>Change one thing:</strong> {domain.challenge}
-                              </p>
-                            </div>
-                            <h3 className="pt-3 text-sm font-semibold">Read to resolve a gap</h3>
-                            <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
-                              {domain.resources.map((resource) => (
-                                <ExternalLink {...resource} key={resource.href} />
-                              ))}
-                            </div>
-                          </div>
-                        </details>
-                      );
-                    })}
-                  </div>
-                )}
-                {block.resources.length > 0 && (
-                  <div className="pt-1">
-                    <p className="eyebrow">KEEP THESE HANDY</p>
-                    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
-                      {block.resources.map((resource) => (
-                        <ExternalLink key={resource.href} {...resource} />
-                      ))}
-                    </div>
-                  </div>
-                )}
-                {(block.id === "sun-recap" || block.id === "mon-review") && (
-                  <Link className={`link mt-5`} href="/study/recap">
-                    <FileText size={16} aria-hidden="true" /> Open the one-page recap
-                  </Link>
-                )}
-                <p className="mt-6 flex items-start gap-3 text-sm leading-relaxed text-pine">
-                  <Leaf size={17} aria-hidden="true" />
-                  {block.finish}
-                </p>
-              </section>
+                    ) : null}
+                  </span>
+                  <ArrowRight
+                    className="mt-1 text-muted transition-transform group-hover:translate-x-0.5"
+                    size={17}
+                    aria-hidden="true"
+                  />
+                </Link>
+              </li>
             ))}
-          </div>
-        </div>
+          </ol>
+        </section>
 
         <section
           className="panel mt-12 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-start gap-12 scroll-mt-6 p-10 max-lg:gap-9 max-lg:grid-cols-1 max-md:mt-8 max-md:gap-6 max-md:p-5"
@@ -305,9 +170,9 @@ export default function StudyPage() {
           aria-labelledby="blueprint-heading"
         >
           <div>
-            <p className="eyebrow">THE WHOLE PICTURE</p>
+            <p className="eyebrow">ALL TEN DOMAINS</p>
             <h2 className="type-title mt-3" id="blueprint-heading">
-              Ten domains. One thoughtful clinician.
+              Blueprint coverage by session
             </h2>
             <p className="my-4 text-base text-pine">
               The percentages are ABPD’s published blueprint weights. They describe exam coverage,
@@ -325,9 +190,9 @@ export default function StudyPage() {
           id="official-resources"
           aria-labelledby="resources-heading"
         >
-          <p className="eyebrow">THE ORIGINAL SOURCES</p>
+          <p className="eyebrow">OFFICIAL</p>
           <h2 className="type-title mt-3" id="resources-heading">
-            Your official resource shelf.
+            ABPD candidate resources
           </h2>
           <p className="mt-4 max-w-[780px] text-base text-muted">
             ABPD’s public candidate preparation resources, together in one place.
@@ -345,9 +210,10 @@ export default function StudyPage() {
             <div>
               <h3 className="type-heading">AAPD Reference Manual · 2026–2027</h3>
               <p className="mt-3 text-base text-muted">
-                Beyond the chapters linked above, the full manual covers sealants, SDF, nitrous
-                oxide, local anesthesia, pain, periodontal care, child protection, and medication
-                references, useful for a targeted gap check.
+                New or revised for 2026 and worth a skim: acute pain management, antibiotic
+                prophylaxis, the new child abuse and neglect policy, special health care needs, pulp
+                therapy, antibiotic therapy, and recordkeeping. The full manual also covers
+                sealants, SDF, nitrous oxide, local anesthesia, and periodontal care.
               </p>
               <div className="mt-4">
                 <ExternalLink
@@ -358,10 +224,7 @@ export default function StudyPage() {
             </div>
           </div>
         </section>
-        <SiteFooter
-          tagline="Clear thinking. Kind communication. Then a little Raleigh."
-          next={{ href: "/study/themes", label: "Learn the themes" }}
-        />
+        <SiteFooter next={{ href: "/study/themes", label: "Learn the themes" }} />
       </main>
     </div>
   );

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 import type { PlanLink } from "@/lib/itinerary";
@@ -48,7 +48,7 @@ export function ExternalLink({ href, label }: PlanLink) {
     return (
       <Link className="link" href={href}>
         {label}
-        <ArrowUpRight size={15} aria-hidden="true" />
+        <ArrowRight size={15} aria-hidden="true" />
       </Link>
     );
   }

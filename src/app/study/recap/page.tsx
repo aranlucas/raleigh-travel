@@ -27,12 +27,8 @@ export default function RecapPage() {
         <article className="card p-10 shadow-card max-md:p-6 max-sm:p-5 print:border-0 print:bg-white print:p-0 print:shadow-none">
           <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-b border-line pb-5 print:flex-nowrap print:pb-1.5">
             <div>
-              <p className="eyebrow print:text-[6.5pt]">
-                BOARDS & BEYOND · PEDIATRIC DENTISTRY OCE
-              </p>
-              <h1 className="type-title mt-2 print:mt-0 print:text-[18pt]">
-                The decisions, on one page.
-              </h1>
+              <p className="eyebrow print:text-[6.5pt]">PEDIATRIC DENTISTRY ORAL CLINICAL EXAM</p>
+              <h1 className="type-title mt-2 print:mt-0 print:text-[18pt]">One-page recap</h1>
             </div>
             <div className="text-sm leading-snug text-muted print:text-right print:text-[7pt]">
               <p>
@@ -101,7 +97,7 @@ export default function RecapPage() {
                   </h2>
                   <Link
                     className="link-quiet ml-auto inline-flex items-center gap-0.5 text-xs whitespace-nowrap print:hidden"
-                    href={`/study/themes#${theme.id}`}
+                    href={`/study/themes/${theme.id}`}
                   >
                     Full notes <ArrowUpRight size={12} aria-hidden="true" />
                   </Link>
@@ -135,10 +131,7 @@ export default function RecapPage() {
             </div>
           </div>
         </article>
-        <SiteFooter
-          tagline="Hear the question. Answer it. Explain why."
-          next={{ href: "/", label: "Back to your itinerary" }}
-        />
+        <SiteFooter next={{ href: "/", label: "Back to your itinerary" }} />
       </main>
     </div>
   );

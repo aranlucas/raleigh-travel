@@ -116,13 +116,9 @@ export function Timeline({
         <div className="panel mt-4 px-6 py-12 text-center">
           <Leaf className="mx-auto text-pine" size={24} aria-hidden="true" />
           <h3 className="type-heading mt-3">
-            {filter === "study" ? "The notes can stay closed." : "A little space in the day."}
+            {filter === "study" ? "No study blocks today." : "No sightseeing today."}
           </h3>
-          <p className="mx-auto mt-2 mb-5 max-w-80 text-[0.9375rem] text-muted">
-            {filter === "study"
-              ? "No study blocks today. Enjoy the change of pace."
-              : "No sightseeing scheduled today. Keep your energy for the rest of the plan."}
-          </p>
+          <div className="mt-5" />
           <button
             className="btn btn-secondary"
             type="button"

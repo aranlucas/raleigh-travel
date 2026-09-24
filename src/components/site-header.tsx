@@ -5,18 +5,28 @@ import Link from "next/link";
 
 import { Wordmark } from "./ui";
 
-export type Section = "itinerary" | "details" | "study" | "themes" | "recap";
+export type Section = "itinerary" | "raleigh" | "details" | "study" | "themes" | "recap";
 
-const groups: readonly (readonly { id: Section; href: string; label: string }[])[] = [
-  [
-    { id: "itinerary", href: "/", label: "Itinerary" },
-    { id: "details", href: "/details", label: "Trip details" },
-  ],
-  [
-    { id: "study", href: "/study", label: "Study guide" },
-    { id: "themes", href: "/study/themes", label: "Theme notes" },
-    { id: "recap", href: "/study/recap", label: "Recap sheet" },
-  ],
+const groups: readonly Readonly<{
+  label: string;
+  items: readonly { id: Section; href: string; label: string }[];
+}>[] = [
+  {
+    label: "Trip",
+    items: [
+      { id: "itinerary", href: "/", label: "Day by day" },
+      { id: "raleigh", href: "/raleigh", label: "Explore Raleigh" },
+      { id: "details", href: "/details", label: "Logistics" },
+    ],
+  },
+  {
+    label: "Study",
+    items: [
+      { id: "study", href: "/study", label: "Study plan" },
+      { id: "themes", href: "/study/themes", label: "Theme notes" },
+      { id: "recap", href: "/study/recap", label: "Recap sheet" },
+    ],
+  },
 ];
 
 export function SiteHeader({ current }: Readonly<{ current: Section }>) {
@@ -29,9 +39,12 @@ export function SiteHeader({ current }: Readonly<{ current: Section }>) {
           aria-label="Main navigation"
         >
           {groups.map((group, index) => (
-            <div className="flex shrink-0 items-center gap-1" key={group[0].id}>
+            <div className="flex shrink-0 items-center gap-1" key={group.label}>
               {index > 0 ? <span className="mx-2 h-5 w-px bg-line" aria-hidden="true" /> : null}
-              {group.map((item) => (
+              <span className="eyebrow mr-1 text-[0.6875rem]" aria-hidden="true">
+                {group.label}
+              </span>
+              {group.items.map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}

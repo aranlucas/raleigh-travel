@@ -10,7 +10,7 @@ export type RecapTheme = Readonly<{
   rules: readonly RecapRule[];
 }>;
 
-const rulesByTheme: Readonly<Record<string, readonly RecapRule[]>> = {
+export const rulesByTheme: Readonly<Record<string, readonly RecapRule[]>> = {
   "caries-prevention": [
     { when: "Noncavitated", say: "prevention + active surveillance" },
     {
@@ -51,6 +51,10 @@ const rulesByTheme: Readonly<Record<string, readonly RecapRule[]>> = {
       when: "Fractured primary root tip",
       say: "remove if easy; a small deep tip near the successor can stay; document & monitor",
     },
+    {
+      when: "Suspected abuse (2026)",
+      say: "document type, character, location; bites → hospital; report",
+    },
   ],
   "behavior-sedation": [
     {
@@ -80,6 +84,10 @@ const rulesByTheme: Readonly<Record<string, readonly RecapRule[]>> = {
     {
       when: "Emergency",
       say: "stop, call for help, airway & breathing, monitor, EMS; anaphylaxis → IM epinephrine + EMS",
+    },
+    {
+      when: "Pain (2026)",
+      say: "NSAIDs first; acetaminophen if contraindicated; combine if needed; avoid opioids; no codeine/tramadol < 12",
     },
   ],
   "access-special-needs": [
@@ -120,6 +128,10 @@ const rulesByTheme: Readonly<Record<string, readonly RecapRule[]>> = {
     {
       when: "Fever, spreading swelling, dysphagia, dyspnea",
       say: "urgent escalation + source control + antibiotics",
+    },
+    {
+      when: "IE prophylaxis (2026)",
+      say: "highest-risk cardiac only; amoxicillin 30–60 min before; no clindamycin; not for prosthetic joints",
     },
   ],
   pulp: [
@@ -197,5 +209,7 @@ export const recapNumbers: readonly Readonly<{ value: string; label: string }>[]
   { value: "2 wk", label: "Endo after replanting a closed-apex tooth" },
   { value: "2 wk", label: "Persistent lesion → biopsy or referral" },
   { value: "2×/day", label: "Age-appropriate fluoride toothpaste" },
+  { value: "30–60 min", label: "Single prophylaxis dose before the procedure" },
+  { value: "< 12 y", label: "No codeine or tramadol (FDA warning)" },
   { value: "2 × 1 h", label: "OCE sessions, two examiners each" },
 ];

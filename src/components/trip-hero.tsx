@@ -13,13 +13,12 @@ export function TripHero() {
           Raleigh, NC · Oct 2–6, 2026
         </p>
         <h1 className="type-display mt-5">
-          Little patients.
+          Oral boards
           <br />
-          <span className="text-pine">Big milestone.</span>
+          <span className="text-pine">in Raleigh.</span>
         </h1>
         <p className="type-lead mt-6 max-w-[26rem]">
-          Your pediatric dental boards weekend in Raleigh—with space to prepare, explore, and
-          celebrate.
+          Flights, hotel, study blocks, and what to do in between, for the ABPD oral exam trip.
         </p>
       </div>
       <figure className="relative -mx-5 sm:mx-0">
@@ -33,9 +32,6 @@ export function TripHero() {
             preload
           />
         </div>
-        <figcaption className="mt-1 px-5 text-right font-display text-sm text-muted italic sm:px-0 sm:text-base">
-          A change of scenery. A little breathing room.
-        </figcaption>
       </figure>
     </section>
   );

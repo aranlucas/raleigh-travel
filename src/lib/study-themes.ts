@@ -292,6 +292,39 @@ export const pdfSources: readonly PdfSource[] = [
     pageCount: 6,
   },
   {
+    id: "pain",
+    title: "Acute Pain Management for Pediatric Dental Patients",
+    citationLabel: "Acute pain",
+    href: "https://www.aapd.org/globalassets/media/policies_guidelines/bp_pain26.pdf",
+    landingPage:
+      "https://www.aapd.org/research/oral-health-policies--recommendations/pain-management-in-infants-children-adolescents-and-individuals-with-special-health-care-needs/",
+    revision: "2026",
+    pageCount: 15,
+    note: "Official but unformatted 2026 PDF; page numbers may shift when typeset.",
+  },
+  {
+    id: "abuse",
+    title: "Policy on Recognition and Management of Child Abuse and Neglect in a Dental Setting",
+    citationLabel: "Child abuse & neglect",
+    href: "https://www.aapd.org/globalassets/media/policies_guidelines/p_mgmtchild-abuse26.pdf",
+    landingPage:
+      "https://www.aapd.org/research/oral-health-policies--recommendations/emergency-oral-care-for-infants-children-adolescents-and-individuals-with-special-health-care-needs2/",
+    revision: "New 2026",
+    pageCount: 5,
+    note: "Official but unformatted 2026 PDF; page numbers may shift when typeset.",
+  },
+  {
+    id: "prophylaxis",
+    title: "Antibiotic Prophylaxis for Dental Patients at Risk for Infection",
+    citationLabel: "Antibiotic prophylaxis",
+    href: "https://www.aapd.org/globalassets/media/policies_guidelines/bp_prophylaxis26.pdf",
+    landingPage:
+      "https://www.aapd.org/research/oral-health-policies--recommendations/antibiotic-prophylaxis-for-dental-patients-at-risk-for-infection/",
+    revision: "2026",
+    pageCount: 10,
+    note: "Official but unformatted 2026 PDF; page numbers may shift when typeset.",
+  },
+  {
     id: "oce-guide",
     title: "A Guide to the Oral Clinical Examination (OCE)",
     citationLabel: "ABPD OCE guide",
@@ -518,7 +551,7 @@ export const studyThemes: readonly StudyTheme[] = [
     shortTitle: "Trauma & surgery",
     domainIds: ["trauma"],
     sessionIds: ["sat-review"],
-    sourceIds: ["trauma", "avulsion", "primaryTrauma", "surgery"],
+    sourceIds: ["trauma", "avulsion", "primaryTrauma", "surgery", "abuse"],
     summary:
       "First establish medical stability and the injury. Then split primary from permanent teeth: the successor, root maturity, and time outside the socket change the plan.",
     memoryCue: "Child first. Tooth type. Injury. Apex. Follow-up.",
@@ -555,6 +588,15 @@ export const studyThemes: readonly StudyTheme[] = [
         evidence: [
           {
             source: "surgery",
+            pages: "1–3",
+          },
+        ],
+      },
+      {
+        text: "Child abuse and neglect (new 2026 policy): document each injury’s type, character, and location, intra- and extraorally. Refer bite injuries to a hospital promptly. Dental neglect is willful failure to seek or follow through with necessary care; dentists are mandated reporters.",
+        evidence: [
+          {
+            source: "abuse",
             pages: "1–3",
           },
         ],
@@ -626,7 +668,7 @@ export const studyThemes: readonly StudyTheme[] = [
     shortTitle: "Diagnosis & infection",
     domainIds: ["diagnosis"],
     sessionIds: ["sat-review"],
-    sourceIds: ["pathology", "radiographs", "antibiotics"],
+    sourceIds: ["pathology", "radiographs", "antibiotics", "prophylaxis"],
     summary:
       "Describe the problem before labeling it. Choose the next investigation because it can change care, and separate localized dental disease from a spreading infection.",
     memoryCue: "Describe → differentiate → investigate → act → review.",
@@ -655,6 +697,15 @@ export const studyThemes: readonly StudyTheme[] = [
           {
             source: "antibiotics",
             pages: "3–4",
+          },
+        ],
+      },
+      {
+        text: "Prophylaxis is not treatment (2026): endocarditis prophylaxis is for the highest-risk cardiac conditions before procedures that manipulate gingiva or the periapical region. Amoxicillin is first choice, one dose 30–60 minutes before; clindamycin is no longer recommended, and neither is routine prophylaxis for prosthetic joints.",
+        evidence: [
+          {
+            source: "prophylaxis",
+            pages: "2–6",
           },
         ],
       },
@@ -710,7 +761,7 @@ export const studyThemes: readonly StudyTheme[] = [
     shortTitle: "Behavior & sedation",
     domainIds: ["behavior"],
     sessionIds: ["sun-mock", "sun-review"],
-    sourceIds: ["behavior", "sedation", "emergencies"],
+    sourceIds: ["behavior", "sedation", "emergencies", "pain"],
     summary:
       "Build cooperation through communication and pain control. When advanced support is needed, justify the technique, setting, consent, monitoring, and rescue plan.",
     memoryCue: "Connect → relieve pain → choose support → prepare to rescue.",
@@ -748,6 +799,15 @@ export const studyThemes: readonly StudyTheme[] = [
           {
             source: "emergencies",
             pages: "1–2",
+          },
+        ],
+      },
+      {
+        text: "Pain management (2026): assess pain in every history and get profound anesthesia before invasive care. NSAIDs are first-line; acetaminophen when NSAIDs are contraindicated; combine them when one is not enough. Limit or avoid opioids; the FDA warns against codeine and tramadol under age 12.",
+        evidence: [
+          {
+            source: "pain",
+            pages: "6–8",
           },
         ],
       },
@@ -1061,7 +1121,7 @@ export const studyThemes: readonly StudyTheme[] = [
     memoryCue: "Hear the question. Answer it. Explain why. Close the loop.",
     points: [
       {
-        text: "The OCE uses two successive one-hour oral sessions with clinical vignettes and two examiners. Check-in and orientation extend the overall process.",
+        text: "The OCE uses two successive one-hour oral sessions with clinical vignettes and two examiners. Examiners ask open-ended questions in English. Check-in, identification, and orientation make the whole process about four hours.",
         evidence: [
           {
             source: "oce-guide",
@@ -1094,7 +1154,7 @@ export const studyThemes: readonly StudyTheme[] = [
       {
         question: "What should you remember for exam day?",
         answer:
-          "Bring government photo ID and follow current candidate instructions for arrival, orientation, prohibited items, and exam conduct.",
+          "Bring government photo ID. Phones, smartwatches, notes, and bags stay out of the exam room; small items go in a locker. Examiners score independently and give no feedback, so a neutral face tells you nothing.",
         evidence: [
           {
             source: "oce-guide",

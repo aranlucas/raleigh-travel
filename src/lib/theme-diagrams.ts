@@ -340,6 +340,47 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         },
       ],
     },
+    {
+      question: "Does this child need endocarditis prophylaxis?",
+      branches: [
+        {
+          when: "Highest-risk cardiac condition",
+          action:
+            "Prophylaxis before procedures that manipulate gingiva or the periapical region, or perforate mucosa.",
+          criteria: [
+            "Prosthetic valve, valve-repair device, or ventricular assist device",
+            "Previous, relapsed, or recurrent infective endocarditis",
+            "Unrepaired cyanotic CHD, including palliative shunts and conduits",
+            "Repaired CHD with prosthetic material (first 6 months) or a residual defect beside it",
+            "Pulmonary valve or conduit placement",
+            "Heart transplant recipient with valvulopathy",
+          ],
+          details: [
+            "Amoxicillin first; single dose 30–60 min before (up to 2 h after if missed)",
+            "Penicillin allergy: cephalexin, azithromycin, or clarithromycin",
+            "Clindamycin is no longer recommended",
+          ],
+        },
+        {
+          when: "Pacemaker, fully closed septal defect, graft, stent, VA shunt",
+          action: "Prophylaxis is not suggested for dental procedures.",
+        },
+        {
+          when: "Prosthetic joint",
+          action: "Routine prophylaxis is no longer recommended.",
+        },
+        {
+          when: "Immune compromise, indwelling vascular catheter, other device",
+          action: "Consult the child’s physician.",
+        },
+      ],
+      evidence: [
+        {
+          source: "prophylaxis",
+          pages: "2–6",
+        },
+      ],
+    },
   ],
   "behavior-sedation": [
     {
@@ -363,6 +404,40 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         {
           source: "sedation",
           pages: "4–9, 27",
+        },
+      ],
+    },
+    {
+      question: "A child is in dental pain: which analgesic?",
+      sequence: true,
+      branches: [
+        {
+          when: "First line",
+          action: "An NSAID such as ibuprofen, dosed by age and weight.",
+          details: ["Pair with definitive dental treatment when indicated."],
+        },
+        {
+          when: "NSAID contraindicated or not tolerated",
+          action: "Acetaminophen as the first-line alternative.",
+        },
+        {
+          when: "One agent is not enough",
+          action: "Combine an NSAID with acetaminophen, scheduled rather than as needed.",
+          details: ["Respect each drug’s maximum daily dose."],
+        },
+        {
+          when: "Opioids",
+          action: "Limit or avoid; rare cases only, with misuse screening.",
+          details: [
+            "FDA: no codeine or tramadol under 12, or at 12–17 with high-risk conditions such as obesity or OSA.",
+          ],
+          tone: "urgent",
+        },
+      ],
+      evidence: [
+        {
+          source: "pain",
+          pages: "6–8",
         },
       ],
     },
@@ -1005,6 +1080,76 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         { source: "pulp", pages: "1, 3, 6–10" },
         { source: "permanentVital", pages: "1–3, 5–11" },
       ],
+    },
+  ],
+  "access-special-needs": [
+    {
+      question: "Plan care for a patient with special health care needs",
+      sequence: true,
+      branches: [
+        {
+          when: "Ask",
+          action:
+            "What has worked before: communication, sensory triggers, routines, accommodations.",
+        },
+        {
+          when: "Assess",
+          action: "Medical conditions, medications, airway risk, and what the procedure demands.",
+        },
+        {
+          when: "Adapt",
+          action: "Scheduling, staff, environment, prevention, and caregiver support.",
+        },
+        {
+          when: "Coordinate",
+          action: "Consult, or move to a higher-level setting, when risk or scope requires it.",
+        },
+        {
+          when: "Hand off",
+          action: "Confirm a receiving dental home; keep emergency access during transition.",
+        },
+      ],
+      evidence: [
+        {
+          source: "shcn",
+          pages: "5–6",
+        },
+        {
+          source: "home",
+          pages: "1–2",
+        },
+      ],
+    },
+  ],
+  "exam-approach": [
+    {
+      question: "An examiner asks you a question",
+      sequence: true,
+      branches: [
+        {
+          when: "Hear it",
+          action: "Pause. Identify exactly what is being asked; ask to clarify if needed.",
+        },
+        {
+          when: "Answer it",
+          action: "Give the direct answer first, not everything you know about the topic.",
+        },
+        {
+          when: "Explain why",
+          action: "Name the findings and reasoning that support your choice.",
+        },
+        {
+          when: "Close the loop",
+          action: "Follow-up, prognosis, or what would change your plan. Then stop.",
+        },
+      ],
+      evidence: [
+        {
+          source: "oce-guide",
+          pages: "20–21",
+        },
+      ],
+      note: "The sequence follows ABPD’s communication-strategies page (listen, clarify, structured and rationale-driven answers). It is a study cue, not an official script.",
     },
   ],
 };

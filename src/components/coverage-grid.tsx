@@ -24,7 +24,7 @@ export function CoverageGrid() {
                 >
                   <a
                     className="group no-underline"
-                    href={`#${block.id}`}
+                    href={`/study/sessions/${block.id}`}
                     aria-label={`${block.day} ${block.time}`}
                   >
                     <span className="eyebrow block group-hover:text-ink">
@@ -44,7 +44,7 @@ export function CoverageGrid() {
                 <th scope="row" className="px-3 py-2.5 text-left font-normal sm:px-4">
                   <a
                     className="group block no-underline"
-                    href={`#domain-${domain.id}`}
+                    href={`/study/sessions/${sessions.find((block) => block.domains.includes(domain.id))?.id ?? ""}#domain-${domain.id}`}
                     aria-label={`${domain.title}, ${domain.weight}% of the blueprint`}
                   >
                     <span className="flex items-baseline justify-between gap-3">
@@ -95,7 +95,7 @@ export function CoverageGrid() {
         {consolidation.map((block, index) => (
           <span key={block.id}>
             {index > 0 ? " · " : ""}
-            <a className="link-quiet" href={`#${block.id}`}>
+            <a className="link-quiet" href={`/study/sessions/${block.id}`}>
               {block.title}
             </a>
           </span>

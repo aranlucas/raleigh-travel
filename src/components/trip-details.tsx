@@ -1,4 +1,4 @@
-import { BookOpen, CalendarDays, House, Plane } from "lucide-react";
+import { BookOpen, CalendarDays, CircleCheck, House, Plane } from "lucide-react";
 
 import {
   days,
@@ -9,6 +9,7 @@ import {
   sources,
   studyMinutes,
 } from "@/lib/itinerary";
+import { examDayRules, examFacts } from "@/lib/study";
 
 import { ExternalLink } from "./ui";
 
@@ -157,11 +158,9 @@ export function TripDetails() {
       <div className="pb-8">
         <p className="eyebrow">Trip details</p>
         <h2 id="details-heading" className="type-title mt-3">
-          The details, taken care of.
+          Flights, hotel, and the exam
         </h2>
-        <p className="type-lead mt-2">
-          Confirmed travel, a protected board day, and a plan with room to breathe.
-        </p>
+        <p className="type-lead mt-2">Booked travel and the exam-day details in one place.</p>
       </div>
       <ol
         className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-4"
@@ -242,7 +241,7 @@ export function TripDetails() {
             rows={[
               ["Leave the hotel", "About 2:25 PM"],
               ["Registration", "2:45 PM"],
-              ["Hotel return", "About 6:15 PM"],
+              ["Hotel return", "About 6:15–6:45 PM"],
               ["Bring", "Government photo ID"],
             ]}
           />
@@ -255,13 +254,69 @@ export function TripDetails() {
           </div>
         </DetailCard>
       </div>
+      <section
+        className="card mt-4 scroll-mt-6 p-6 sm:p-8 lg:mt-6 lg:p-10"
+        id="exam-day"
+        aria-labelledby="exam-day-heading"
+      >
+        <p className="eyebrow text-cardinal">Monday, October 5 · from ABPD’s candidate guide</p>
+        <h3 className="type-title mt-3" id="exam-day-heading">
+          How the exam afternoon runs
+        </h3>
+        <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <dl className="border-t border-line">
+            {examFacts.map((fact) => (
+              <div
+                className="grid grid-cols-[8rem_1fr] gap-4 border-b border-line py-2.5 text-[0.9375rem] sm:grid-cols-[9rem_1fr]"
+                key={fact.label}
+              >
+                <dt className="text-muted">{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div>
+            <h4 className="type-subhead">Bring, lock away, leave behind</h4>
+            <ul className="mt-3 space-y-2.5">
+              {examDayRules.map((rule) => (
+                <li
+                  className="flex gap-3 text-[0.9375rem] leading-relaxed text-ink-soft"
+                  key={rule}
+                >
+                  <CircleCheck
+                    className="mt-1 text-pine"
+                    size={16}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  {rule}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm text-muted">
+              Checked against ABPD on September 23, 2026. Your latest candidate email takes
+              precedence.
+            </p>
+          </div>
+        </div>
+        <div className={linkGroupClasses}>
+          <ExternalLink
+            label="ABPD examination day"
+            href="https://www.abpd.org/become-certified/oral-clinical-examination/examination-day-oce"
+          />
+          <ExternalLink
+            label="OCE candidate guide · PDF"
+            href="https://www.abpd.org/index.php/download_file/view/951/276"
+          />
+        </div>
+      </section>
       <section className="panel mt-4 p-6 sm:p-8 lg:mt-6 lg:p-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
           <div>
             <p className="eyebrow text-pine">
               <BookOpen size={14} aria-hidden="true" /> Study plan
             </p>
-            <h3 className="type-title mt-3">A little structure for studying</h3>
+            <h3 className="type-title mt-3">Study time</h3>
             <p className="mt-3 text-lg">
               {duration(totalStudy)} of focused preparation
               <span className="mt-1 block text-[0.9375rem] text-muted">
