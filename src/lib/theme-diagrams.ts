@@ -77,136 +77,187 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
       evidence: [{ source: "risk", pages: "1–5" }],
     },
     {
-      question: "Lesion found → arrest, interim, or restore?",
+      question: "A caries lesion is found: what next?",
       branches: [
         {
-          when: "Noncavitated / white spot lesion",
+          when: "Arrested (inactive)",
           action:
-            "Active surveillance with preventive therapy; not every caries lesion requires restoration.",
+            "No restoration needed to control the disease. Keep prevention going and monitor.",
           criteria: [
-            "Incipient/white spot lesion without visual enamel cavitation",
-            "No enamel shadowing or radiographic enlargement over time",
+            "Not progressing between visits",
+            "Some lesions do not progress and may not need restoration",
           ],
           details: [
-            "ICDAS 2 enamel lesions can be arrested with semiannual 5% NaFV",
-            "Resin infiltration: adjunct for small noncavitated interproximal lesions",
-            "ADA conditionally recommends enamel infiltration (low–very low certainty)",
-            "Resin infiltration also improves clinical appearance of white-spot lesions",
+            "Lesion activity may matter more than the number of lesions",
+            "A restoration alone does not stop the disease process",
           ],
-          followUp: "Monitor for arrest vs progression; restore if cavitated or enlarging",
+          followUp: "Recheck activity at every recall",
         },
         {
-          when: "Cavitated; definitive care limited/deferred",
-          action:
-            "Arrest with 38% SDF and/or control with ITR until definitive restoration is feasible.",
-          criteria: [
-            "Access to definitive restorative care limited or preferentially postponed",
-            "Very young, uncooperative, or special health care needs",
-            "Multiple open lesions needing caries control before definitive restoration",
-          ],
-          details: [
-            "38% SDF (5% F, 44,800 ppm F); less than a drop treats several lesions",
-            "Arrest 35–80% (conditional recs); biannual SDF beats F varnish in dentin",
-            "Consent: lesions stain black; skin/gingiva stain temporarily",
-            "SDF cytotoxic to pulp cells if applied directly on pulp tissue",
-            "ITR/ART: high-viscosity GIC as single-surface temporary restoration",
-          ],
-          followUp: "SDF best used within an ongoing caries plan in a dental home",
-        },
-        {
-          when: "Cavitated/enlarging, restorable",
-          action:
-            "Restore; choose material by tooth, lesion size/surfaces, isolation, cooperation, caries risk.",
-          criteria: [
-            "Visual enamel cavitation or visual shadowing of enamel",
-            "Radiographic enlargement of lesion over time",
-            "Primary teeth: weigh time until exfoliation",
-          ],
+          when: "Active, noncavitated",
+          action: "Preventive therapy and active surveillance instead of a restoration.",
           children: [
             {
-              when: "Class I/II primary molar, small–moderate",
-              action:
-                "Composite, amalgam, compomer, or RMGIC; composite may not suit poor isolation or cooperation.",
+              when: "Smooth surface / white spot",
+              action: "Professional fluoride varnish; add home fluoride by risk.",
+              details: ["ICDAS 2 enamel lesions can be arrested with semiannual 5% NaFV"],
+            },
+            {
+              when: "Small interproximal",
+              action: "Resin infiltration as an adjunct to arrest progression.",
               details: [
-                "Composite: not ideal for large multisurface or high-risk, poor-OH patients",
-                "Amalgam Class II: prep not beyond proximal line angles; review risks",
-                "RMGIC: small–moderate Class II (expert opinion); consider if high risk",
-                "Conventional GIC: Class I only; not recommended for Class II primary molars",
+                "ADA conditionally recommends enamel infiltration (low–very low certainty)",
+                "Also improves the appearance of white-spot lesions",
               ],
             },
             {
-              when: "Large/multisurface primary molar, high risk",
-              action:
-                "SSC, especially when advanced behavior guidance or GA is needed for restorative care.",
-              criteria: [
-                "Large or multisurface cavitated or noncavitated lesions",
-                "Interproximal caries beyond line angles; bruxism",
-                "After pulpotomy/pulpectomy; space-maintainer abutment",
-              ],
-              details: [
-                "Full coverage: combats recurrent caries, durable, minimal maintenance",
-                "5-y failure, Class II amalgam vs PMC: 26% vs 7% (retrospective)",
-                "May be considered for multisurface caries <4 y to avoid retreatment",
-                "Zirconia may replace SSC for esthetics; more reduction, ≥2 mm abutment",
-              ],
-            },
-            {
-              when: "SSC indicated but prep not feasible",
-              action:
-                "Hall technique: cement SSC with no local anesthetic, caries removal, or tooth preparation.",
-              criteria: ["Poor cooperation or barriers to care"],
-              details: [
-                "Sealed bacteria denied substrate die; crown gives the marginal seal",
-                "May need separator bands; child bites crown into place",
-                "Outperformed GDs’ standard restorations interproximally (split-mouth RCT)",
-                "More research vs traditionally placed PMC needed",
-              ],
-            },
-            {
-              when: "Primary incisors",
-              action:
-                "Class III/V: resin if isolable, else RMGIC/GIC; full coronal crowns for extensive or high-risk cases.",
-              details: [
-                "Full coronal if multisurface, incisal edge, extensive cervical decalcification",
-                "…or pulp therapy needed, very poor OH, or behavior prevents moisture control",
-                "Crowns: strip (80% retained at 3 y), preveneered/open-faced SSC, zirconia",
-                "Zirconia: 1.5–2 mm reduction with feather margin; survival 93/85/76% 1/2/3 y",
-              ],
-            },
-            {
-              when: "Permanent teeth",
-              action:
-                "Composite or amalgam for Class I/II; PMC may be semi-permanent for gross caries/severe defects.",
-              details: [
-                "GIC/RMGIC: insufficient evidence as long-term material in permanent teeth",
-                "Class II: amalgam and composite mean annual failure both 2.3%",
-                "Composite: more replacement at 7–10 y; secondary caries 3.5× amalgam",
-                "Posterior permanent SSCs can be expected to last 10 years",
-              ],
+              when: "Pit and fissure",
+              action: "Sealant, chosen by individual- and tooth-level risk.",
             },
           ],
+          followUp: "Restore if it cavitates or enlarges on radiographs",
         },
         {
-          when: "Deep lesion, normal pulp/reversible pulpitis",
-          action:
-            "Consider incomplete removal (partial 1-step or stepwise 2-step) when complete removal risks exposure.",
-          criteria: [
-            "Deep caries with normal pulp or reversible pulpitis",
-            "Complete caries removal likely to result in pulp exposure",
-          ],
-          details: [
-            "Fewer pulp exposures and pulpal signs/symptoms than complete excavation",
-            "Permanent teeth: restoration failure no higher than complete excavation",
-            "Partial > stepwise for pulp vitality (80% vs 56%, 5-y RCT); no reopening",
-            "Sealing without excavation can arrest caries if the seal is maintained",
+          when: "Active, cavitated",
+          action: "Control the disease, then decide how and when to restore.",
+          criteria: ["Visual enamel cavitation or shadowing", "Radiographic enlargement over time"],
+          children: [
+            {
+              when: "Cavitated; definitive care limited/deferred",
+              action:
+                "Arrest with 38% SDF and/or control with ITR until definitive restoration is feasible.",
+              criteria: [
+                "Access to definitive restorative care limited or preferentially postponed",
+                "Very young, uncooperative, or special health care needs",
+                "Multiple open lesions needing caries control before definitive restoration",
+              ],
+              details: [
+                "38% SDF (5% F, 44,800 ppm F); less than a drop treats several lesions",
+                "Arrest 35–80% (conditional recs); biannual SDF beats F varnish in dentin",
+                "Consent: lesions stain black; skin/gingiva stain temporarily",
+                "SDF cytotoxic to pulp cells if applied directly on pulp tissue",
+                "ITR/ART: high-viscosity GIC as single-surface temporary restoration",
+              ],
+              followUp: "SDF best used within an ongoing caries plan in a dental home",
+            },
+            {
+              when: "Restorable now",
+              action:
+                "Restore; choose the material by tooth, lesion size and surfaces, isolation, cooperation, and risk.",
+              details: [
+                "See the next map for materials and crowns",
+                "Primary teeth: weigh time until exfoliation",
+              ],
+            },
+            {
+              when: "Deep lesion, normal pulp/reversible pulpitis",
+              action:
+                "Consider incomplete removal (partial 1-step or stepwise 2-step) when complete removal risks exposure.",
+              criteria: [
+                "Deep caries with normal pulp or reversible pulpitis",
+                "Complete caries removal likely to result in pulp exposure",
+              ],
+              details: [
+                "Fewer pulp exposures and pulpal signs/symptoms than complete excavation",
+                "Permanent teeth: restoration failure no higher than complete excavation",
+                "Partial > stepwise for pulp vitality (80% vs 56%, 5-y RCT); no reopening",
+                "Sealing without excavation can arrest caries if the seal is maintained",
+              ],
+            },
+            {
+              when: "Pulp involved",
+              action: "Make the pulp diagnosis before choosing a restoration.",
+              criteria: [
+                "Spontaneous or lingering pain",
+                "Swelling, sinus tract, or periapical/furcal change",
+              ],
+              details: ["Follow the pulp therapy maps: vital vs. nonvital, primary vs. permanent"],
+            },
+            {
+              when: "Not restorable",
+              action: "Extract, and plan space management.",
+              criteria: ["Extensive crown destruction or root resorption"],
+              details: [
+                "Check the successor and the space before choosing a maintainer (see Growth & space)",
+              ],
+            },
           ],
         },
       ],
       evidence: [
-        { source: "risk", pages: "4–5" },
+        { source: "risk", pages: "3–5" },
+        { source: "restorative", pages: "1–3" },
         { source: "fluoride", pages: "3" },
-        { source: "restorative", pages: "1–9" },
+        { source: "nonvital", pages: "2" },
       ],
+      note: "Telling active from arrested lesions at the chair (for example, an arrested lesion looks dark, hard, and shiny) is standard cariology teaching; the PDFs cover why activity matters, not how to judge it.",
+    },
+    {
+      question: "Restoring it: which material or crown?",
+      branches: [
+        {
+          when: "Class I/II primary molar, small–moderate",
+          action:
+            "Composite, amalgam, compomer, or RMGIC; composite may not suit poor isolation or cooperation.",
+          details: [
+            "Composite: not ideal for large multisurface or high-risk, poor-OH patients",
+            "Amalgam Class II: prep not beyond proximal line angles; review risks",
+            "RMGIC: small–moderate Class II (expert opinion); consider if high risk",
+            "Conventional GIC: Class I only; not recommended for Class II primary molars",
+          ],
+        },
+        {
+          when: "Large/multisurface primary molar, high risk",
+          action:
+            "SSC, especially when advanced behavior guidance or GA is needed for restorative care.",
+          criteria: [
+            "Large or multisurface cavitated or noncavitated lesions",
+            "Interproximal caries beyond line angles; bruxism",
+            "After pulpotomy/pulpectomy; space-maintainer abutment",
+          ],
+          details: [
+            "Full coverage: combats recurrent caries, durable, minimal maintenance",
+            "5-y failure, Class II amalgam vs PMC: 26% vs 7% (retrospective)",
+            "May be considered for multisurface caries <4 y to avoid retreatment",
+            "Zirconia may replace SSC for esthetics; more reduction, ≥2 mm abutment",
+          ],
+        },
+        {
+          when: "SSC indicated but prep not feasible",
+          action:
+            "Hall technique: cement SSC with no local anesthetic, caries removal, or tooth preparation.",
+          criteria: ["Poor cooperation or barriers to care"],
+          details: [
+            "Sealed bacteria denied substrate die; crown gives the marginal seal",
+            "May need separator bands; child bites crown into place",
+            "Outperformed GDs’ standard restorations interproximally (split-mouth RCT)",
+            "More research vs traditionally placed PMC needed",
+          ],
+        },
+        {
+          when: "Primary incisors",
+          action:
+            "Class III/V: resin if isolable, else RMGIC/GIC; full coronal crowns for extensive or high-risk cases.",
+          details: [
+            "Full coronal if multisurface, incisal edge, extensive cervical decalcification",
+            "…or pulp therapy needed, very poor OH, or behavior prevents moisture control",
+            "Crowns: strip (80% retained at 3 y), preveneered/open-faced SSC, zirconia",
+            "Zirconia: 1.5–2 mm reduction with feather margin; survival 93/85/76% 1/2/3 y",
+          ],
+        },
+        {
+          when: "Permanent teeth",
+          action:
+            "Composite or amalgam for Class I/II; PMC may be semi-permanent for gross caries/severe defects.",
+          details: [
+            "GIC/RMGIC: insufficient evidence as long-term material in permanent teeth",
+            "Class II: amalgam and composite mean annual failure both 2.3%",
+            "Composite: more replacement at 7–10 y; secondary caries 3.5× amalgam",
+            "Posterior permanent SSCs can be expected to last 10 years",
+          ],
+        },
+      ],
+      evidence: [{ source: "restorative", pages: "4–9" }],
     },
     {
       question: "Which fluoride, how much, for whom?",
@@ -310,6 +361,160 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         },
       ],
     },
+    {
+      question: "Permanent tooth injured: fracture or luxation?",
+      branches: [
+        {
+          when: "Crown fracture",
+          action: "Is the pulp exposed?",
+          children: [
+            {
+              when: "Enamel or enamel-dentin, no exposure",
+              action: "Bond the fragment (rehydrate 20 min) or restore; cover deep dentin.",
+              details: [
+                "Pulp within 0.5 mm (pink, no bleeding): calcium hydroxide liner, then GIC",
+              ],
+              followUp: "6–8 wk, 1 y",
+            },
+            {
+              when: "Pulp exposed",
+              action:
+                "Preserve the pulp: partial pulpotomy or pulp cap, especially with an immature root.",
+              details: [
+                "Partial pulpotomy also preferred in mature teeth",
+                "Mature tooth needing a post: root canal treatment",
+              ],
+              followUp: "6–8 wk, 3 mo, 6 mo, 1 y",
+            },
+          ],
+        },
+        {
+          when: "Crown-root fracture",
+          action: "Stabilize the loose fragment now; plan by extent and root development.",
+          details: [
+            "Options: fragment removal + restoration, orthodontic or surgical extrusion, root submergence, extraction, autotransplantation",
+            "CBCT helps show the fracture path",
+          ],
+        },
+        {
+          when: "Root fracture",
+          action: "Reposition a displaced coronal segment; flexible splint.",
+          details: [
+            "Splint 4 wk; cervical-third fractures up to 4 mo",
+            "Necrosis usually affects only the coronal segment",
+            "Don’t start endodontics at the emergency visit",
+          ],
+        },
+        {
+          when: "Luxation",
+          action: "Which direction did it move?",
+          children: [
+            {
+              when: "Concussion or subluxation",
+              action: "Usually no treatment; splint 2 wk only for comfort if mobile.",
+              followUp: "Monitor the pulp for at least 1 year",
+            },
+            {
+              when: "Extrusion",
+              action: "Reposition under anesthesia; flexible splint 2 wk.",
+            },
+            {
+              when: "Lateral luxation",
+              action: "Disengage from the locked position, reposition, flexible splint 4 wk.",
+              details: [
+                "Immature root: may revascularize; treat only definite necrosis",
+                "Mature root: pulp likely necrotic; evaluate at ~2 wk and start root canal treatment",
+              ],
+            },
+            {
+              when: "Intrusion",
+              action: "Depends on root development and depth.",
+              children: [
+                {
+                  when: "Immature root",
+                  action: "Allow re-eruption; if none in 4 wk, reposition orthodontically.",
+                },
+                {
+                  when: "Mature root",
+                  action:
+                    "< 3 mm: allow re-eruption; 3–7 mm: reposition surgically or orthodontically; > 7 mm: reposition surgically.",
+                  details: ["Pulp almost always necrotic: begin root canal treatment at 2 wk"],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          when: "Every injury",
+          tone: "always",
+          action:
+            "Rule out head injury, check tetanus, question a story that doesn’t fit, and take multiple-angle radiographs.",
+        },
+      ],
+      evidence: [{ source: "trauma", pages: "3–12" }],
+    },
+    {
+      question: "Primary tooth injured: keep, reposition, or extract?",
+      branches: [
+        {
+          when: "Crown fracture",
+          action: "Smooth or restore; with pulp exposure, partial pulpotomy is preferred.",
+          details: [
+            "Often no treatment is best at the emergency visit; refer to a child-oriented team",
+            "Pulpotomy depends on the child’s maturity and cooperation",
+          ],
+        },
+        {
+          when: "Root fracture",
+          action: "Coronal fragment displaced and interfering?",
+          children: [
+            {
+              when: "Not displaced, or minor",
+              action: "Leave it; the coronal fragment may reposition spontaneously.",
+            },
+            {
+              when: "Excessively mobile, interfering",
+              action: "Extract only the coronal fragment; leave the apical part to resorb.",
+            },
+          ],
+        },
+        {
+          when: "Luxation",
+          action: "Does it interfere with the bite, or risk aspiration?",
+          children: [
+            {
+              when: "Lateral, minimal interference",
+              action: "Allow spontaneous repositioning, usually within 6 months.",
+            },
+            {
+              when: "Extrusion > 3 mm or excessively mobile",
+              action: "Extract under local anesthesia.",
+            },
+            {
+              when: "Lateral, severe displacement",
+              action:
+                "Extract if it risks ingestion or aspiration; otherwise reposition and splint 4 wk.",
+            },
+            {
+              when: "Intrusion",
+              action: "Allow spontaneous re-eruption, whatever the direction.",
+            },
+          ],
+        },
+        {
+          when: "Avulsion",
+          tone: "urgent",
+          action: "Never replant a primary tooth.",
+        },
+        {
+          when: "Every primary injury",
+          tone: "always",
+          action:
+            "Protect the successor: parents watch for color change, swelling, or a sinus tract.",
+        },
+      ],
+      evidence: [{ source: "primaryTrauma", pages: "3–11" }],
+    },
   ],
   diagnosis: [
     {
@@ -381,6 +586,50 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         },
       ],
     },
+    {
+      question: "Infection or wound: does this child need an antibiotic?",
+      branches: [
+        {
+          when: "Pulpitis, apical periodontitis, sinus tract, or localized intraoral swelling",
+          action: "No antibiotic. Treat the source: pulpotomy, pulpectomy, or extraction.",
+          criteria: ["No fever, no facial swelling"],
+        },
+        {
+          when: "Facial swelling or cellulitis",
+          action: "Prompt source control and drainage, with an antibiotic as an adjunct.",
+          details: [
+            "Amoxicillin or amoxicillin-clavulanate first; a cephalosporin if allergic or recently treated",
+            "A 3–5 day course of amoxicillin may work as well as 7 days",
+            "Stop once cured or clearly ineffective; culture if not responding",
+          ],
+          children: [
+            {
+              when: "Fever, trismus, dysphagia, or breathing difficulty",
+              tone: "urgent",
+              action: "Emergency: immediate surgical care and IV antibiotics in a hospital.",
+            },
+          ],
+        },
+        {
+          when: "Contaminated wound",
+          action:
+            "Systemic antibiotic if contaminated by soil or debris, a foreign body, or an open fracture.",
+          details: ["Puncture or dirty laceration: confirm tetanus immunity"],
+        },
+        {
+          when: "Avulsed permanent tooth",
+          action:
+            "Systemic antibiotic as an adjunct: amoxicillin or penicillin; doxycycline as the alternative.",
+        },
+        {
+          when: "Every prescription",
+          tone: "always",
+          action:
+            "Narrowest spectrum, shortest effective course, pediatric dose, and document it. Clindamycin carries C. difficile risk.",
+        },
+      ],
+      evidence: [{ source: "antibiotics", pages: "2–4" }],
+    },
   ],
   "behavior-sedation": [
     {
@@ -441,129 +690,129 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
         },
       ],
     },
+    {
+      question: "Basic behavior guidance isn’t working: what next?",
+      branches: [
+        {
+          when: "Treatment isn’t urgent",
+          action:
+            "Consider deferring, with interim care (ITR, fluoride varnish, SDF) and a documented plan.",
+        },
+        {
+          when: "Anxious but can cooperate with support",
+          action: "Nitrous oxide/oxygen to reduce anxiety and aid communication.",
+          details: ["Add sensory adaptations for anxiety or special health care needs"],
+        },
+        {
+          when: "Urgent, limited care in a child who can’t cooperate",
+          action:
+            "Protective stabilization, with consent, monitoring, and the least restriction needed.",
+          criteria: [
+            "Eg, a toddler with acute trauma",
+            "Movement would endanger the patient or team",
+          ],
+          details: [
+            "Not for a cooperative patient, non-urgent care, full-mouth rehabilitation, or convenience",
+            "Not with a history of abuse or trauma that restraint could worsen",
+          ],
+        },
+        {
+          when: "Fearful or unable to cooperate; more treatment",
+          action: "Sedation, if the patient is a medically suitable candidate.",
+          details: ["Not for a cooperative patient with minimal needs"],
+          children: [
+            {
+              when: "Extensive needs, very young, or LA ineffective",
+              action: "General anesthesia.",
+              criteria: [
+                "Precommunicative or extremely uncooperative",
+                "Acute infection or allergy makes local anesthesia ineffective",
+                "Can be combined with other surgery to reduce anesthetic exposures",
+              ],
+              details: [
+                "Not for a young child whose minimal needs ITR, varnish, or SDF can address",
+                "Weigh age, risk-benefit, deferral, and barriers to care",
+              ],
+            },
+          ],
+        },
+        {
+          when: "Every escalation",
+          tone: "always",
+          action:
+            "Informed consent covering risks, benefits, and alternatives including no treatment, plus documentation.",
+        },
+      ],
+      evidence: [{ source: "behavior", pages: "1, 5, 8–12" }],
+    },
   ],
   growth: [
     {
-      question: "Observe or intercept?",
+      question: "A primary tooth is lost early: what next?",
       branches: [
         {
-          when: "Likely self-correction; low consequence",
-          action: "Monitor with a planned developmental reassessment.",
-        },
-        {
-          when: "Functional shift, eruption interference, or space loss",
-          action: "Assess stage-appropriate intervention and coordination.",
-        },
-      ],
-      evidence: [
-        {
-          source: "growth",
-          pages: "3–11",
-        },
-      ],
-    },
-    {
-      question: "Space & eruption problem → which appliance?",
-      branches: [
-        {
-          when: "Premature primary tooth loss",
+          when: "Still restorable",
           action:
-            "Space maintainer matched to the site: fixed unilateral, fixed bilateral, or removable.",
-          criteria: [
-            "Tooth lost, time elapsed, space analysis, dental age",
-            "Successor present, its root development and bone cover",
-            "Health, cooperation, active habits, oral hygiene",
-          ],
-          details: [
-            "Fixed unilateral: band and loop, crown and loop, distal shoe",
-            "Fixed bilateral: lower lingual holding arch, Nance appliance, transpalatal arch",
-            "Removable: partial denture, Hawley-type appliance",
-            "Kits/direct-bonded: single visit, but mixed longevity vs custom lab appliances",
-            "Mean survival ≤2 y (except crown and loop); decementation is the top failure",
-          ],
-          followUp:
-            "Check band, cement seal, and retention; keep until the successor erupts into position",
+            "Restore it to full contour instead; an under-contoured restoration also loses space.",
         },
         {
-          when: "Space already lost",
-          action: "Regain only after a records-based space analysis, then hold the space.",
+          when: "Successor present",
+          action: "Decide whether space maintenance is needed, then choose the appliance.",
           criteria: [
-            "Space loss interferes with eruption of the permanent tooth",
-            "Weigh age at loss, tooth lost, space available vs needed, other ortho problems",
+            "Which tooth, and how long ago it was lost",
+            "Dental age; successor’s root development and bone covering it",
+            "Occlusion and space analysis",
+            "Health, cooperation, habits, oral hygiene",
           ],
-          details: [
-            "Fixed: active lingual arch, pendulum, Halterman-type appliance, lip bumper",
-            "Removable: Hawley appliance with springs or screws",
-            "Extraoral: headgear",
-          ],
-          followUp:
-            "Hold regained space until adjacent permanent teeth erupt or comprehensive ortho starts",
-        },
-        {
-          when: "Leeway space / incisor crowding",
-          action: "Passive lower lingual holding arch until premolars and canines erupt.",
-          criteria: [
-            "Mixed dentition arch length shortage",
-            "Crowding often self-corrects; arch holds against worsening",
-          ],
-          details: [
-            "Lingual arch + 2 mm expansion fits all teeth in ~9 of 10; 60% need none",
-            "Lower primary canine extraction aligns incisors but costs up to 2.7 mm",
-            "If lower primary canines are removed, place a passive lingual arch",
-            "Interproximal stripping of primary canines can align crowded laterals",
-            "No extractions for crowding without space analysis + ortho plan",
+          children: [
+            {
+              when: "Space maintainer indicated",
+              action: "Fixed unilateral, fixed bilateral, or removable: see the next map by tooth.",
+              details: [
+                "Most maintainers last under 2 years; decementation is the usual failure",
+                "Keep it until the successor erupts into position",
+              ],
+              followUp: "Check appliance, cement, and the erupting successor at every recall",
+            },
+            {
+              when: "Space already lost",
+              action: "Regain space only after records and a space analysis.",
+              details: [
+                "Fixed: active lingual arch, pendulum, Halterman, lip bumper",
+                "Removable: Hawley with springs or screws; headgear",
+                "Hold regained space until adjacent teeth erupt or comprehensive ortho begins",
+              ],
+            },
           ],
         },
         {
-          when: "Ectopic first permanent molar",
-          action: "Mild: separators to wedge the molar distally. Severe: tip it distally.",
-          criteria: [
-            "71% self-correct by age 9",
-            "Bigger impaction, more E resorption, bilateral → likely irreversible",
-          ],
-          details: [
-            "Mild (little of the crown under the E): elastic or metal separators",
-            "Severe: brass wire or removable appliance with springs",
-            "Fixed: sectional wire + open coil spring, slingshot-type, Halterman appliance",
-          ],
-        },
-        {
-          when: "Palatally displaced maxillary canine",
-          action:
-            "Extract the primary canine; in early mixed dentition consider RME ± cervical headgear.",
-          criteria: [
-            "Canine bulge not palpable, asymmetric eruption, peg laterals",
-            "Canine overlaps the formed lateral incisor root on radiograph",
-          ],
-          details: [
-            "Primary canine extraction: 67–69% corrected vs 39–42% controls",
-            "Found at 11–16 y and not horizontal: extraction → 75% erupt",
-            "RME alone or with cervical pull headgear raises eruption potential",
-            "CBCT localizes better than panoramic; ortho usually still needed",
-          ],
-        },
-        {
-          when: "Ankylosis or PFE",
-          action:
-            "Ankylosed E with successor: keep until it causes problems, then extract + lingual arch. PFE: no ortho force.",
-          criteria: [
-            "Ankylosis: infraocclusion, no mobility, dull percussion",
-            "PFE: posterior open bite, normal vertical growth, family history (85%)",
-          ],
-          details: [
-            "Extract ankylosed E if it blocks eruption or adjacent teeth tip; lingual arch or other fixed",
-            "No successor: extract before a large vertical step, or decoronate to keep bone",
-            "PFE teeth may ankylose under force; avoid early ortho intervention",
-            "PFE: space maintenance, prevent supraeruption, plan prosthetics after growth",
+          when: "Successor congenitally missing",
+          action: "Plan the long-term space: close it, or hold it for a prosthesis or implant.",
+          children: [
+            {
+              when: "Maxillary lateral incisor",
+              action:
+                "Move the canine into the lateral position, or open space for a future implant.",
+              details: [
+                "Weigh age, canine size/shape/position, crowding, bite depth, profile, smile line, bone",
+                "Patients generally prefer space closure over implants",
+                "An implant space needs an interim prosthesis to hold it",
+              ],
+            },
+            {
+              when: "Second premolar",
+              action:
+                "Keep the primary molar, or extract with space closure, prosthesis, or autotransplantation.",
+              details: [
+                "Primary E is wider than the premolar; reducing it risks resorption",
+                "Crowded arches or mild Class III: extraction can help",
+                "An ankylosed, submerging molar risks an alveolar defect before an implant",
+              ],
+            },
           ],
         },
       ],
-      evidence: [
-        {
-          source: "growth",
-          pages: "6–10",
-        },
-      ],
+      evidence: [{ source: "growth", pages: "5, 9–10" }],
     },
     {
       question: "Which primary tooth was lost → which space maintainer?",
@@ -650,116 +899,285 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
       note: "Tooth-by-tooth choices are standard pediatric board teaching. The AAPD guideline lists these appliances but doesn't assign them to specific teeth.",
     },
     {
-      question: "Bite or habit problem → which appliance?",
+      question: "Crowded incisors in the mixed dentition: wait or act?",
       branches: [
         {
-          when: "Simple anterior crossbite",
-          action:
-            "Align as soon as noted if space allows: incline plane, springs, or fixed springs.",
-          criteria: [
-            "Class I molars; abnormal incisor inclination (dental)",
-            "Rule out skeletal Class III (basal bone position)",
-          ],
+          when: "Mild to moderate crowding",
+          action: "Monitor; mandibular incisor crowding tends to decrease with time.",
           details: [
-            "Acrylic incline plane",
-            "Acrylic retainer with lingual springs",
-            "Fixed appliance with springs",
-            "Space needed: add an expansion appliance",
+            "Greater initial crowding self-corrects more, but results vary",
+            "A passive lingual arch can hold leeway space if crowding may worsen",
           ],
         },
         {
-          when: "Posterior crossbite / functional shift",
+          when: "Incisors need room to erupt",
           action:
-            "Correct early: equilibration, fixed or removable appliance, extractions, or a combination.",
-          criteria: [
-            "Unilateral crossbite is usually bilateral constriction with a mandibular shift",
-            "Eliminate shifts early to avoid TMD and asymmetric growth",
-          ],
+            "Primary canine extraction, then a passive lingual arch to hold the leeway space.",
           details: [
-            "Skeletal: fixed or removable palatal expander until midpalatal suture fusion",
-            "Pick by movement: tipping vs bodily, dental vs orthopedic",
-            "…space, AP/transverse/vertical skeleton, growth status, cooperation",
-            "Skeletal Class III or asymmetry: comprehensive treatment",
+            "Irregularity improves, but arch length drops by up to 2.7 mm",
+            "With a lingual arch saving leeway, ~9 in 10 fit with 2 mm expansion; 60% need none",
+            "Interproximal stripping of primary canines can make room for crowded laterals",
           ],
         },
+        {
+          when: "Premature loss of one primary canine",
+          action: "Watch the midline before extracting the other canine.",
+          details: [
+            "Contralateral extraction is often recommended",
+            "Iowa and Toronto growth data: lower midline did not shift significantly",
+          ],
+        },
+        {
+          when: "Before extracting to relieve crowding",
+          tone: "always",
+          action: "Complete a space analysis and a short- and long-term orthodontic plan first.",
+        },
+      ],
+      evidence: [{ source: "growth", pages: "8–9" }],
+    },
+    {
+      question: "A tooth is not erupting where or when it should",
+      branches: [
+        {
+          when: "First permanent molar caught under the E",
+          action: "Watch or treat: 71% self-correct by age 9.",
+          criteria: [
+            "Larger impaction, more resorption of the E, or bilateral → likely irreversible",
+          ],
+          children: [
+            {
+              when: "Mild impaction",
+              action: "Elastic or metal separators to wedge the molar distally.",
+            },
+            {
+              when: "Severe impaction",
+              action:
+                "Tip the molar distally: brass wire, spring appliance, sectional wire, or Halterman.",
+            },
+          ],
+        },
+        {
+          when: "Maxillary canine displaced palatally",
+          action:
+            "Extract the primary canine when the bulge isn’t palpable and it overlaps the lateral root.",
+          criteria: ["No canine bulge, asymmetric eruption, or peg-shaped laterals"],
+          details: [
+            "Corrects 67–69% vs 39–42% without extraction",
+            "Rapid maxillary expansion (± cervical headgear) also helps eruption",
+            "Found at 11–16 y and not horizontal: extraction → 75% erupt",
+            "Localize with a panoramic film; CBCT localizes better",
+          ],
+        },
+        {
+          when: "Incisor delayed or ectopic",
+          action: "Find the cause first.",
+          children: [
+            {
+              when: "Supernumerary (eg, mesiodens)",
+              action:
+                "Remove it at about 6–7 y, when the incisor crown is complete and its root shorter than the crown.",
+              details: [
+                "Removing an erupted mesiodens lets the incisor erupt in 75%",
+                "Primary supernumeraries: usually leave; early surgery can damage the incisor",
+                "Localize with CBCT or two films by the parallax rule",
+              ],
+              followUp: "Recheck at 6 mo; no eruption by 6–12 mo → expose and apply traction",
+            },
+            {
+              when: "Necrotic or pulp-treated primary incisor",
+              action: "Extract the over-retained primary incisor in the early mixed dentition.",
+            },
+          ],
+        },
+        {
+          when: "Primary molar submerging",
+          action: "Suspect ankylosis: no mobility, dull percussion note.",
+          children: [
+            {
+              when: "Successor present",
+              action:
+                "Keep it until it blocks eruption or neighbors tip, then extract and place a lingual arch.",
+            },
+            {
+              when: "No successor",
+              action:
+                "Extract before a large vertical step develops, or decoronate to preserve bone for an implant.",
+            },
+          ],
+        },
+        {
+          when: "Posterior open bite, no obstruction",
+          action: "Suspect primary failure of eruption: avoid early orthodontic forces.",
+          criteria: [
+            "Family history in ~85%",
+            "Teeth distal to the first affected tooth also fail",
+          ],
+          details: [
+            "Orthodontic force can make PFE teeth ankylose",
+            "Maintain space; definitive care after growth (osteotomies, implants)",
+          ],
+        },
+      ],
+      evidence: [{ source: "growth", pages: "5–8" }],
+    },
+    {
+      question: "Crossbite: dental, functional, or skeletal?",
+      branches: [
+        {
+          when: "Anterior crossbite",
+          action: "Check molar relationship and whether the mandible shifts forward to close.",
+          children: [
+            {
+              when: "Dental: Class I molars, tipped incisors",
+              action:
+                "Align as soon as noted if space allows: incline plane, retainer with lingual springs, or fixed springs.",
+              details: ["Add an expansion appliance if space is needed"],
+            },
+            {
+              when: "Functional: forward shift on closing",
+              action: "Eliminate the shift early.",
+            },
+            {
+              when: "Skeletal Class III",
+              action: "Treat as a Class III malocclusion (see the Class II / III map).",
+            },
+          ],
+        },
+        {
+          when: "Posterior crossbite",
+          action:
+            "Look for a mandibular shift; a unilateral crossbite is usually a bilateral constriction.",
+          children: [
+            {
+              when: "One tooth tipped or rotated",
+              action: "Localized dental correction with an appliance.",
+            },
+            {
+              when: "Functional shift",
+              action:
+                "Correct early: equilibration, fixed or removable appliance, extractions, or a combination.",
+              details: [
+                "Early correction largely eliminates mandibular asymmetry and reduces TMD risk",
+              ],
+            },
+            {
+              when: "Skeletal maxillary constriction",
+              action: "Palatal expansion, possible until the midpalatal suture fuses.",
+              details: ["With Class III or skeletal asymmetry: comprehensive treatment"],
+            },
+          ],
+        },
+      ],
+      evidence: [{ source: "growth", pages: "10–11" }],
+    },
+    {
+      question: "Class II or Class III: intercept now or wait?",
+      branches: [
         {
           when: "Class II",
           action:
-            "Headgear or functional appliance for growth modification; fixed appliances, extraction + elastics, or surgery.",
-          criteria: [
-            "Overjet >3 mm raises incisor injury risk; >8 mm → trauma in >40%",
-            "Overjet ≥5 mm: early treatment may reduce trauma",
+            "One- or two-phase treatment both correct it; decide on trauma risk and psychosocial need.",
+          children: [
+            {
+              when: "Overjet ≥ 5 mm",
+              action: "Consider interceptive treatment to reduce incisor trauma risk.",
+              details: [
+                "Overjet > 3 mm raises injury risk; > 8 mm → trauma in over 40%",
+                "May improve self-esteem and facial convexity",
+              ],
+            },
+            {
+              when: "No trauma or psychosocial driver",
+              action: "Treat in one phase in the permanent dentition.",
+              details: [
+                "Two-phase treatment takes significantly longer",
+                "Growth response to headgear or functional appliances varies and can’t be predicted",
+              ],
+            },
           ],
           details: [
-            "Single- and 2-phase both correct Class II (RCTs); 2-phase takes longer",
-            "Growth response to headgear/functional appliances varies; no reliable predictor",
-            "Early treatment may help self-esteem, facial convexity, trauma risk",
-            "Weigh growth pattern, AP discrepancy, age, compliance, space, anchorage",
+            "Options: headgear, functional appliance, fixed appliances, extraction + elastics, surgery",
           ],
         },
         {
           when: "Class III",
           action:
-            "Start in primary/early mixed: protraction ± RPE, functional appliance, miniplate elastics, or chin cup.",
-          criteria: [
-            "Dental, skeletal, or anterior functional shift",
-            "Hereditary (clefts, syndromes) or environmental (habits, OSA, trauma)",
-          ],
-          details: [
-            "Protraction therapy with or without rapid palatal expansion",
-            "Intermaxillary elastics with modified miniplates",
-            "Growth is longer and less predictable; surgery may still be needed",
-            "Surgery signs: mandible forward, long mandible, short ramus, obtuse gonial angle",
-          ],
-        },
-        {
-          when: "Sucking or tongue habit",
-          action:
-            "Counsel first; add appliance therapy or referral when the habit threatens development.",
-          criteria: [
-            "Frequency, duration, intensity; resting pressure matters most",
-            "Open bite, posterior crossbite, overjet, forward resting tongue",
-          ],
-          details: [
-            "Guide families to stop nonnutritive sucking by 36 mo or younger",
-            "Counseling, behavior modification, myofunctional therapy",
-            "Appliance therapy: intraoral or extraoral",
-            "Refer: orthodontist, psychologist, myofunctional therapist, ENT",
-            "Tongue thrust swallow with normal resting posture: no treatment",
+            "Separate dental, functional shift, and skeletal causes; start early if skeletal.",
+          children: [
+            {
+              when: "Growing, primary or early mixed dentition",
+              action:
+                "Interceptive treatment: protraction ± rapid palatal expansion, functional appliance, miniplate elastics, or chin cup.",
+            },
+            {
+              when: "Signs of surgical Class III",
+              action: "Warn the family early treatment may not prevent orthognathic surgery.",
+              criteria: [
+                "Mandible forward to cranial base; long mandible",
+                "Short ramus; obtuse gonial angle",
+              ],
+            },
           ],
         },
         {
-          when: "Bruxism or self-injury",
-          action:
-            "Bruxism: education, then occlusal splint. Self-injury: lip bumper, bite appliance, or padding.",
-          criteria: [
-            "Juvenile bruxism is self-limiting; separate attrition from erosion",
-            "Self-injury: developmental disability, Lesch-Nyhan, Rett, others",
-          ],
-          details: [
-            "Bruxism: behavioral or psychological strategies, medication",
-            "Self-injury: occlusal/bite-opening appliance, protective padding",
-            "Also recontouring, extraction; medical: drugs, botulinum toxin",
-          ],
-        },
-        {
-          when: "Before any appliance",
+          when: "Before deciding",
           tone: "always",
+          action: "Weigh growth pattern, AP discrepancy, age, compliance, space, and anchorage.",
+        },
+      ],
+      evidence: [{ source: "growth", pages: "11" }],
+    },
+    {
+      question: "Oral habit: counsel, appliance, or refer?",
+      branches: [
+        {
+          when: "Thumb, finger, or pacifier",
           action:
-            "Name the objective, timing, and exit point; appliances only work with compliance and review.",
-          details: [
-            "Records: photos, casts, panoramic/intraoral films, ceph as indicated",
-            "Treatment must fit the child's development, comprehension, cooperation",
-            "Plan for repair, recementation, or replacement as the dentition changes",
+            "Anticipatory guidance to stop by 36 months; treat if it is shaping the dentition.",
+          criteria: [
+            "Linked to anterior open bite and posterior crossbite",
+            "Weigh frequency, duration, intensity",
+          ],
+          children: [
+            {
+              when: "Child wants to stop",
+              action: "Counseling and behavior modification.",
+            },
+            {
+              when: "Persisting with dental effects",
+              action:
+                "Habit appliance or referral (orthodontist, psychologist, myofunctional therapist).",
+            },
           ],
         },
-      ],
-      evidence: [
         {
-          source: "growth",
-          pages: "2, 4–5, 9–11",
+          when: "Tongue thrust",
+          action: "Matters only if the resting tongue posture is forward.",
+          details: ["Brief swallowing contacts don’t move teeth; resting forces do"],
+        },
+        {
+          when: "Bruxism",
+          action: "Usually self-limiting; rule out erosion as the cause of wear.",
+          details: [
+            "Options: education, occlusal splint, behavioral or psychological strategies, medication",
+          ],
+        },
+        {
+          when: "Mouth breathing, snoring, apneas",
+          action: "Screen for obstructive sleep apnea and refer to the physician or ENT.",
+          criteria: [
+            "Narrow maxilla, crossbite, open bite, vertical growth",
+            "Enlarged tonsils, adenoidal facies, restless sleep, bedwetting",
+          ],
+        },
+        {
+          when: "Self-injury (lip or tongue biting)",
+          action:
+            "Protect: lip bumper, bite-opening appliance, padding, recontouring, or extraction.",
+          details: ["Medical options include botulinum toxin"],
         },
       ],
+      evidence: [{ source: "growth", pages: "4–5" }],
     },
   ],
   "practice-safety": [
@@ -794,6 +1212,39 @@ export const themeDiagrams: Readonly<Record<string, readonly DecisionMap[]>> = {
           pages: "8",
         },
       ],
+    },
+    {
+      question: "Who can consent for this child?",
+      branches: [
+        {
+          when: "Parent with legal rights",
+          action: "Either parent alone can usually consent, unless a court order says otherwise.",
+          details: [
+            "Includes adoptive parents, court-appointed guardians, and foster parents placed by the state",
+          ],
+        },
+        {
+          when: "Grandparent, stepparent, babysitter, noncustodial parent",
+          action: "Not automatically authorized: confirm legal authority, or reach the parent.",
+          details: ["A copy of the court order verifies a guardian’s authority"],
+        },
+        {
+          when: "Emancipated minor",
+          action: "Consents for their own care; no parental permission needed.",
+        },
+        {
+          when: "Adult with intellectual disability",
+          action: "Guardian consents, or supported decision-making where the state allows it.",
+        },
+        {
+          when: "Every patient",
+          tone: "always",
+          action:
+            "Seek the child’s assent, use a qualified interpreter when needed, and document the discussion.",
+          details: ["Translation apps aren’t yet accurate enough to rely on"],
+        },
+      ],
+      evidence: [{ source: "consent", pages: "1–3" }],
     },
   ],
   pulp: [
