@@ -2,17 +2,19 @@ import { ArrowRight, BookOpen, ChevronDown, Clock3, FileText, Leaf } from "lucid
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { StudyHeader } from "@/components/study-header";
+import { CoverageGrid } from "@/components/coverage-grid";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { StepChain } from "@/components/step-chain";
 import { ExternalLink } from "@/components/ui";
-import { domains, officialResources, practiceBlocks, studySources } from "@/lib/study";
+import {
+  answerFramework,
+  domains,
+  officialResources,
+  practiceBlocks,
+  studySources,
+} from "@/lib/study";
 import { studyThemes } from "@/lib/study-themes";
-
-const eyebrowClass =
-  "flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-slate-600";
-const textLinkClass =
-  "inline-flex items-center gap-2 text-sm font-medium leading-normal text-emerald-700 underline decoration-1 underline-offset-4 transition-colors hover:text-amber-700 motion-reduce:transition-none";
-const solidLinkClass =
-  "inline-flex items-center justify-center gap-2 rounded-md border border-slate-900 bg-slate-900 px-4 py-3 text-base font-medium leading-normal text-white no-underline transition-colors hover:bg-emerald-800 hover:text-white motion-reduce:transition-none";
 
 export const metadata: Metadata = {
   title: "OCE study guide · Boards & beyond",
@@ -22,70 +24,64 @@ export const metadata: Metadata = {
 
 export default function StudyPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 print:bg-white">
-      <a
-        className="fixed -top-20 left-5 z-10 bg-slate-900 px-5 py-3 text-white no-underline focus:top-3 print:hidden"
-        href="#study-content"
-      >
+    <div className="print:bg-white">
+      <a className="skip-link print:hidden" href="#study-content">
         Skip to study guide
       </a>
-      <StudyHeader />
-      <main
-        className="mx-auto max-w-[1360px] px-11 max-[1190px]:px-8 max-[760px]:px-5"
-        id="study-content"
-      >
-        <section className="grid grid-cols-[minmax(0,1fr)_330px] items-center gap-20 pt-16 pb-13 max-[1100px]:grid-cols-[minmax(0,1fr)_280px] max-[1100px]:gap-9 max-[760px]:grid-cols-1 max-[760px]:gap-7 max-[760px]:pt-8 max-[760px]:pb-8">
+      <SiteHeader current="study" />
+      <main className="page-shell" id="study-content">
+        <section className="grid grid-cols-[minmax(0,1fr)_330px] items-center gap-20 pt-14 pb-13 max-lg:grid-cols-[minmax(0,1fr)_280px] max-lg:gap-9 max-md:grid-cols-1 max-md:gap-7 max-md:pt-10 max-md:pb-8">
           <div>
-            <p className={eyebrowClass}>
+            <p className="eyebrow">
               <BookOpen size={16} aria-hidden="true" /> YOUR OCE FIELD NOTES
             </p>
-            <h1 className="mt-4 mb-6 font-sans text-6xl font-medium leading-tight tracking-tight max-[420px]:text-5xl">
+            <h1 className="type-display mt-5 mb-6">
               Practice with a plan.
               <br />
-              <em className="font-normal text-emerald-700">Then take a breath.</em>
+              <em className="text-pine">Then take a breath.</em>
             </h1>
-            <p className="max-w-[600px] text-lg leading-relaxed text-slate-600 max-[760px]:text-base">
+            <p className="type-lead max-w-[36rem]">
               A focused crash course for pediatric dental oral boards. Review the decision points,
               say your reasoning out loud, and use the original sources to close the gaps.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-6 max-[420px]:gap-4">
-              <Link className={solidLinkClass} href="/study/themes">
+            <div className="mt-6 flex flex-wrap items-center gap-6 max-sm:gap-4">
+              <Link className="btn btn-primary" href="/study/themes">
                 Learn the themes <ArrowRight size={17} aria-hidden="true" />
               </Link>
-              <a className={textLinkClass} href="#sat-cases">
+              <a className="link" href="#sat-cases">
                 Your practice plan
               </a>
-              <Link className={textLinkClass} href="/study/recap">
+              <Link className="link" href="/study/recap">
                 <FileText size={16} aria-hidden="true" /> One-page recap
               </Link>
             </div>
           </div>
-          <aside className="rounded-lg bg-emerald-50 p-7 max-[760px]:p-6">
+          <aside className="panel p-7 max-md:p-6">
             <Leaf
-              className="text-emerald-700 max-[760px]:hidden"
+              className="text-pine max-md:hidden"
               size={25}
               strokeWidth={1.4}
               aria-hidden="true"
             />
-            <h2 className="mt-3 font-sans text-2xl font-semibold leading-snug tracking-tight max-[760px]:text-3xl">
+            <h2 className="type-heading mt-3">
               Enough structure.
-              <br className="max-[760px]:hidden" /> Room to breathe.
+              <br className="max-md:hidden" /> Room to breathe.
             </h2>
             <dl className="mt-6 mb-4">
-              <div className="flex justify-between gap-2 border-t border-slate-200 py-2 text-sm">
-                <dt className="text-slate-600">Focused preparation</dt>
+              <div className="flex justify-between gap-2 border-t border-line py-2 text-sm">
+                <dt className="text-muted">Focused preparation</dt>
                 <dd className="m-0 font-semibold">6½ hours</dd>
               </div>
-              <div className="flex justify-between gap-2 border-t border-slate-200 py-2 text-sm">
-                <dt className="text-slate-600">Blueprint domains</dt>
+              <div className="flex justify-between gap-2 border-t border-line py-2 text-sm">
+                <dt className="text-muted">Blueprint domains</dt>
                 <dd className="m-0 font-semibold">All 10</dd>
               </div>
-              <div className="flex justify-between gap-2 border-t border-slate-200 py-2 text-sm">
-                <dt className="text-slate-600">Monday stopping point</dt>
+              <div className="flex justify-between gap-2 border-t border-line py-2 text-sm">
+                <dt className="text-muted">Monday stopping point</dt>
                 <dd className="m-0 font-semibold">9:45 AM</dd>
               </div>
             </dl>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-muted">
               Choose the readings for your weak areas. This weekend is for consolidation, not
               reading the entire manual.
             </p>
@@ -93,26 +89,23 @@ export default function StudyPage() {
         </section>
 
         <section
-          className="grid grid-cols-[280px_minmax(0,1fr)] gap-10 border-y border-slate-200 py-7 max-[1100px]:grid-cols-[245px_minmax(0,1fr)] max-[1100px]:gap-6 max-[760px]:grid-cols-1 max-[760px]:gap-4"
+          className="grid grid-cols-[280px_minmax(0,1fr)] gap-10 border-y border-line py-7 max-lg:grid-cols-[245px_minmax(0,1fr)] max-lg:gap-6 max-md:grid-cols-1 max-md:gap-4"
           aria-labelledby="answer-heading"
         >
           <div>
-            <p className={eyebrowClass}>BEFORE EVERY CASE</p>
-            <h2
-              className="mt-2 font-sans text-2xl font-semibold leading-snug tracking-tight"
-              id="answer-heading"
-            >
+            <p className="eyebrow">BEFORE EVERY CASE</p>
+            <h2 className="type-heading mt-2" id="answer-heading">
               Answer what was asked.
             </h2>
           </div>
           <div>
-            <p className="text-base text-emerald-700">
+            <p className="type-lead text-pine-deep">
               Pause, clarify if needed, then give a direct answer with a reason. When a full plan is
-              requested, try:{" "}
-              <strong>findings → diagnosis → options → recommendation → follow-up.</strong> Use only
-              the parts relevant to the question.
+              requested, walk through the sequence below. Use only the parts relevant to the
+              question.
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            <StepChain text={answerFramework} size="sm" className="mt-4" />
+            <p className="mt-2 text-sm leading-relaxed text-muted">
               An original rehearsal aid informed by ABPD’s communication guidance. Examiners assess
               clinical reasoning, communication, and professionalism; their 1–3 ratings distinguish
               inaccurate, incomplete, and fully demonstrated performance. This page does not predict
@@ -125,48 +118,46 @@ export default function StudyPage() {
           </div>
         </section>
 
-        <div className="mt-10 grid grid-cols-[245px_minmax(0,1fr)] items-start gap-19 max-[1100px]:grid-cols-[190px_minmax(0,1fr)] max-[1100px]:gap-9 max-[760px]:mt-7 max-[760px]:block">
-          <aside className="sticky top-5 max-[760px]:static max-[760px]:mb-7">
+        <div className="mt-10 grid grid-cols-[245px_minmax(0,1fr)] items-start gap-19 max-lg:grid-cols-[190px_minmax(0,1fr)] max-lg:gap-9 max-md:mt-7 max-md:block">
+          <aside className="sticky top-5 max-md:static max-md:mb-7">
             <nav
-              className="flex flex-col max-[760px]:grid max-[760px]:grid-cols-2 max-[760px]:gap-x-2 max-[760px]:gap-y-1"
+              className="flex flex-col max-md:grid max-md:grid-cols-2 max-md:gap-x-2 max-md:gap-y-1"
               aria-label="Practice blocks"
             >
-              <p className={`${eyebrowClass} mb-4 max-[760px]:col-span-full max-[760px]:mb-2`}>
+              <p className={`eyebrow mb-4 max-md:col-span-full max-md:mb-2`}>
                 YOUR PRACTICE BLOCKS
               </p>
               {practiceBlocks.map((block) => (
                 <a
-                  className="flex flex-col border-l-2 border-slate-200 px-4 py-3 no-underline hover:border-emerald-300 hover:bg-emerald-50 max-[1100px]:pl-2 max-[760px]:px-3 max-[760px]:py-2"
+                  className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
                   key={block.id}
                   href={`#${block.id}`}
                 >
-                  <span className="text-sm text-slate-600">{block.day}</span>
+                  <span className="text-sm text-muted">{block.day}</span>
                   <strong className="text-sm font-medium">{block.time}</strong>
-                  <small className="mt-0 text-sm text-slate-600 max-[760px]:hidden">
-                    {block.title}
-                  </small>
+                  <small className="mt-0 text-sm text-muted max-md:hidden">{block.title}</small>
                 </a>
               ))}
               <a
-                className="flex flex-col border-l-2 border-slate-200 px-4 py-3 no-underline hover:border-emerald-300 hover:bg-emerald-50 max-[1100px]:pl-2 max-[760px]:px-3 max-[760px]:py-2"
+                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
                 href="#blueprint"
               >
                 <strong className="text-sm font-medium">Blueprint at a glance</strong>
               </a>
               <a
-                className="flex flex-col border-l-2 border-slate-200 px-4 py-3 no-underline hover:border-emerald-300 hover:bg-emerald-50 max-[1100px]:pl-2 max-[760px]:px-3 max-[760px]:py-2"
+                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
                 href="#official-resources"
               >
                 <strong className="text-sm font-medium">Official resource library</strong>
               </a>
               <Link
-                className="flex flex-col border-l-2 border-slate-200 px-4 py-3 no-underline hover:border-emerald-300 hover:bg-emerald-50 max-[1100px]:pl-2 max-[760px]:px-3 max-[760px]:py-2"
+                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
                 href="/study/recap"
               >
                 <strong className="text-sm font-medium">Print your recap sheet ↗</strong>
               </Link>
               <Link
-                className="flex flex-col border-l-2 border-slate-200 px-4 py-3 no-underline hover:border-emerald-300 hover:bg-emerald-50 max-[1100px]:pl-2 max-[760px]:px-3 max-[760px]:py-2"
+                className="flex flex-col border-l-2 border-line px-4 py-3 no-underline hover:border-pine/40 hover:bg-pine-wash max-lg:pl-2 max-md:px-3 max-md:py-2"
                 href="/study/themes"
               >
                 <strong className="text-sm font-medium">Theme notes & decision maps ↗</strong>
@@ -174,73 +165,63 @@ export default function StudyPage() {
             </nav>
           </aside>
           <div className="min-w-0">
-            <p className="border-b border-slate-200 pb-5 text-sm leading-relaxed text-slate-600">
+            <p className="border-b border-line pb-5 text-sm leading-relaxed text-muted">
               Independent study aid, reviewed September 23, 2026. The prompts below are original
               practice cases, not ABPD exam questions. Clinical notes are brief review cues; use the
               full current guidelines and your training for treatment decisions.
             </p>
             {practiceBlocks.map((block, index) => (
               <section
-                className="scroll-mt-6 border-b border-slate-200 py-9"
+                className="scroll-mt-6 border-b border-line py-9"
                 id={block.id}
                 key={block.id}
                 aria-labelledby={`${block.id}-heading`}
               >
-                <div className="flex items-start gap-4 max-[760px]:flex-wrap max-[760px]:gap-3">
-                  <span
-                    className="font-sans text-lg font-semibold leading-normal text-slate-600"
-                    aria-hidden="true"
-                  >
+                <div className="flex items-start gap-4 max-md:flex-wrap max-md:gap-3">
+                  <span className="type-data pt-1 text-sm text-muted" aria-hidden="true">
                     0{index + 1}
                   </span>
-                  <div className="max-[760px]:flex-1">
-                    <p className={eyebrowClass}>
+                  <div className="max-md:flex-1">
+                    <p className="eyebrow">
                       {block.day} · {block.time}
                     </p>
-                    <h2
-                      className="mt-2 font-sans text-3xl font-semibold leading-snug tracking-tight max-[760px]:text-2xl"
-                      id={`${block.id}-heading`}
-                    >
+                    <h2 className="type-title mt-2" id={`${block.id}-heading`}>
                       {block.title}
                     </h2>
                   </div>
-                  <span className="ml-auto flex items-center gap-1 whitespace-nowrap rounded-full bg-emerald-50 px-2 py-1 text-sm max-[760px]:ml-8">
+                  <span className="ml-auto flex items-center gap-1 whitespace-nowrap rounded-full bg-pine-wash px-2 py-1 text-sm max-md:ml-8">
                     <Clock3 size={14} aria-hidden="true" />
                     {block.minutes} min
                   </span>
                 </div>
-                <p className="my-4 mb-6 max-w-[65ch] text-base text-slate-600">{block.purpose}</p>
+                <p className="my-4 mb-6 max-w-[65ch] text-base text-muted">{block.purpose}</p>
                 <ol className="mb-6 list-none p-0">
                   {block.steps.map((step) => (
                     <li
-                      className="grid grid-cols-[65px_minmax(0,1fr)] gap-4 py-2 text-base max-[760px]:grid-cols-[54px_minmax(0,1fr)] max-[760px]:gap-3"
+                      className="grid grid-cols-[65px_minmax(0,1fr)] gap-4 py-2 text-base max-md:grid-cols-[54px_minmax(0,1fr)] max-md:gap-3"
                       key={step.task}
                     >
-                      <span className="pt-0 text-sm font-medium text-amber-800">
+                      <span className="type-data pt-0.5 text-sm text-ochre">
                         {step.minutes} min
                       </span>
                       <p>{step.task}</p>
                     </li>
                   ))}
                 </ol>
-                <div className="my-6 rounded-md bg-emerald-50 px-4 py-4">
-                  <span className={eyebrowClass}>REVIEW FOR THIS SESSION</span>
+                <div className="my-6 rounded-md bg-sunk px-4 py-4">
+                  <span className="eyebrow">REVIEW FOR THIS SESSION</span>
                   <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
                     {studyThemes
                       .filter((theme) => theme.sessionIds.includes(block.id))
                       .map((theme) => (
-                        <Link
-                          className={textLinkClass}
-                          href={`/study/themes#${theme.id}`}
-                          key={theme.id}
-                        >
+                        <Link className="link" href={`/study/themes#${theme.id}`} key={theme.id}>
                           {theme.shortTitle} <ArrowRight size={13} aria-hidden="true" />
                         </Link>
                       ))}
                   </div>
                 </div>
                 {block.domains.length > 0 && (
-                  <div className="overflow-hidden rounded-lg border border-slate-200">
+                  <div className="card overflow-hidden">
                     {block.domains.map((id) => {
                       const domain = domains.find((item) => item.id === id);
                       if (domain === undefined) {
@@ -248,19 +229,17 @@ export default function StudyPage() {
                       }
                       return (
                         <details
-                          className="group scroll-mt-6 border-t border-slate-200 first:border-t-0"
+                          className="group scroll-mt-6 border-t border-line first:border-t-0"
                           key={id}
                           id={`domain-${id}`}
                         >
-                          <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-4 hover:bg-emerald-50 max-[760px]:gap-2 max-[760px]:px-3">
-                            <span className="min-w-8 text-base font-semibold text-emerald-700 max-[760px]:min-w-[26px] max-[760px]:text-sm">
+                          <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-4 hover:bg-pine-wash max-md:gap-2 max-md:px-3">
+                            <span className="type-data min-w-10 text-sm font-medium text-pine max-md:min-w-[26px] max-md:text-sm">
                               {domain.weight}%
                             </span>
                             <span>
-                              <strong className="block font-sans text-xl font-semibold leading-normal">
-                                {domain.title}
-                              </strong>
-                              <small className="mt-1 block text-sm text-slate-600">
+                              <strong className="type-subhead block">{domain.title}</strong>
+                              <small className="mt-1 block text-sm text-muted">
                                 {domain.checkpoint}
                               </small>
                             </span>
@@ -270,32 +249,28 @@ export default function StudyPage() {
                               aria-hidden="true"
                             />
                           </summary>
-                          <div className="px-6 pb-6 text-base max-[760px]:px-4 max-[760px]:pb-5">
-                            <h3 className="pt-3 font-sans text-sm font-semibold">
+                          <div className="px-6 pb-6 text-base max-md:px-4 max-md:pb-5">
+                            <h3 className="pt-3 text-sm font-semibold">
                               Decision points to rehearse
                             </h3>
                             <ul className="mt-2 list-disc pl-5">
                               {domain.essentials.map((point) => (
                                 <li
-                                  className="max-w-[65ch] py-1 pl-1 leading-relaxed text-slate-800"
+                                  className="max-w-[65ch] py-1 pl-1 leading-relaxed text-ink-soft"
                                   key={point}
                                 >
                                   {point}
                                 </li>
                               ))}
                             </ul>
-                            <div className="my-5 mb-2 space-y-2 rounded-md bg-emerald-50 px-5 py-4 leading-relaxed">
-                              <p className={eyebrowClass}>
-                                SAY IT OUT LOUD · ORIGINAL PRACTICE PROMPT
-                              </p>
+                            <div className="my-5 mb-2 space-y-2 rounded-md bg-pine-wash px-5 py-4 leading-relaxed">
+                              <p className="eyebrow">SAY IT OUT LOUD · ORIGINAL PRACTICE PROMPT</p>
                               <p>{domain.prompt}</p>
                               <p>
                                 <strong>Change one thing:</strong> {domain.challenge}
                               </p>
                             </div>
-                            <h3 className="pt-3 font-sans text-sm font-semibold">
-                              Read to resolve a gap
-                            </h3>
+                            <h3 className="pt-3 text-sm font-semibold">Read to resolve a gap</h3>
                             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
                               {domain.resources.map((resource) => (
                                 <ExternalLink {...resource} key={resource.href} />
@@ -309,7 +284,7 @@ export default function StudyPage() {
                 )}
                 {block.resources.length > 0 && (
                   <div className="pt-1">
-                    <p className={eyebrowClass}>KEEP THESE HANDY</p>
+                    <p className="eyebrow">KEEP THESE HANDY</p>
                     <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
                       {block.resources.map((resource) => (
                         <ExternalLink key={resource.href} {...resource} />
@@ -318,11 +293,11 @@ export default function StudyPage() {
                   </div>
                 )}
                 {(block.id === "sun-recap" || block.id === "mon-review") && (
-                  <Link className={`${textLinkClass} mt-5`} href="/study/recap">
+                  <Link className={`link mt-5`} href="/study/recap">
                     <FileText size={16} aria-hidden="true" /> Open the one-page recap
                   </Link>
                 )}
-                <p className="mt-6 flex items-start gap-3 text-sm leading-relaxed text-emerald-700">
+                <p className="mt-6 flex items-start gap-3 text-sm leading-relaxed text-pine">
                   <Leaf size={17} aria-hidden="true" />
                   {block.finish}
                 </p>
@@ -332,45 +307,24 @@ export default function StudyPage() {
         </div>
 
         <section
-          className="mt-12 grid grid-cols-2 gap-21 scroll-mt-6 rounded-lg bg-emerald-50 p-10 max-[1100px]:gap-9 max-[760px]:mt-8 max-[760px]:grid-cols-1 max-[760px]:gap-6 max-[760px]:p-6"
+          className="panel mt-12 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] items-start gap-12 scroll-mt-6 p-10 max-lg:gap-9 max-lg:grid-cols-1 max-md:mt-8 max-md:gap-6 max-md:p-5"
           id="blueprint"
           aria-labelledby="blueprint-heading"
         >
           <div>
-            <p className={eyebrowClass}>THE WHOLE PICTURE</p>
-            <h2
-              className="mt-3 font-sans text-3xl font-semibold leading-snug tracking-tight"
-              id="blueprint-heading"
-            >
+            <p className="eyebrow">THE WHOLE PICTURE</p>
+            <h2 className="type-title mt-3" id="blueprint-heading">
               Ten domains. One thoughtful clinician.
             </h2>
-            <p className="my-4 text-base text-emerald-700">
-              The percentages below are ABPD’s published blueprint weights. They describe exam
-              coverage, not the number of minutes to spend studying. Labels are shortened here; open
-              the original for every task statement.
+            <p className="my-4 text-base text-pine">
+              The percentages are ABPD’s published blueprint weights. They describe exam coverage,
+              not the number of minutes to spend studying. The grid shows where each domain comes up
+              in your practice plan. Labels are shortened here; open the original for every task
+              statement.
             </p>
             <ExternalLink label="Complete ABPD blueprint" href={studySources.blueprint} />
           </div>
-          <div>
-            {domains.map((domain) => (
-              <a
-                className="group block py-2 no-underline"
-                href={`#domain-${domain.id}`}
-                key={domain.id}
-              >
-                <span className="flex justify-between gap-4 text-sm">
-                  {domain.title}
-                  <strong className="font-medium">{domain.weight}%</strong>
-                </span>
-                <span className="mt-1 block h-[3px] bg-emerald-100" aria-hidden="true">
-                  <span
-                    className="block h-full bg-emerald-600 group-hover:bg-amber-700"
-                    style={{ width: `${(domain.weight / 17) * 100}%` }}
-                  />
-                </span>
-              </a>
-            ))}
-          </div>
+          <CoverageGrid />
         </section>
 
         <section
@@ -378,38 +332,28 @@ export default function StudyPage() {
           id="official-resources"
           aria-labelledby="resources-heading"
         >
-          <p className={eyebrowClass}>THE ORIGINAL SOURCES</p>
-          <h2
-            className="mt-3 font-sans text-3xl font-semibold leading-snug tracking-tight"
-            id="resources-heading"
-          >
+          <p className="eyebrow">THE ORIGINAL SOURCES</p>
+          <h2 className="type-title mt-3" id="resources-heading">
             Your official resource shelf.
           </h2>
-          <p className="mt-4 max-w-[780px] text-base text-slate-600">
+          <p className="mt-4 max-w-[780px] text-base text-muted">
             The public candidate preparation resources linked from ABPD’s OCE pages, together in one
             place. Full documents and videos open at their original hosts; they are not copied into
             this app.
           </p>
-          <div className="mt-6 grid grid-cols-3 gap-x-8 max-[760px]:grid-cols-2 max-[760px]:gap-x-6 max-[420px]:grid-cols-1">
+          <div className="mt-6 grid grid-cols-3 gap-x-8 max-md:grid-cols-2 max-md:gap-x-6 max-sm:grid-cols-1">
             {officialResources.map((resource) => (
-              <article className="border-t border-slate-200 py-5" key={resource.href}>
+              <article className="border-t border-line py-5" key={resource.href}>
                 <ExternalLink {...resource} />
-                <p className="mt-2 text-sm text-slate-600">{resource.note}</p>
+                <p className="mt-2 text-sm text-muted">{resource.note}</p>
               </article>
             ))}
           </div>
-          <div className="mt-5 flex items-start gap-6 rounded-lg bg-amber-50 p-7 max-[760px]:gap-4 max-[760px]:p-6">
-            <BookOpen
-              className="max-[760px]:hidden"
-              size={26}
-              strokeWidth={1.4}
-              aria-hidden="true"
-            />
+          <div className="callout mt-5 flex items-start gap-6 p-7 max-md:gap-4 max-md:p-6">
+            <BookOpen className="max-md:hidden" size={26} strokeWidth={1.4} aria-hidden="true" />
             <div>
-              <h3 className="font-sans text-2xl font-semibold leading-snug tracking-tight">
-                AAPD Reference Manual · 2026–2027
-              </h3>
-              <p className="mt-3 text-base text-slate-600">
+              <h3 className="type-heading">AAPD Reference Manual · 2026–2027</h3>
+              <p className="mt-3 text-base text-muted">
                 ABPD recommends the AAPD policies and clinical guidance, recent research, and
                 textbooks; it does not provide a closed list of required books or articles on its
                 study-tips page. The selected chapter links above match your sessions. The complete
@@ -417,7 +361,7 @@ export default function StudyPage() {
                 periodontal care, child protection, medication references, and other topics for a
                 targeted gap check.
               </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              <p className="mt-2 text-sm leading-relaxed text-muted">
                 AAPD currently labels the 2026–2027 collection “Official But Unformatted.” Check
                 each document’s revision date and distinguish a newly revised chapter from older
                 guidance carried into the current edition.
@@ -431,14 +375,10 @@ export default function StudyPage() {
             </div>
           </div>
         </section>
-        <footer className="mt-15 flex items-center justify-between gap-6 border-t border-slate-200 py-7 pb-8 text-sm text-slate-600 max-[760px]:mt-10 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-3 max-[760px]:py-6">
-          <span className="flex items-center gap-2 font-sans text-lg font-medium leading-normal">
-            Clear thinking. Kind communication. Then a little Raleigh.
-          </span>
-          <Link className={textLinkClass} href="/">
-            Back to your itinerary <ArrowRight size={15} aria-hidden="true" />
-          </Link>
-        </footer>
+        <SiteFooter
+          tagline="Clear thinking. Kind communication. Then a little Raleigh."
+          next={{ href: "/study/themes", label: "Learn the themes" }}
+        />
       </main>
     </div>
   );

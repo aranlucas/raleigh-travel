@@ -21,7 +21,7 @@ export function ToothMark({ className = "" }: Readonly<{ className?: string }>) 
       />
       <path d="M14 15c2 2 6 2 8 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       <path
-        className="stroke-amber-700"
+        className="stroke-cardinal"
         d="M31 2v5M28.5 4.5h5"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -30,19 +30,30 @@ export function ToothMark({ className = "" }: Readonly<{ className?: string }>) 
   );
 }
 
+export function Wordmark({ className = "" }: Readonly<{ className?: string }>) {
+  return (
+    <Link
+      className={`inline-flex shrink-0 items-center gap-3 text-ink no-underline ${className}`}
+      href="/"
+      aria-label="Boards and beyond, home"
+    >
+      <ToothMark className="h-8 w-7 text-pine-deep" />
+      <span className="font-display text-2xl leading-none tracking-tight">Boards & beyond</span>
+    </Link>
+  );
+}
+
 export function ExternalLink({ href, label }: PlanLink) {
-  const className =
-    "inline-flex items-center gap-2 text-sm font-medium leading-relaxed text-emerald-700 underline underline-offset-4 transition-colors hover:text-amber-700 motion-reduce:transition-none";
   if (href.startsWith("/")) {
     return (
-      <Link className={className} href={href}>
+      <Link className="link" href={href}>
         {label}
         <ArrowUpRight size={15} aria-hidden="true" />
       </Link>
     );
   }
   return (
-    <a className={className} href={href} target="_blank" rel="noopener noreferrer">
+    <a className="link" href={href} target="_blank" rel="noopener noreferrer">
       {label}
       <ArrowUpRight size={15} aria-hidden="true" />
       <span className="sr-only"> (opens in a new tab)</span>

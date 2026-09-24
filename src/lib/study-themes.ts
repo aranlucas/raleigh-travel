@@ -16,9 +16,17 @@ export type ThemeDecision = Readonly<{
   answer: string;
   evidence: readonly Evidence[];
 }>;
+export type DecisionBranch = Readonly<{
+  when: string;
+  action: string;
+  /** Row and column in `axes`, when the map is drawn as a matrix. */
+  cell?: readonly [number, number];
+  children?: readonly Readonly<{ when: string; action: string }>[];
+}>;
 export type DecisionMap = Readonly<{
   question: string;
-  branches: readonly Readonly<{ when: string; action: string }>[];
+  axes?: Readonly<{ rows: readonly string[]; columns: readonly string[] }>;
+  branches: readonly DecisionBranch[];
   evidence: readonly Evidence[];
 }>;
 export type StudyTheme = Readonly<{
@@ -529,22 +537,27 @@ export const studyThemes: readonly StudyTheme[] = [
     },
     diagram: {
       question: "Which pulp pathway are you defending?",
+      axes: { rows: ["Primary", "Permanent"], columns: ["Potentially vital", "Nonvital"] },
       branches: [
         {
           when: "Primary · potentially vital",
+          cell: [0, 0],
           action:
             "Selective removal/IPT or calcium-silicate pulpotomy when selection criteria fit.",
         },
         {
           when: "Primary · nonvital",
+          cell: [0, 1],
           action: "Pulpectomy, selected short-term LSTR, or extraction.",
         },
         {
           when: "Permanent · potentially vital",
+          cell: [1, 0],
           action: "Depth, symptoms, periapical tissues, and bleeding guide vital therapy.",
         },
         {
           when: "Immature permanent · necrotic",
+          cell: [1, 1],
           action: "Assess regeneration or apexification and long-term prognosis.",
         },
       ],
@@ -686,6 +699,16 @@ export const studyThemes: readonly StudyTheme[] = [
           when: "Permanent tooth",
           action:
             "Urgent replantation when appropriate; dry time, storage, and apex guide prognosis and follow-up.",
+          children: [
+            {
+              when: "Closed apex",
+              action: "Endodontic treatment generally within two weeks.",
+            },
+            {
+              when: "Open apex",
+              action: "May revascularize; intervene for definite necrosis or infection.",
+            },
+          ],
         },
       ],
       evidence: [
@@ -695,7 +718,7 @@ export const studyThemes: readonly StudyTheme[] = [
         },
         {
           source: "avulsion",
-          pages: "2–5",
+          pages: "2–6",
         },
       ],
     },

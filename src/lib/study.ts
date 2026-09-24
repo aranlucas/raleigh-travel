@@ -544,6 +544,8 @@ export const practiceBlocks: PracticeBlock[] = [
   },
 ];
 
+export const answerFramework = "Findings → diagnosis → options → recommendation → follow-up";
+
 export const recapSections = [
   {
     title: "Caries + prevention · 27%",

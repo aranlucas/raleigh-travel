@@ -1,7 +1,9 @@
 import { ChevronRight, Leaf } from "lucide-react";
 
-import { daySummary, type Activity, type Category, type Day } from "@/lib/itinerary";
+import { daySummary, type Activity, type Day } from "@/lib/itinerary";
 
+import { categoryTones } from "./category";
+import { DayOfTimeline } from "./day-ribbon";
 import { ExternalLink } from "./ui";
 
 export type Filter = "all" | "study" | "explore";
@@ -11,67 +13,45 @@ const filters: { value: Filter; label: string }[] = [
   { value: "explore", label: "Explore" },
 ];
 
-const categoryStyles: Record<Category, { label: string; node: string }> = {
-  study: { label: "bg-emerald-100 text-emerald-700", node: "bg-emerald-600" },
-  explore: { label: "bg-emerald-100 text-emerald-700", node: "bg-emerald-600" },
-  reset: { label: "bg-amber-100 text-amber-800", node: "bg-amber-500" },
-  travel: { label: "bg-sky-100 text-sky-800", node: "bg-sky-700" },
-  exam: { label: "bg-emerald-800 text-white", node: "bg-emerald-800" },
-};
-
-const focusClasses =
-  "focus-visible:outline-2 focus-visible:outline-amber-700 focus-visible:outline-offset-[5px] focus-visible:rounded-sm";
-const linkGroupClasses = "flex flex-wrap gap-x-6 gap-y-3 mt-4";
-const textButtonClasses =
-  "inline-flex items-center gap-2 p-0 text-sm font-medium leading-normal text-emerald-700 underline decoration-1 underline-offset-4 transition-colors motion-reduce:transition-none hover:text-amber-700";
-
 function ActivityRow({ activity }: Readonly<{ activity: Activity }>) {
-  const category = categoryStyles[activity.category];
+  const category = categoryTones[activity.category];
+  const [start, end] = activity.time.split("–");
 
   return (
-    <li
-      className={
-        "relative border-b border-slate-200 before:pointer-events-none before:absolute before:inset-y-0 before:left-[104px] before:w-px before:bg-emerald-100 before:content-[''] last:border-b-0 last:before:bottom-[52%] sm:before:left-[126px] md:before:left-[107px] lg:before:left-[134px] xl:before:left-[158px]"
-      }
-    >
+    <li className="relative border-b border-line before:pointer-events-none before:absolute before:top-0 before:bottom-0 before:left-[calc(5.5rem+5.5px)] before:w-px before:bg-line before:content-[''] first:before:top-8 last:border-b-0 last:before:bottom-auto last:before:h-8 sm:before:left-[calc(9.25rem+5.5px)]">
       <details className="group/details">
-        <summary
-          className={`group/summary relative grid cursor-pointer list-none grid-cols-[108px_12px_70px_minmax(0,1fr)_14px] items-start gap-x-3 px-0 py-6 pr-1 [&::-webkit-details-marker]:hidden ${focusClasses} max-sm:grid-cols-[88px_12px_minmax(0,1fr)_12px] max-sm:gap-x-2 max-sm:py-5 md:grid-cols-[91px_12px_minmax(0,1fr)_12px] md:gap-x-2 lg:grid-cols-[116px_12px_minmax(0,1fr)_14px] lg:gap-x-3 xl:grid-cols-[137px_14px_76px_minmax(0,1fr)_16px] xl:gap-x-4`}
-        >
-          <span className="pt-2 text-sm font-semibold leading-normal tabular-nums">
-            {activity.time.replaceAll(" ", "\u00A0")}
+        <summary className="group/summary grid grid-cols-[4.75rem_0.75rem_minmax(0,1fr)_1rem] items-start gap-x-3 py-5 sm:grid-cols-[8rem_0.75rem_minmax(0,1fr)_1rem] sm:gap-x-5 sm:py-6">
+          <span className="type-data flex flex-col pt-1.5 text-[0.8125rem] leading-snug text-ink-soft sm:text-sm">
+            <span>{start}</span>
+            {end === undefined ? null : <span className="text-muted">–{end}</span>}
           </span>
           <span
-            className={`z-[1] mt-2 size-3 rounded-full outline-3 outline-slate-50 ${category.node}`}
+            className={`relative z-[1] mt-2.5 size-3 rounded-full ring-4 ${activity.category === "exam" ? "ring-cardinal-wash" : "ring-canvas"} ${category.fill}`}
             aria-hidden="true"
           />
-          <span
-            className={`mt-1 inline-flex w-fit min-w-[52px] items-center justify-center rounded-md px-2 pt-1 pb-0 text-sm font-semibold leading-normal tracking-wide uppercase max-sm:col-start-3 max-sm:col-end-4 max-sm:mt-0 max-sm:mb-1 md:col-start-3 md:col-end-4 xl:col-auto xl:min-w-[61px] ${category.label}`}
-          >
-            {activity.category}
-          </span>
-          <span className="flex min-w-0 flex-col max-sm:col-start-3 max-sm:col-end-4 md:col-start-3 md:col-end-4 xl:col-auto">
-            <span className="text-2xl font-semibold leading-normal tracking-tight transition-colors motion-reduce:transition-none group-hover/summary:text-emerald-700">
+          <span className="flex min-w-0 flex-col">
+            <span className={`eyebrow ${category.text}`}>{activity.category}</span>
+            <span className="mt-1 font-display text-xl leading-snug tracking-tight transition-colors group-hover/summary:text-pine sm:text-2xl">
               {activity.title}
             </span>
-            <span className="mt-1 text-sm leading-normal text-slate-600">
+            <span className="mt-1 text-[0.9375rem] leading-normal text-muted">
               {activity.description}
             </span>
           </span>
           <ChevronRight
-            className={`mt-2 transition-transform motion-reduce:transition-none group-open/details:rotate-90 max-sm:col-start-4 max-sm:col-end-5 max-sm:row-start-1 max-sm:row-end-3 md:col-start-4 md:col-end-5 md:row-start-1 md:row-end-3 xl:col-auto xl:row-auto ${focusClasses}`}
-            size={18}
+            className="mt-7 text-muted transition-transform duration-200 group-open/details:rotate-90"
+            size={16}
             aria-hidden="true"
           />
         </summary>
-        <div className="relative px-7 pb-6 pl-[144px] text-sm leading-relaxed text-emerald-700 max-sm:pr-0 max-sm:pl-[120px] md:pl-[120px] lg:pl-[152px] xl:pl-[182px]">
+        <div className="pr-4 pb-6 pl-[7rem] text-[0.9375rem] leading-relaxed text-ink-soft sm:pl-[11.25rem]">
           {activity.details.map((detail, index) => (
             <p className={index > 0 ? "mt-2" : undefined} key={detail}>
               {detail}
             </p>
           ))}
           {activity.links ? (
-            <div className={linkGroupClasses}>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
               {activity.links.map((link) => (
                 <ExternalLink key={link.href} {...link} />
               ))}
@@ -97,23 +77,22 @@ export function Timeline({
   );
   return (
     <section
-      className="min-w-0"
+      className="min-w-0 animate-fade-up"
       role="tabpanel"
       id="daily-panel"
       aria-labelledby={`tab-${day.id}`}
       tabIndex={0}
     >
-      <div className="flex flex-wrap items-center justify-between gap-x-4 max-sm:gap-1">
-        <h2 className="text-4xl font-medium leading-tight tracking-tight">{day.title}</h2>
-        <span className="text-sm whitespace-nowrap">{daySummary(day)}</span>
-      </div>
-      <p className="mt-2 text-base text-slate-600">{day.description}</p>
-      <fieldset className="m-0 flex min-w-0 gap-2 border-0 p-0 mt-5 mb-6 xl:gap-3">
+      <p className="eyebrow">{daySummary(day)}</p>
+      <h2 className="type-title mt-3">{day.title}</h2>
+      <p className="type-lead mt-2">{day.description}</p>
+      {day.milestones === undefined ? null : <DayOfTimeline day={day} />}
+      <fieldset className="mt-6 mb-4 flex min-w-0 flex-wrap gap-2">
         <legend className="sr-only">Filter activities</legend>
         {filters.map((option) => (
           <button
             key={option.value}
-            className={`min-w-[76px] rounded-md border border-emerald-300 px-3 py-2 text-sm leading-normal transition-colors motion-reduce:transition-none hover:bg-emerald-50 aria-pressed:border-slate-900 aria-pressed:bg-slate-900 aria-pressed:text-white aria-pressed:hover:bg-slate-900 ${focusClasses} xl:min-w-[96px] xl:px-4`}
+            className="chip"
             type="button"
             aria-pressed={filter === option.value}
             onClick={() => {
@@ -128,24 +107,24 @@ export function Timeline({
         {activities.length} {filter === "all" ? "planned" : filter} activities for {day.title}
       </div>
       {activities.length > 0 ? (
-        <ol className="m-0 list-none p-0">
+        <ol className="list-none">
           {activities.map((activity) => (
             <ActivityRow key={activity.id} activity={activity} />
           ))}
         </ol>
       ) : (
-        <div className="rounded-md bg-emerald-50 px-6 py-12 text-center">
-          <Leaf className="mx-auto text-slate-600" size={25} aria-hidden="true" />
-          <h3 className="mt-2 text-3xl font-medium">
+        <div className="panel mt-4 px-6 py-12 text-center">
+          <Leaf className="mx-auto text-pine" size={24} aria-hidden="true" />
+          <h3 className="type-heading mt-3">
             {filter === "study" ? "The notes can stay closed." : "A little space in the day."}
           </h3>
-          <p className="mx-auto mt-2 mb-4 max-w-80 text-sm text-slate-600">
+          <p className="mx-auto mt-2 mb-5 max-w-80 text-[0.9375rem] text-muted">
             {filter === "study"
               ? "No study blocks today. Enjoy the change of pace."
               : "No sightseeing scheduled today. Keep your energy for the rest of the plan."}
           </p>
           <button
-            className={`${textButtonClasses} ${focusClasses}`}
+            className="btn btn-secondary"
             type="button"
             onClick={() => {
               onFilterChange("all");
@@ -155,9 +134,9 @@ export function Timeline({
           </button>
         </div>
       )}
-      <div className="mt-6 flex items-start gap-3 border-t border-slate-200 pt-6 text-emerald-700">
-        <Leaf className="mt-1" size={19} aria-hidden="true" />
-        <p className="text-xl font-medium leading-normal">{day.takeaway}</p>
+      <div className="mt-6 flex items-start gap-3 border-t border-line pt-6 text-pine-deep">
+        <Leaf className="mt-1.5" size={18} aria-hidden="true" />
+        <p className="font-display text-xl leading-snug text-balance">{day.takeaway}</p>
       </div>
     </section>
   );

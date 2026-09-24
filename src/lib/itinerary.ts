@@ -20,6 +20,7 @@ export type Day = Readonly<{
   description: string;
   takeaway: string;
   activities: readonly Activity[];
+  milestones?: readonly Readonly<{ time: string; label: string }>[];
 }>;
 export const sources = {
   abpd: "https://www.abpd.org/become-certified/oral-clinical-examination",
@@ -419,6 +420,12 @@ export const days: Day[] = [
     title: "Monday, October 5",
     description: "You have made space for this. Keep the morning simple.",
     takeaway: "Registration is at 2:45 PM. Leave the hotel around 2:25 PM.",
+    milestones: [
+      { time: "9:45 AM", label: "Close the notes" },
+      { time: "2:25 PM", label: "Leave the hotel" },
+      { time: "2:45 PM", label: "Registration" },
+      { time: "~6:15 PM", label: "Back at the hotel" },
+    ],
     activities: [
       {
         id: "mon-breakfast",
@@ -625,6 +632,56 @@ export function duration(minutes: number) {
     .filter(Boolean)
     .join(" ");
 }
+const zoneOffsets: Record<string, number> = { PT: 180, CT: 60, ET: 0 };
+
+function parseClock(text: string, fallbackMeridiem: string | undefined) {
+  const match = /(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?/u.exec(text);
+  if (match === null) {
+    return null;
+  }
+  const meridiem = match[3] ?? fallbackMeridiem;
+  const hours = (Number(match[1]) % 12) + (meridiem === "PM" ? 12 : 0);
+  return { minutes: hours * 60 + Number(match[2] ?? 0), explicit: match[3] !== undefined };
+}
+
+/** Minutes after midnight, Eastern time. Returns null for untimed entries. */
+export function parseTime(time: string): { start: number; end?: number } | null {
+  const offset = zoneOffsets[/\b(PT|CT|ET)\b/u.exec(time)?.[1] ?? "ET"];
+  const [startText, endText] = time.split("–");
+  const end = endText === undefined ? null : parseClock(endText, "AM");
+  const start = parseClock(startText, /(AM|PM)/u.exec(endText ?? "")?.[1]);
+  if (start === null) {
+    return null;
+  }
+  const startMinutes =
+    end !== null && !start.explicit && start.minutes > end.minutes
+      ? start.minutes - 720
+      : start.minutes;
+  return end === null
+    ? { start: startMinutes + offset }
+    : { start: startMinutes + offset, end: end.minutes + offset };
+}
+
+export type Span = Readonly<{ id: string; category: Category; start: number; end: number }>;
+
+/** Timed activities as Eastern spans; open-ended entries run until the next one begins. */
+export function daySpans(day: Day): Span[] {
+  const timed = day.activities.flatMap((activity) => {
+    const parsed = parseTime(activity.time);
+    return parsed === null ? [] : [{ activity, ...parsed }];
+  });
+  return timed.map((item, index) => {
+    const nextStart = timed.at(index + 1)?.start;
+    const end = item.end ?? nextStart ?? item.start + 60;
+    return {
+      id: item.activity.id,
+      category: item.activity.category,
+      start: item.start,
+      end: Math.max(end, item.start + 15),
+    };
+  });
+}
+
 export function daySummary(day: Day) {
   const study = studyMinutes(day);
   const exploring = day.activities.reduce(
