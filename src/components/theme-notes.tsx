@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { practiceBlocks } from "@/lib/study";
 import { pdfSources, type Evidence, type StudyTheme } from "@/lib/study-themes";
+import { themeDiagrams } from "@/lib/theme-diagrams";
 
 import { DecisionDiagram } from "./decision-map";
 import { StepChain } from "./step-chain";
@@ -50,6 +51,7 @@ export function ThemeNotes({ theme, index }: Readonly<{ theme: StudyTheme; index
     return source;
   });
   const sessions = practiceBlocks.filter((block) => theme.sessionIds.includes(block.id));
+  const diagrams = themeDiagrams[theme.id] ?? [];
   return (
     <section
       id={theme.id}
@@ -77,32 +79,36 @@ export function ThemeNotes({ theme, index }: Readonly<{ theme: StudyTheme; index
       >
         <span className="eyebrow">Remember</span>
         <StepChain text={theme.memoryCue} className="flex-1" />
-        <small className="text-sm text-muted">Original study cue</small>
       </div>
-      <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2 lg:gap-10">
-        <div
-          className={theme.diagram ? "min-w-0" : "min-w-0 lg:col-span-full lg:max-w-[870px]"}
-          data-key-points="true"
-        >
-          <h3 className="type-subhead">The key points</h3>
-          <ul className="mt-3 list-disc pl-5">
-            {theme.points.map((point) => (
-              <li className="pb-6 pl-1 last:pb-0" key={point.text}>
-                <p className="text-base leading-relaxed text-ink-soft">{point.text}</p>
-                <EvidenceLinks evidence={point.evidence} />
-              </li>
+      <div data-key-points="true">
+        <h3 className="type-subhead">The key points</h3>
+        <ul className="mt-3 grid list-disc grid-cols-1 gap-x-10 gap-y-5 pl-5 lg:grid-cols-2">
+          {theme.points.map((point) => (
+            <li className="pl-1" key={point.text}>
+              <p className="text-base leading-relaxed text-ink-soft">{point.text}</p>
+              <EvidenceLinks evidence={point.evidence} />
+            </li>
+          ))}
+        </ul>
+      </div>
+      {diagrams.length > 0 && (
+        <div className="mt-8" data-diagrams={theme.id}>
+          <h3 className="type-subhead">Picture the decision</h3>
+          <div className="mt-3 space-y-4">
+            {diagrams.map((map) => (
+              <figure
+                className="@container rounded-lg bg-sunk p-4 md:p-6"
+                data-diagram={theme.id}
+                key={map.question}
+              >
+                <DecisionDiagram map={map} />
+                <EvidenceLinks evidence={map.evidence} className="mt-4" />
+              </figure>
             ))}
-          </ul>
+          </div>
         </div>
-        {theme.diagram && (
-          <figure className="rounded-lg bg-sunk p-4 md:p-5" data-diagram={theme.id}>
-            <figcaption className="eyebrow mb-4">Picture the decision</figcaption>
-            <DecisionDiagram map={theme.diagram} />
-            <EvidenceLinks evidence={theme.diagram.evidence} className="mt-4" />
-          </figure>
-        )}
-      </div>
-      <div className="mt-6 md:mt-4" data-recall-section="true">
+      )}
+      <div className="mt-8" data-recall-section="true">
         <div className="mb-3 flex flex-wrap items-baseline gap-x-5 gap-y-2">
           <h3 className="type-subhead">The decisions to explain</h3>
           <p className="text-sm text-muted">Answer out loud, then open to check.</p>

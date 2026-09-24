@@ -122,7 +122,7 @@ export const days: Day[] = [
         description: "The Cowfish: burgers or sushi, right in North Hills.",
         details: [
           "A locally owned regional restaurant at 4208 Six Forks Road, Suite 100. A burger or a single roll with a side keeps the bill more manageable than a large sushi order.",
-          "Planning budget: about $20–30 per person for food, before tax, tip, and drinks. This is an estimate, not a menu quote.",
+          "Budget: $20–30 per person.",
           "If travel runs late, shorten the walk and go straight to winding down. Check the wait before heading out.",
         ],
         links: [
@@ -139,9 +139,7 @@ export const days: Day[] = [
         category: "reset",
         title: "Call it a night",
         description: "Settle into Eastern time and leave the notes closed.",
-        details: [
-          "A suggested bedtime after an early Seattle departure. Adjust for how you feel, with a full night’s sleep as the goal.",
-        ],
+        details: ["After an early Seattle departure, aim for a full night’s sleep."],
       },
     ],
   },
@@ -180,7 +178,6 @@ export const days: Day[] = [
           "Take a real 15-minute break before starting.",
           "Suggested focus: dental trauma, pulpal conditions, and oral pathology, prioritizing your own weak areas.",
           "Explain the difficult answers out loud and build a one-page recap. Stop at 12:15 PM.",
-          "These are suggested review topics, not a complete exam blueprint.",
         ],
         links: [
           { label: "Open this practice block", href: "/study#sat-review" },
@@ -195,7 +192,7 @@ export const days: Day[] = [
         description: "Daily Planet Cafe: a local lunch at the science museum.",
         details: [
           "Head downtown, then have a sandwich or seasonal salad at the Nature Research Center wing, 121 West Jones Street. The cafe prepares food in-house and serves Raleigh-roasted coffee.",
-          "Saturday hours: 9 AM–5 PM. Planning budget: $12–20 per person for food, before tax, tip, and drinks.",
+          "Saturday hours: 9 AM–5 PM. Budget: $12–20 per person.",
           "This hour includes transport and lunch; start the museum later if needed.",
         ],
         links: [
@@ -263,7 +260,7 @@ export const days: Day[] = [
         title: "Dinner, then switch off",
         description: "The BBQ Lab: North Carolina barbecue, then a quiet evening.",
         details: [
-          "Try a pork plate with sides for a straightforward local meal. Planning budget: $15–25 per person for food, before tax, tip, and drinks.",
+          "Try a pork plate with sides for a straightforward local meal. Budget: $15–25 per person.",
           "The restaurant lists Saturday service from 11 AM–9 PM, but smoked meats can sell out. Go a little earlier if a particular item matters to you.",
           "Aim to start winding down around 9 PM.",
         ],
@@ -296,7 +293,7 @@ export const days: Day[] = [
         details: [
           "Run a short sequence of familiar pediatric dentistry cases without pausing to look things up.",
           "Suggested focus: behavior guidance, patients with special health care needs, and explaining choices to families.",
-          "Use your existing practice format. This is a short rehearsal, not a full simulation of the OCE’s timing. Debrief after the cases.",
+          "Use your existing practice format. Debrief after the cases.",
         ],
         links: [{ label: "Open this practice block", href: "/study#sun-mock" }],
       },
@@ -324,7 +321,7 @@ export const days: Day[] = [
         title: "Lunch without a rush",
         description: "Coquette: Sunday brunch before the art museum.",
         details: [
-          "A French brasserie in North Hills at 4351 The Circle. Choose one brunch main for a relaxed sit-down meal; planning budget is $18–28 per person for food, before tax, tip, and drinks.",
+          "A French brasserie in North Hills at 4351 The Circle. Choose one brunch main for a relaxed sit-down meal. Budget: $18–28 per person.",
           "Aim to eat at 11:30 AM and leave around 12:30 PM for the museum at 2110 Blue Ridge Road. Check brunch availability ahead; shorten the museum visit if lunch runs long.",
         ],
         links: [
@@ -400,7 +397,7 @@ export const days: Day[] = [
         description: "Vivace: an early Italian dinner, then wind down.",
         details: [
           "Stay in North Hills at 4209 Lassiter Mill Road, Suite 115. Pizza or pasta gives you a sit-down dinner at a moderate price; the posted menu includes a $16 margherita pizza and $18 pappardelle bolognese.",
-          "Planning budget: $20–30 per person for food, before tax, tip, and drinks. Menu prices can change. Eat around 6 PM, wind down around 9 PM, and aim for bed around 9:30–10 PM.",
+          "Budget: $20–30 per person. Eat around 6 PM, wind down around 9 PM, and aim for bed around 9:30–10 PM.",
         ],
         links: [
           { label: "Vivace menu", href: sources.vivace },
@@ -466,7 +463,7 @@ export const days: Day[] = [
         description: "Happy + Hale: a familiar bowl or salad close to the hotel.",
         details: [
           "A Raleigh-grown counter-service option at 200 Park at North Hills Street, Suite 101, open 8 AM–8 PM daily. This is the practical exam-day pick: fresh bowls, salads, and a short trip back to your room.",
-          "Choose ingredients you already enjoy. Planning budget: $14–20 per person for food, before tax, tip, and drinks. For a table-service alternative, Coquette also serves weekday lunch nearby.",
+          "Choose ingredients you already enjoy. Budget: $14–20 per person. For a table-service alternative, Coquette also serves weekday lunch nearby.",
           "Be back at the hotel by 12:30 PM to get ready at your own pace.",
         ],
         links: [
@@ -520,7 +517,7 @@ export const days: Day[] = [
         description: "ABPD Oral Clinical Examination · Session 3 · AIME Center.",
         details: [
           "Official registration: 2:45 PM, Monday, October 5, 2026.",
-          "The email estimates a 6:15 PM return to the hotel and does not give a separate exam start time. Session times were marked tentative; the latest official instructions take precedence.",
+          "Expect to be back at the hotel around 6:15 PM. Follow the latest official instructions for session times.",
           "The entire afternoon remains protected.",
         ],
         links: [{ label: "Official ABPD exam information", href: sources.abpd }],
@@ -532,10 +529,10 @@ export const days: Day[] = [
         title: "Now, exhale",
         description: "Sitti: a Lebanese dinner downtown to celebrate finishing.",
         details: [
-          "A local downtown restaurant at 135 South Wilmington Street. Share mezze and choose a main for a celebratory meal without a tasting-menu bill. Planning budget: $25–40 per person for food, before tax, tip, and drinks; transport is extra.",
-          "Monday hours: 11 AM–9 PM. After the tentative 6:15 PM hotel return, freshen up and allow roughly 20–30 minutes for a rideshare as a planning estimate.",
+          "A local downtown restaurant at 135 South Wilmington Street. Share mezze and choose a main for a celebratory meal without a tasting-menu bill. Budget: $25–40 per person; transport is extra.",
+          "Monday hours: 11 AM–9 PM. After the ~6:15 PM hotel return, freshen up and allow 20–30 minutes for a rideshare.",
           "Prefer to stay close or feeling tired? Vivace in North Hills is the easy backup.",
-          "A suggestion, not a reservation. Keep the start flexible in case the exam session runs late.",
+          "Keep the start flexible in case the exam session runs late.",
           "The notes can stay closed tonight.",
         ],
         links: [
@@ -583,7 +580,7 @@ export const days: Day[] = [
         title: "A comfortable airport buffer",
         description: "Leave North Hills for RDU around 11 AM.",
         details: [
-          "Allow about 30–45 minutes for the transfer, based on the exam email’s estimate. Target RDU by approximately 11:45 AM, about 2½ hours before departure.",
+          "Allow 30–45 minutes for the transfer. Target RDU by 11:45 AM, about 2½ hours before departure.",
           "Recheck traffic and airline guidance that morning, especially if checking bags.",
         ],
         links: [

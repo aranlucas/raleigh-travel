@@ -106,10 +106,8 @@ export default function StudyPage() {
             </p>
             <StepChain text={answerFramework} size="sm" className="mt-4" />
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              An original rehearsal aid informed by ABPD’s communication guidance. Examiners assess
-              clinical reasoning, communication, and professionalism; their 1–3 ratings distinguish
-              inaccurate, incomplete, and fully demonstrated performance. This page does not predict
-              a score.
+              Examiners assess clinical reasoning, communication, and professionalism, rating each
+              1–3: inaccurate, incomplete, or fully demonstrated.
             </p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
               <ExternalLink label="Communication guidance" href={studySources.communication} />
@@ -165,11 +163,6 @@ export default function StudyPage() {
             </nav>
           </aside>
           <div className="min-w-0">
-            <p className="border-b border-line pb-5 text-sm leading-relaxed text-muted">
-              Independent study aid, reviewed September 23, 2026. The prompts below are original
-              practice cases, not ABPD exam questions. Clinical notes are brief review cues; use the
-              full current guidelines and your training for treatment decisions.
-            </p>
             {practiceBlocks.map((block, index) => (
               <section
                 className="scroll-mt-6 border-b border-line py-9"
@@ -337,9 +330,7 @@ export default function StudyPage() {
             Your official resource shelf.
           </h2>
           <p className="mt-4 max-w-[780px] text-base text-muted">
-            The public candidate preparation resources linked from ABPD’s OCE pages, together in one
-            place. Full documents and videos open at their original hosts; they are not copied into
-            this app.
+            ABPD’s public candidate preparation resources, together in one place.
           </p>
           <div className="mt-6 grid grid-cols-3 gap-x-8 max-md:grid-cols-2 max-md:gap-x-6 max-sm:grid-cols-1">
             {officialResources.map((resource) => (
@@ -354,17 +345,9 @@ export default function StudyPage() {
             <div>
               <h3 className="type-heading">AAPD Reference Manual · 2026–2027</h3>
               <p className="mt-3 text-base text-muted">
-                ABPD recommends the AAPD policies and clinical guidance, recent research, and
-                textbooks; it does not provide a closed list of required books or articles on its
-                study-tips page. The selected chapter links above match your sessions. The complete
-                manual also includes sealants, SDF, nitrous oxide, local anesthesia, pain,
-                periodontal care, child protection, medication references, and other topics for a
-                targeted gap check.
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                AAPD currently labels the 2026–2027 collection “Official But Unformatted.” Check
-                each document’s revision date and distinguish a newly revised chapter from older
-                guidance carried into the current edition.
+                Beyond the chapters linked above, the full manual covers sealants, SDF, nitrous
+                oxide, local anesthesia, pain, periodontal care, child protection, and medication
+                references, useful for a targeted gap check.
               </p>
               <div className="mt-4">
                 <ExternalLink

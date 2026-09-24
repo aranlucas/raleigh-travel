@@ -12,7 +12,7 @@ import {
 
 import { ExternalLink } from "./ui";
 
-const linkGroupClasses = "mt-5 flex flex-wrap gap-x-6 gap-y-2";
+const linkGroupClasses = "mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-5";
 
 type Leg = Readonly<{ flight: string; depart: string; arrive: string }>;
 
@@ -104,7 +104,7 @@ function DetailCard({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="card min-w-0 p-6 sm:p-8">
+    <section className="card flex min-w-0 flex-col p-6 sm:p-8">
       <div className="flex items-center gap-3">
         <span className="grid size-10 place-items-center rounded-full bg-sunk text-pine-deep">
           {icon}
@@ -137,6 +137,19 @@ function Facts({ rows }: Readonly<{ rows: readonly (readonly [string, string])[]
 
 const icon = { size: 18, strokeWidth: 1.75, "aria-hidden": true } as const;
 
+function shortDuration(minutes: number) {
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return [hours > 0 ? `${hours}h` : "", rest > 0 ? `${rest}m` : ""].filter(Boolean).join(" ");
+}
+
+const keyMoments = [
+  { day: "Fri, Oct 2", time: "4:54 PM", label: "Land at RDU" },
+  { day: "Sat–Sun", time: "9:00 AM", label: "Morning study blocks" },
+  { day: "Mon, Oct 5", time: "2:45 PM", label: "Exam registration", milestone: true },
+  { day: "Tue, Oct 6", time: "2:13 PM", label: "Fly home" },
+] as const;
+
 export function TripDetails() {
   const totalStudy = days.reduce((total, day) => total + studyMinutes(day), 0);
   return (
@@ -150,6 +163,25 @@ export function TripDetails() {
           Confirmed travel, a protected board day, and a plan with room to breathe.
         </p>
       </div>
+      <ol
+        className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-4"
+        aria-label="Key moments"
+      >
+        {keyMoments.map((moment) => (
+          <li
+            className={`px-4 py-3 sm:px-5 sm:py-4 ${"milestone" in moment ? "bg-cardinal-wash" : "bg-surface"}`}
+            key={moment.label}
+          >
+            <span className="eyebrow">{moment.day}</span>
+            <p className="type-data mt-1 text-xl font-medium">{moment.time}</p>
+            <p
+              className={`text-sm ${"milestone" in moment ? "font-medium text-cardinal" : "text-muted"}`}
+            >
+              {moment.label}
+            </p>
+          </li>
+        ))}
+      </ol>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
         <DetailCard icon={<Plane {...icon} />} title="Getting there" meta="Fri, Oct 2 · 7h 14m">
           <RouteLine
@@ -191,12 +223,10 @@ export function TripDetails() {
               ["Stay", "October 2–6 · 4 nights"],
               ["Room", "1 king bed · 2 guests"],
               ["Check-in", "Friday from 3 PM"],
-              ["Checkout", "Tuesday by noon"],
+              ["Checkout", "Tuesday by noon · plan for 10:45 AM"],
+              ["Bring", "Photo ID and a card for incidentals"],
             ]}
           />
-          <p className="text-[0.9375rem] leading-relaxed text-muted">
-            Bring photo ID and a card for incidentals. Planned Tuesday checkout is 10:45 AM.
-          </p>
           <div className={linkGroupClasses}>
             <ExternalLink label="Directions" href={maps(hotelAddress)} />
           </div>
@@ -213,11 +243,11 @@ export function TripDetails() {
               ["Leave the hotel", "About 2:25 PM"],
               ["Registration", "2:45 PM"],
               ["Hotel return", "About 6:15 PM"],
+              ["Bring", "Government photo ID"],
             ]}
           />
           <p className="text-[0.9375rem] leading-relaxed text-muted">
-            Wait in the lobby for the ABPD representative. Registration will not open early. The
-            email’s session times are tentative; follow the latest official instructions.
+            Wait in the lobby for the ABPD representative; registration won’t open early.
           </p>
           <div className={linkGroupClasses}>
             <ExternalLink label="Official ABPD exam information" href={sources.abpd} />
@@ -246,8 +276,8 @@ export function TripDetails() {
                 .map((day) => (
                   <div className="rounded-md bg-surface p-4" key={day.id}>
                     <span className="eyebrow">{day.short}</span>
-                    <p className="mt-1 font-display text-3xl leading-none">
-                      {duration(studyMinutes(day))}
+                    <p className="mt-1 font-display text-3xl leading-none whitespace-nowrap">
+                      {shortDuration(studyMinutes(day))}
                     </p>
                     <p className="mt-2 text-sm text-muted">
                       {day.id === "saturday"
@@ -261,37 +291,15 @@ export function TripDetails() {
             </div>
             <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-soft">
               Practice your reasoning out loud, including how you would explain decisions to a
-              child’s family. Topics here are suggestions to organize your own materials, not a
-              complete exam blueprint or clinical guidance.
+              child’s family.
             </p>
             <div className={linkGroupClasses}>
               <ExternalLink label="Open your study guide" href="/study" />
+              <ExternalLink label="Theme notes" href="/study/themes" />
               <ExternalLink label="One-page recap" href="/study/recap" />
               <ExternalLink label="Official ABPD OCE resources" href={sources.abpd} />
             </div>
           </div>
-        </div>
-      </section>
-      <section className="mt-12 max-w-[60rem]">
-        <h3 className="type-heading">Where the plan comes from</h3>
-        <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
-          Hotel and exam logistics come from the Gmail confirmations reviewed September 23, 2026.
-          You supplied the flight schedules. Flight status is not live. Meals, study blocks,
-          transfers, and outings are suggestions; no restaurant reservations have been made. Meal
-          choices favor local restaurants and value; budgets are per-person estimates for food
-          before tax, tip, and drinks.
-        </p>
-        <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted">
-          Flight times are local to each airport: PT in Seattle, CT in Dallas, ET in Charlotte and
-          Raleigh. All other itinerary times are Eastern. Visitor hours were checked September 23;
-          review the linked venue pages before going. Personal names, booking identifiers, and
-          private email links are omitted from this public version.
-        </p>
-        <div className={linkGroupClasses}>
-          <ExternalLink label="Science museum" href={sources.science} />
-          <ExternalLink label="State Capitol" href={sources.capitol} />
-          <ExternalLink label="Art museum" href={sources.art} />
-          <ExternalLink label="Restaurant menus" href={sources.vivace} />
         </div>
       </section>
     </section>

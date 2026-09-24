@@ -40,10 +40,6 @@ export default function ThemesPage() {
               {pdfSources.length}
             </strong>
             <span className="text-sm text-muted max-md:font-medium">source PDFs reviewed</span>
-            <p className="mt-4 text-sm leading-relaxed text-muted max-md:mt-0">
-              Overlapping guidance is combined. Each theme links to the original documents and the
-              pages behind the notes.
-            </p>
           </aside>
         </header>
         <nav
@@ -59,17 +55,9 @@ export default function ThemesPage() {
             </a>
           ))}
         </nav>
-        <p className="mt-5 max-w-[920px] text-sm leading-relaxed text-muted">
-          Start with the memory cue, then rehearse the decisions. These are selected review points,
-          not complete treatment protocols. Page references count from the first page of each PDF.
-          Source versions are listed within each theme.
-        </p>
         {studyThemes.map((theme, index) => (
           <ThemeNotes key={theme.id} theme={theme} index={index} />
         ))}
-        <p className="mt-10 text-sm text-muted">
-          Independent OCE study notes · Sources reviewed September 23, 2026
-        </p>
         <SiteFooter
           tagline="Know the reason. Remember the choice."
           next={{ href: "/study/recap", label: "Finish with your recap" }}

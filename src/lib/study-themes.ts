@@ -19,12 +19,21 @@ export type ThemeDecision = Readonly<{
 export type DecisionBranch = Readonly<{
   when: string;
   action: string;
+  /** Findings that place the patient on this branch. */
+  criteria?: readonly string[];
+  /** Specifics of the action: materials, steps, durations, numbers. */
+  details?: readonly string[];
+  followUp?: string;
   /** Row and column in `axes`, when the map is drawn as a matrix. */
   cell?: readonly [number, number];
-  children?: readonly Readonly<{ when: string; action: string }>[];
+  /** `always` applies across every branch; `urgent` is a red-flag escalation. */
+  tone?: "always" | "urgent";
+  children?: readonly DecisionBranch[];
 }>;
 export type DecisionMap = Readonly<{
   question: string;
+  /** Branches are ordered steps rather than alternatives. */
+  sequence?: boolean;
   axes?: Readonly<{ rows: readonly string[]; columns: readonly string[] }>;
   branches: readonly DecisionBranch[];
   evidence: readonly Evidence[];
@@ -40,16 +49,9 @@ export type StudyTheme = Readonly<{
   memoryCue: string;
   points: readonly ReviewPoint[];
   decisions: readonly ThemeDecision[];
-  diagram?: DecisionMap;
   pitfall: ReviewPoint;
 }>;
 
-// Page citations use the PDF page index (starting at 1), not printed manual pagination.
-// Review scope: the 23 AAPD readings linked in study.ts and the ABPD OCE candidate guide.
-// Page citations use the PDF page index (starting at 1), not printed manual pagination.
-// Review scope: the 23 AAPD readings linked in study.ts and the ABPD OCE candidate guide.
-// Page citations use the PDF page index (starting at 1), not printed manual pagination.
-// Review scope: the 23 AAPD readings linked in study.ts and the ABPD OCE candidate guide.
 // Page citations use the PDF page index (starting at 1), not printed manual pagination.
 // Review scope: the 23 AAPD readings linked in study.ts and the ABPD OCE candidate guide.
 export const pdfSources: readonly PdfSource[] = [
@@ -390,34 +392,6 @@ export const studyThemes: readonly StudyTheme[] = [
         },
       ],
     },
-    diagram: {
-      question: "What is the disease doing?",
-      branches: [
-        {
-          when: "Noncavitated, controllable",
-          action: "Prevent and monitor activity or progression.",
-        },
-        {
-          when: "Cavitated or progressing",
-          action:
-            "Choose arrest, interim, or definitive treatment from pulp status and feasibility.",
-        },
-        {
-          when: "At every risk level",
-          action: "Address causes, support home care, and set reassessment.",
-        },
-      ],
-      evidence: [
-        {
-          source: "risk",
-          pages: "4–5",
-        },
-        {
-          source: "restorative",
-          pages: "1–3",
-        },
-      ],
-    },
   },
   {
     id: "pulp",
@@ -535,51 +509,6 @@ export const studyThemes: readonly StudyTheme[] = [
         },
       ],
     },
-    diagram: {
-      question: "Which pulp pathway are you defending?",
-      axes: { rows: ["Primary", "Permanent"], columns: ["Potentially vital", "Nonvital"] },
-      branches: [
-        {
-          when: "Primary · potentially vital",
-          cell: [0, 0],
-          action:
-            "Selective removal/IPT or calcium-silicate pulpotomy when selection criteria fit.",
-        },
-        {
-          when: "Primary · nonvital",
-          cell: [0, 1],
-          action: "Pulpectomy, selected short-term LSTR, or extraction.",
-        },
-        {
-          when: "Permanent · potentially vital",
-          cell: [1, 0],
-          action: "Depth, symptoms, periapical tissues, and bleeding guide vital therapy.",
-        },
-        {
-          when: "Immature permanent · necrotic",
-          cell: [1, 1],
-          action: "Assess regeneration or apexification and long-term prognosis.",
-        },
-      ],
-      evidence: [
-        {
-          source: "vital",
-          pages: "6",
-        },
-        {
-          source: "nonvital",
-          pages: "5–7",
-        },
-        {
-          source: "permanentVital",
-          pages: "5–7",
-        },
-        {
-          source: "pulp",
-          pages: "9–10",
-        },
-      ],
-    },
   },
   {
     id: "trauma-surgery",
@@ -688,40 +617,6 @@ export const studyThemes: readonly StudyTheme[] = [
         },
       ],
     },
-    diagram: {
-      question: "Avulsion: primary or permanent?",
-      branches: [
-        {
-          when: "Primary tooth",
-          action: "Do not replant. Account for the missing tooth and monitor the successor.",
-        },
-        {
-          when: "Permanent tooth",
-          action:
-            "Urgent replantation when appropriate; dry time, storage, and apex guide prognosis and follow-up.",
-          children: [
-            {
-              when: "Closed apex",
-              action: "Endodontic treatment generally within two weeks.",
-            },
-            {
-              when: "Open apex",
-              action: "May revascularize; intervene for definite necrosis or infection.",
-            },
-          ],
-        },
-      ],
-      evidence: [
-        {
-          source: "primaryTrauma",
-          pages: "12–13",
-        },
-        {
-          source: "avulsion",
-          pages: "2–6",
-        },
-      ],
-    },
   },
   {
     id: "diagnosis",
@@ -800,33 +695,6 @@ export const studyThemes: readonly StudyTheme[] = [
     pitfall: {
       text: "An antibiotic cannot replace drainage, pulp treatment, or extraction. Do not let a prescription delay airway assessment or definitive care.",
       evidence: [
-        {
-          source: "antibiotics",
-          pages: "3–4",
-        },
-      ],
-    },
-    diagram: {
-      question: "What finding changes the next step?",
-      branches: [
-        {
-          when: "Typical self-limited lesion",
-          action: "Supportive care and a defined review interval.",
-        },
-        {
-          when: "Persistent or suspicious lesion",
-          action: "Biopsy or specialist assessment.",
-        },
-        {
-          when: "Systemic illness or airway concern",
-          action: "Urgent medical/surgical escalation and source control.",
-        },
-      ],
-      evidence: [
-        {
-          source: "pathology",
-          pages: "2–4",
-        },
         {
           source: "antibiotics",
           pages: "3–4",
@@ -941,29 +809,6 @@ export const studyThemes: readonly StudyTheme[] = [
         },
       ],
     },
-    diagram: {
-      question: "Rehearse the safety sequence",
-      branches: [
-        {
-          when: "Before sedation",
-          action: "Assess health/airway, fasting or urgent risk, consent, team, and equipment.",
-        },
-        {
-          when: "During sedation",
-          action: "Observe continuously, monitor to depth, and be ready to rescue.",
-        },
-        {
-          when: "Recovery",
-          action: "Monitor until discharge criteria are met; anticipate resedation.",
-        },
-      ],
-      evidence: [
-        {
-          source: "sedation",
-          pages: "4–9, 27",
-        },
-      ],
-    },
   },
   {
     id: "growth",
@@ -1025,25 +870,6 @@ export const studyThemes: readonly StudyTheme[] = [
         {
           source: "growth",
           pages: "1–4, 10–11",
-        },
-      ],
-    },
-    diagram: {
-      question: "Observe or intercept?",
-      branches: [
-        {
-          when: "Likely self-correction; low consequence",
-          action: "Monitor with a planned developmental reassessment.",
-        },
-        {
-          when: "Functional shift, eruption interference, or space loss",
-          action: "Assess stage-appropriate intervention and coordination.",
-        },
-      ],
-      evidence: [
-        {
-          source: "growth",
-          pages: "3–11",
         },
       ],
     },
@@ -1217,37 +1043,6 @@ export const studyThemes: readonly StudyTheme[] = [
         {
           source: "safety",
           pages: "3–4",
-        },
-      ],
-    },
-    diagram: {
-      question: "Before an invasive procedure",
-      branches: [
-        {
-          when: "Family & clinician",
-          action: "Discuss options, understanding, permission, and appropriate assent.",
-        },
-        {
-          when: "Whole team",
-          action: "Verify two identifiers, procedure, tooth/site, and fire risk.",
-        },
-        {
-          when: "Record & follow-up",
-          action: "Document the decision, care, instructions, and next steps.",
-        },
-      ],
-      evidence: [
-        {
-          source: "consent",
-          pages: "2–3",
-        },
-        {
-          source: "safety",
-          pages: "3",
-        },
-        {
-          source: "records",
-          pages: "8",
         },
       ],
     },

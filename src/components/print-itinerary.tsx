@@ -27,10 +27,6 @@ export function PrintItinerary() {
               ))}
             </article>
           ))}
-          <p className="border-t border-line pt-2 text-[8pt] text-pine">
-            Sample itinerary. Flights supplied by you; hotel and exam confirmed in email. Outings
-            and study blocks are suggestions. Follow current airline and ABPD instructions.
-          </p>
         </section>
       ))}
     </div>
