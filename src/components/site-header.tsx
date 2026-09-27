@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Wordmark } from "./ui";
 
-export type Section = "itinerary" | "raleigh" | "details" | "study" | "themes" | "recap";
+export type Section = "itinerary" | "raleigh" | "details";
 
 const groups: readonly Readonly<{
   label: string;
@@ -17,14 +17,6 @@ const groups: readonly Readonly<{
       { id: "itinerary", href: "/", label: "Day by day" },
       { id: "raleigh", href: "/raleigh", label: "Explore Raleigh" },
       { id: "details", href: "/details", label: "Logistics" },
-    ],
-  },
-  {
-    label: "Study",
-    items: [
-      { id: "study", href: "/study", label: "Study plan" },
-      { id: "themes", href: "/study/themes", label: "Theme notes" },
-      { id: "recap", href: "/study/recap", label: "Recap sheet" },
     ],
   },
 ];
@@ -56,6 +48,9 @@ export function SiteHeader({ current }: Readonly<{ current: Section }>) {
               ))}
             </div>
           ))}
+          <a className="link ml-4 shrink-0" href="https://oral-boards.vercel.app/study">
+            Oral Boards ↗
+          </a>
         </nav>
         <button
           type="button"

@@ -74,15 +74,17 @@ export function TripSidebar({ onMonday }: Readonly<{ onMonday: () => void }>) {
         </Link>
         <Link
           className="group mt-4 flex items-start gap-4 border-t border-line pt-4 text-ink no-underline"
-          href="/study"
+          href="https://oral-boards.vercel.app/study"
         >
           <span className="grid size-10 shrink-0 place-items-center rounded-full bg-pine-wash text-pine">
             <BookOpen size={18} strokeWidth={1.75} aria-hidden="true" />
           </span>
           <span>
-            <strong className="type-subhead block group-hover:text-pine">Study plan</strong>
+            <strong className="type-subhead block group-hover:text-pine">
+              Oral Boards study companion ↗
+            </strong>
             <span className="text-sm text-muted">
-              Seven practice blocks, the full ABPD blueprint, and 2026 guideline updates.
+              Practice sessions, theme notes, and flashcards live on the dedicated study site.
             </span>
           </span>
         </Link>

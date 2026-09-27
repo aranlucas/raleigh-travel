@@ -1,5 +1,6 @@
 import { BookOpen, CalendarDays, CircleCheck, House, Plane } from "lucide-react";
 
+import { examDayRules, examFacts } from "@/lib/exam-day";
 import {
   days,
   duration,
@@ -9,7 +10,6 @@ import {
   sources,
   studyMinutes,
 } from "@/lib/itinerary";
-import { examDayRules, examFacts } from "@/lib/study";
 
 import { ExternalLink } from "./ui";
 
@@ -349,9 +349,18 @@ export function TripDetails() {
               child’s family.
             </p>
             <div className={linkGroupClasses}>
-              <ExternalLink label="Open your study guide" href="/study" />
-              <ExternalLink label="Theme notes" href="/study/themes" />
-              <ExternalLink label="One-page recap" href="/study/recap" />
+              <ExternalLink
+                label="Open your study guide"
+                href="https://oral-boards.vercel.app/study"
+              />
+              <ExternalLink
+                label="Theme notes"
+                href="https://oral-boards.vercel.app/study/themes"
+              />
+              <ExternalLink
+                label="One-page recap"
+                href="https://oral-boards.vercel.app/study/recap"
+              />
               <ExternalLink label="Official ABPD OCE resources" href={sources.abpd} />
             </div>
           </div>

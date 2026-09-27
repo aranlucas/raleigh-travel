@@ -89,7 +89,12 @@ export const days: Day[] = [
         minutes: 30,
         optional: true,
         details: ["Only if you feel rested. No new material on a travel day."],
-        links: [{ label: "Open the session", href: "/study/sessions/flight-study" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/flight-study",
+          },
+        ],
       },
       {
         id: "rdu-arrival",
@@ -179,7 +184,12 @@ export const days: Day[] = [
         details: [
           "Steps, cases, and readings are on the session page. Take a real 15-minute break at 10:30.",
         ],
-        links: [{ label: "Open the session", href: "/study/sessions/sat-cases" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/sat-cases",
+          },
+        ],
       },
       {
         id: "sat-review",
@@ -189,7 +199,12 @@ export const days: Day[] = [
         description: "Work through the decision points out loud.",
         minutes: 90,
         details: ["Say the answers out loud. Stop at 12:15; lunch is part of the plan."],
-        links: [{ label: "Open the session", href: "/study/sessions/sat-review" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/sat-review",
+          },
+        ],
       },
       {
         id: "sat-lunch",
@@ -296,7 +311,12 @@ export const days: Day[] = [
         description: "Behavior guidance and special health care needs, no notes.",
         minutes: 90,
         details: ["No looking things up mid-case. Debrief at the end."],
-        links: [{ label: "Open the session", href: "/study/sessions/sun-mock" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/sun-mock",
+          },
+        ],
       },
       {
         id: "sun-review",
@@ -306,7 +326,12 @@ export const days: Day[] = [
         description: "Sedation, emergencies, and what changed in the manual.",
         minutes: 45,
         details: ["Includes a 10-minute skim of the 2026 manual updates. No new resources."],
-        links: [{ label: "Open the session", href: "/study/sessions/sun-review" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/sun-review",
+          },
+        ],
       },
       {
         id: "sun-lunch",
@@ -377,7 +402,12 @@ export const days: Day[] = [
         description: "Read the one-page sheet, lay out ID and clothes.",
         minutes: 30,
         details: ["Read your one-page sheet, lay out ID and outfit, then put it all away."],
-        links: [{ label: "Open the session", href: "/study/sessions/sun-recap" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/sun-recap",
+          },
+        ],
       },
       {
         id: "sun-dinner",
@@ -431,7 +461,12 @@ export const days: Day[] = [
         description: "Recap sheet and one or two familiar cases.",
         minutes: 45,
         details: ["Recap sheet and one or two comfortable cases. Notes close at 9:45 AM."],
-        links: [{ label: "Open the session", href: "/study/sessions/mon-review" }],
+        links: [
+          {
+            label: "Open the session",
+            href: "https://oral-boards.vercel.app/study/sessions/mon-review",
+          },
+        ],
       },
       {
         id: "mon-rest",

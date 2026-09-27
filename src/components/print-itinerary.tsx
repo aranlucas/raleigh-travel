@@ -5,7 +5,7 @@ export function PrintItinerary() {
     <div className="hidden bg-white text-ink print:block print:text-[10pt]">
       {days.map((day) => (
         <section key={day.id} className="break-before-page first:break-before-auto">
-          <p className="text-[9pt] text-pine">Boards & beyond · Raleigh · October 2–6, 2026</p>
+          <p className="text-[9pt] text-pine">Raleigh, together · Raleigh · October 2–6, 2026</p>
           <h1 className="my-2 font-display text-[28pt] leading-tight">{day.title}</h1>
           <p className="mb-2">{day.description}</p>
           <p className="mb-2">

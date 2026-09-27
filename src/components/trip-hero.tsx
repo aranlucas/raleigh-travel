@@ -5,7 +5,7 @@ export function TripHero() {
   return (
     <section
       className="grid items-center gap-8 pt-10 pb-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:pt-14 md:pb-14"
-      aria-label="Raleigh pediatric boards trip"
+      aria-label="Raleigh trip"
     >
       <div>
         <p className="eyebrow">
@@ -13,12 +13,13 @@ export function TripHero() {
           Raleigh, NC · Oct 2–6, 2026
         </p>
         <h1 className="type-display mt-5">
-          Oral boards
+          A few days
           <br />
           <span className="text-pine">in Raleigh.</span>
         </h1>
         <p className="type-lead mt-6 max-w-[26rem]">
-          Flights, hotel, study blocks, and what to do in between, for the ABPD oral exam trip.
+          Your flights, a place to settle in, and time to explore. Five days of good food, city
+          walks, and a little celebrating.
         </p>
       </div>
       <figure className="relative -mx-5 sm:mx-0">

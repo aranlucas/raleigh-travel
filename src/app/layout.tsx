@@ -16,8 +16,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Boards & beyond · Raleigh, October 2–6",
-  description: "A pediatric dental boards weekend with time to prepare, explore, and celebrate.",
+  title: "Raleigh, together · October 2–6",
+  description:
+    "Five days in Raleigh: flights, hotel, local food, things to do, and the daily itinerary.",
   robots: { index: false, follow: false },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

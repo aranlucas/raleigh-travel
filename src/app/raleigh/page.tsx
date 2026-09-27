@@ -10,7 +10,7 @@ import { days } from "@/lib/itinerary";
 import { areaOrder, areas, fits, happenings, places, type Place } from "@/lib/raleigh";
 
 export const metadata: Metadata = {
-  title: "Explore Raleigh · Boards & beyond",
+  title: "Explore Raleigh · Raleigh, together",
   description:
     "Things to do in Raleigh around a pediatric boards weekend: what's on October 2–6, and places that fit a study break or a free afternoon.",
 };
@@ -169,7 +169,7 @@ export default function RaleighPage() {
           Hours and prices were checked September 23, 2026 and can change; confirm before heading
           out. Travel times are rough estimates from Hyatt House North Hills.
         </p>
-        <SiteFooter next={{ href: "/study", label: "Back to studying" }} />
+        <SiteFooter next={{ href: "/", label: "Back to the itinerary" }} />
       </main>
     </div>
   );
