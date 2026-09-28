@@ -2,6 +2,10 @@
 
 ## A five-day Raleigh plan with room to study, wander, and breathe.
 
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111827)](https://react.dev/)
+[![TypeScript 7](https://img.shields.io/badge/TypeScript-7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
 This is a static Next.js itinerary for a pediatric dental oral boards trip to Raleigh, October 2–6, 2026. It turns a pile of flight, hotel, exam, food, and study notes into a plan you can actually follow: morning study blocks, a map of places that fit the gap between them, exam-day logistics, and a print-friendly recap.
 
 ![Watercolor illustration of Raleigh](public/raleigh-watercolor.png)
