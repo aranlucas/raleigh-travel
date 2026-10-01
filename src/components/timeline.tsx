@@ -67,10 +67,12 @@ export function Timeline({
   day,
   filter,
   onFilterChange,
+  weather,
 }: Readonly<{
   day: Day;
   filter: Filter;
   onFilterChange: (filter: Filter) => void;
+  weather?: React.ReactNode;
 }>) {
   const activities = day.activities.filter(
     (activity) => filter === "all" || activity.category === filter,
@@ -87,6 +89,7 @@ export function Timeline({
       <h2 className="type-title mt-3">{day.title}</h2>
       <p className="type-lead mt-2">{day.description}</p>
       {day.milestones === undefined ? null : <DayOfTimeline day={day} />}
+      {weather}
       <fieldset className="mt-6 mb-4 flex min-w-0 flex-wrap gap-2">
         <legend className="sr-only">Filter activities</legend>
         {filters.map((option) => (

@@ -8,10 +8,12 @@ import { DayTabs } from "./day-tabs";
 import { PrintItinerary } from "./print-itinerary";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
-import { Timeline, type Filter } from "./timeline";
+import type { Filter } from "./timeline";
 import { TripDetails } from "./trip-details";
 import { TripHero } from "./trip-hero";
 import { TripSidebar } from "./trip-sidebar";
+// oxlint-disable-next-line import/max-dependencies -- This page composes the itinerary and independent weather section.
+import { TripWeather } from "./trip-weather";
 
 function subscribeToHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
@@ -79,7 +81,7 @@ export function TripPlanner({ view }: Readonly<{ view: "itinerary" | "details" }
               <>
                 <DayTabs selectedId={day.id} onSelect={selectDay} />
                 <div className="mt-10 grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,1fr)_19rem] lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-14">
-                  <Timeline key={day.id} day={day} filter={filter} onFilterChange={setFilter} />
+                  <TripWeather day={day} filter={filter} onFilterChange={setFilter} />
                   <TripSidebar onMonday={showMonday} />
                 </div>
               </>
