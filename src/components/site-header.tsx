@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Wordmark } from "./ui";
 
-export type Section = "itinerary" | "raleigh" | "details";
+export type Section = "itinerary" | "raleigh" | "details" | "packing";
 
 const groups: readonly Readonly<{
   label: string;
@@ -17,6 +17,7 @@ const groups: readonly Readonly<{
       { id: "itinerary", href: "/", label: "Day by day" },
       { id: "raleigh", href: "/raleigh", label: "Explore Raleigh" },
       { id: "details", href: "/details", label: "Logistics" },
+      { id: "packing", href: "/packing", label: "Packing" },
     ],
   },
 ];
