@@ -1,54 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 
-import {
-  PACKING_CHANGE_EVENT,
-  PACKING_GROUPS,
-  PACKING_STORAGE_KEY,
-  packingWeatherNotes,
-  readPackedItems,
-} from "@/lib/packing";
+import { PACKING_GROUPS, packingWeatherNotes } from "@/lib/packing";
+import { packingStore } from "@/lib/packing-store";
 
 import { useLiveWeather } from "./use-live-weather";
 
-let memoryChecks = "[]";
-function subscribe(onChange: () => void) {
-  window.addEventListener("storage", onChange);
-  window.addEventListener(PACKING_CHANGE_EVENT, onChange);
-  return () => {
-    window.removeEventListener("storage", onChange);
-    window.removeEventListener(PACKING_CHANGE_EVENT, onChange);
-  };
-}
-function snapshot(): string {
-  try {
-    return window.localStorage.getItem(PACKING_STORAGE_KEY) ?? memoryChecks;
-  } catch {
-    return memoryChecks;
-  }
-}
-const serverSnapshot = () => "[]";
-function toggleItem(id: string) {
-  const items = new Set(readPackedItems(snapshot()));
-  if (items.has(id)) {
-    items.delete(id);
-  } else {
-    items.add(id);
-  }
-  memoryChecks = JSON.stringify([...items]);
-  try {
-    window.localStorage.setItem(PACKING_STORAGE_KEY, memoryChecks);
-  } catch {
-    /* The checklist still works in memory when browser storage is unavailable. */
-  }
-  window.dispatchEvent(new Event(PACKING_CHANGE_EVENT));
-}
 export function TripPacking() {
   const { weather, loading, error: forecastError } = useLiveWeather();
-  const raw = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
-  const packed = useMemo(() => new Set(readPackedItems(raw)), [raw]);
+  const packed = useSyncExternalStore(
+    packingStore.subscribe,
+    packingStore.getSnapshot,
+    packingStore.getServerSnapshot,
+  );
   const total = PACKING_GROUPS.reduce((count, group) => count + group.items.length, 0);
   const notes = packingWeatherNotes(weather);
   return (
@@ -89,7 +55,7 @@ export function TripPacking() {
                     type="checkbox"
                     checked={packed.has(item.id)}
                     onChange={() => {
-                      toggleItem(item.id);
+                      packingStore.toggle(item.id);
                     }}
                     className="mt-1 size-5 shrink-0 accent-pine"
                   />

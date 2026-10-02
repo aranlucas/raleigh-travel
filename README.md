@@ -39,11 +39,12 @@ Open <http://localhost:3000>. If that port is busy, use `pnpm dev --port 3001`.
 
 ```bash
 pnpm format:check
+pnpm test
 pnpm check
 pnpm build
 ```
 
-`pnpm check` runs Oxfmt, strict type-aware Oxlint, and TypeScript generation. `pnpm build` creates the production Next.js build. `pnpm format` writes the repository’s formatting when making source edits.
+`pnpm check` runs Oxfmt, strict type-aware Oxlint, TypeScript generation, and the offline Vitest suite. Packing-store tests cover browser storage failures, recovery, and cross-tab updates, with a React checkbox regression using mocked weather. `pnpm build` creates the production Next.js build. `pnpm format` writes the repository’s formatting when making source edits.
 
 ## Source map
 

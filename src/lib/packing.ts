@@ -1,8 +1,6 @@
 import { formatTripDate, type WeatherResponse } from "./weather";
 import { isRainWeatherCode } from "./weather-codes";
 
-export const PACKING_STORAGE_KEY = "raleigh-packing-lucas-2026-10-02-v1";
-export const PACKING_CHANGE_EVENT = "raleigh-packing-change";
 export type PackingItem = Readonly<{
   id: string;
   label: string;
@@ -121,21 +119,6 @@ export const PACKING_GROUPS: readonly Readonly<{ title: string; items: readonly 
       ],
     },
   ];
-const itemIds = new Set(PACKING_GROUPS.flatMap((group) => group.items.map((item) => item.id)));
-export function readPackedItems(raw: string): string[] {
-  try {
-    const value: unknown = JSON.parse(raw);
-    if (!Array.isArray(value)) {
-      return [];
-    }
-    return [
-      ...new Set(value.filter((id): id is string => typeof id === "string" && itemIds.has(id))),
-    ];
-  } catch {
-    return [];
-  }
-}
-
 /** Guidance follows the currently loaded trip forecast; no permanent trip temperatures. */
 export function packingWeatherNotes(weather: Readonly<WeatherResponse> | null): string[] {
   if (weather === null) {
