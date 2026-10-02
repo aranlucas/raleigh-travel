@@ -103,7 +103,20 @@ export const PACKING_GROUPS: readonly Readonly<{ title: string; items: readonly 
         {
           id: "wallet",
           label: "Photo ID & wallet",
-          detail: "Keep them with you for flights and hotel check-in.",
+          detail:
+            "Bring a REAL ID or passport for the flights, plus a card for hotel incidentals. Keep them in your personal item.",
+        },
+        {
+          id: "boarding-passes",
+          label: "Updated boarding passes for both travelers",
+          detail:
+            "Refresh them after the rebooking: AA 381 and AA 1904 outbound. Verify seats and save the new passes before leaving.",
+        },
+        {
+          id: "confirmations",
+          label: "Hotel confirmation & candidate exam email",
+          detail:
+            "Save accessible copies for check-in and Monday’s 2:45 PM registration. The latest candidate email takes precedence.",
         },
       ],
     },

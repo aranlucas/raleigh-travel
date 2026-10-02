@@ -47,16 +47,16 @@ pnpm build
 
 ## Source map
 
-| Path | Responsibility |
-| --- | --- |
-| `src/lib/itinerary.ts` | Five-day plan, schedule, study links, map links, and source URLs. |
-| `src/lib/raleigh.ts` | Places, areas, events, and “fits a study break” guidance. |
-| `src/lib/exam-day.ts` | Candidate logistics used by the trip details page. |
-| `src/app/page.tsx` | Main itinerary and day-by-day experience. |
-| `src/app/raleigh/page.tsx` | Explore Raleigh page and map. |
-| `src/app/details/page.tsx` | Exam, travel, and practical details. |
-| `src/components/` | Timeline, map, print layout, navigation, and shared UI. |
-| `next.config.ts` | Redirects legacy `/study/:path*` URLs to Oral Boards. |
+| Path                       | Responsibility                                                    |
+| -------------------------- | ----------------------------------------------------------------- |
+| `src/lib/itinerary.ts`     | Five-day plan, schedule, study links, map links, and source URLs. |
+| `src/lib/raleigh.ts`       | Places, areas, events, and “fits a study break” guidance.         |
+| `src/lib/exam-day.ts`      | Candidate logistics used by the trip details page.                |
+| `src/app/page.tsx`         | Main itinerary and day-by-day experience.                         |
+| `src/app/raleigh/page.tsx` | Explore Raleigh page and map.                                     |
+| `src/app/details/page.tsx` | Exam, travel, and practical details.                              |
+| `src/components/`          | Timeline, map, print layout, navigation, and shared UI.           |
+| `next.config.ts`           | Redirects legacy `/study/:path*` URLs to Oral Boards.             |
 
 ## Editorial limits
 
