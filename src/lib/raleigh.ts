@@ -241,7 +241,7 @@ export const happenings: readonly Happening[] = [
     where: "Moore Square, downtown",
     blurb:
       "Vendors, food trucks, live music at 5:30, and Ghostbusters on an outdoor screen around 7:15. Galleries stay open late.",
-    verdict: "You land at 4:54 PM after a 4:40 AM start. Skip it and sleep.",
+    verdict: "You land at 6:43 PM after the flight delay. Head to the hotel, eat nearby, and rest.",
     dayId: "friday",
     href: sources.firstFriday,
   },

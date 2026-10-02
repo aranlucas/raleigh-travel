@@ -145,7 +145,7 @@ function shortDuration(minutes: number) {
 }
 
 const keyMoments = [
-  { day: "Fri, Oct 2", time: "4:54 PM", label: "Land at RDU" },
+  { day: "Fri, Oct 2", time: "6:43 PM", label: "Land at RDU" },
   { day: "Sat–Sun", time: "9:00 AM", label: "Morning study blocks" },
   { day: "Mon, Oct 5", time: "2:45 PM", label: "Exam registration", milestone: true },
   { day: "Tue, Oct 6", time: "2:13 PM", label: "Fly home" },
@@ -182,18 +182,32 @@ export function TripDetails() {
         ))}
       </ol>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-6">
-        <DetailCard icon={<Plane {...icon} />} title="Getting there" meta="Fri, Oct 2 · 7h 14m">
+        <DetailCard icon={<Plane {...icon} />} title="Getting there" meta="Fri, Oct 2 · 7h 28m">
           <RouteLine
             stops={["SEA", "CLT", "RDU"]}
             legs={[
-              { flight: "AA 381", depart: "6:40 AM PT", arrive: "2:50 PM ET" },
-              { flight: "AA 1894", depart: "3:58 PM ET", arrive: "4:54 PM ET" },
+              { flight: "AA 381", depart: "8:15 AM PT", arrive: "4:25 PM ET" },
+              { flight: "AA 1904", depart: "5:45 PM ET", arrive: "6:43 PM ET" },
             ]}
-            connection="1h 8m"
+            connection="1h 20m"
           />
           <p className="mt-6 border-t border-line pt-4 text-[0.9375rem] leading-relaxed text-muted">
-            Suggested SEA arrival: 4:40 AM Pacific. Hotel arrival around 6 PM Eastern.
+            AA 381 delayed; AA 1904 replaces AA 1894. Updated from American’s October 1 emails
+            (latest at 4:07 PM Pacific). Get new boarding passes for each passenger. Suggested SEA
+            arrival: 6:15 AM Pacific, subject to airline guidance. Hotel arrival around 7:45 PM
+            Eastern. Check the American app for current status and gates.
           </p>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
+            Light rail: reach Capitol Hill’s southbound platform by 4:45 AM PT. Take the 4:59 AM 1
+            Line toward Federal Way; arrive at SeaTac/Airport at 5:41 AM. Allow 15–20 minutes to
+            walk to the terminal, arriving around 6 AM. Check service alerts before leaving.
+          </p>
+          <div className={linkGroupClasses}>
+            <ExternalLink
+              label="Friday light rail schedule"
+              href="https://www.soundtransit.org/ride-with-us/routes-schedules/1-line?direction=0&route_tab=schedule&at=1790924400000"
+            />
+          </div>
         </DetailCard>
         <DetailCard icon={<Plane {...icon} />} title="Coming home" meta="Tue, Oct 6 · 8h 31m">
           <RouteLine

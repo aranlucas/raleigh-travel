@@ -53,30 +53,53 @@ export const days: Day[] = [
     label: "Arrive",
     title: "Friday, October 2",
     description: "Fly in, check in, eat nearby, sleep early.",
-    takeaway: "No plans after dinner. You have been up since 4 AM Pacific.",
+    takeaway:
+      "Later arrival after the flight delay. Keep dinner simple and wind down at the hotel.",
     activities: [
       {
+        id: "sea-light-rail",
+        time: "4:45–5:41 AM PT",
+        category: "travel",
+        title: "Capitol Hill → SeaTac by light rail",
+        description: "Be on the platform by 4:45 AM for the 4:59 AM southbound 1 Line train.",
+        details: [
+          "Take the 1 Line toward Federal Way. Friday’s timetable lists Capitol Hill at 4:59 AM and SeaTac/Airport at 5:41 AM: a 42-minute ride.",
+          "Allow another 15–20 minutes to walk through the airport garage to the terminal. Estimated terminal arrival is around 6 AM, ahead of the 6:15 AM target for the revised 8:15 AM flight.",
+          "The next listed train is 5:28 AM → 6:09 AM, before the terminal walk; it leaves less than two hours at the terminal. Check service alerts and live arrivals before leaving home. Times checked October 1 for Friday, October 2, 2026.",
+        ],
+        links: [
+          {
+            label: "Friday 1 Line schedule & alerts",
+            href: "https://www.soundtransit.org/ride-with-us/routes-schedules/1-line?direction=0&route_tab=schedule&at=1790924400000",
+          },
+          {
+            label: "Airport station & terminal directions",
+            href: "https://www.portseattle.org/page/public-transit-link-light-rail",
+          },
+        ],
+      },
+      {
         id: "sea-airport",
-        time: "4:40 AM PT",
+        time: "6:15 AM PT",
         category: "travel",
         title: "Arrive at SEA",
         description: "Suggested airport arrival, two hours before takeoff.",
         details: [
-          "A planning buffer, not an airline check-in deadline. Allow extra time from home for the drive and bags.",
+          "A planning buffer based on the revised departure, not an airline check-in deadline. Confirm airport arrival guidance with American before leaving; allow extra time to reach Capitol Hill station and for bags.",
           "Seattle is three hours behind Raleigh. Flight times use each airport’s local time.",
         ],
       },
       {
         id: "outbound",
-        time: "6:40 AM PT",
+        time: "8:15 AM PT",
         category: "travel",
         title: "Seattle → Charlotte → Raleigh",
-        description: "AA 381, then AA 1894 · 7 hrs 14 mins total.",
+        description: "AA 381 delayed; rebooked onto AA 1904 · 7 hrs 28 mins total.",
         details: [
-          "AA 381: SEA 6:40 AM Pacific → CLT 2:50 PM Eastern.",
-          "Charlotte connection: 1 hour 8 minutes.",
-          "AA 1894: CLT 3:58 PM Eastern → RDU 4:54 PM Eastern.",
-          "Schedule supplied by you. Check American Airlines for live flight status and gates.",
+          "AA 381: SEA 8:15 AM Pacific → CLT 4:25 PM Eastern.",
+          "Charlotte connection: 1 hour 20 minutes.",
+          "AA 1904: CLT 5:45 PM Eastern → RDU 6:43 PM Eastern. Replaces AA 1894.",
+          "Updated from American’s delay and rebooking emails on October 1, 2026; latest notice at 4:07 PM Pacific. AA 381 is delayed for crew rest. Get a new boarding pass for each passenger and check the American app for current status and gates.",
         ],
         links: [{ label: "American Airlines", href: "https://www.aa.com/" }],
       },
@@ -98,19 +121,19 @@ export const days: Day[] = [
       },
       {
         id: "rdu-arrival",
-        time: "4:54–6:00 PM",
+        time: "6:43–7:45 PM",
         category: "travel",
         title: "Land at RDU",
         description: "Collect bags and head to North Hills.",
         details: [
           "Allow time to leave the airport, then a planning allowance of 30–45 minutes for the transfer. The exam email gives this range for travel between the hotel and RDU; actual traffic varies.",
-          "Around 6 PM is an estimated hotel arrival.",
+          "Around 7:45 PM is an estimated hotel arrival, allowing time for bags and the transfer.",
         ],
         links: [{ label: "Hotel directions", href: maps(hotelAddress) }],
       },
       {
         id: "check-in",
-        time: "Around 6:00 PM",
+        time: "Around 7:45 PM",
         category: "reset",
         title: "Hotel check-in",
         description: "Check in at Hyatt House Raleigh North Hills.",
@@ -121,13 +144,14 @@ export const days: Day[] = [
       },
       {
         id: "friday-dinner",
-        time: "6:30–8:00 PM",
+        time: "Around 8:00 PM",
         category: "reset",
         title: "Dinner at The Cowfish",
-        description: "Burgers or sushi, a short walk from the hotel.",
+        description:
+          "A simple nearby dinner after check-in; burgers or sushi if you feel up to it.",
         details: [
           "Locally owned, at 4208 Six Forks Road. A burger or one roll keeps it around $20–30 per person.",
-          "First Friday is on downtown tonight. Skip it; sleep matters more.",
+          "Keep dinner flexible if the flight or transfer runs later. First Friday is on downtown tonight; skip it and rest.",
         ],
         links: [
           { label: "Cowfish menu & details", href: sources.cowfish },
@@ -140,11 +164,13 @@ export const days: Day[] = [
       },
       {
         id: "friday-sleep",
-        time: "9:30 PM",
+        time: "Around 10:00 PM",
         category: "reset",
         title: "Bed",
         description: "Get onto Eastern time. No studying tonight.",
-        details: ["After an early Seattle departure, aim for a full night’s sleep."],
+        details: [
+          "After the delayed travel day, wind down after dinner and aim for a full night’s sleep.",
+        ],
       },
     ],
   },
