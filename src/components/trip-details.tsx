@@ -194,13 +194,15 @@ export function TripDetails() {
           <p className="mt-6 border-t border-line pt-4 text-[0.9375rem] leading-relaxed text-muted">
             AA 381 delayed; AA 1904 replaces AA 1894. Updated from American’s October 1 emails
             (latest at 4:07 PM Pacific). Get new boarding passes for each passenger. Suggested SEA
-            arrival: 6:15 AM Pacific, subject to airline guidance. Hotel arrival around 7:45 PM
-            Eastern. Check the American app for current status and gates.
+            arrival: around 6:30 AM Pacific, subject to airline guidance. Hotel arrival around 7:45
+            PM Eastern. Check the American app for current status and gates.
           </p>
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
-            Light rail: reach Capitol Hill’s southbound platform by 4:45 AM PT. Take the 4:59 AM 1
-            Line toward Federal Way; arrive at SeaTac/Airport at 5:41 AM. Allow 15–20 minutes to
-            walk to the terminal, arriving around 6 AM. Check service alerts before leaving.
+            Light rail: reach Capitol Hill’s southbound platform by 5:15 AM PT. Take the 5:28 AM 1
+            Line toward Federal Way; arrive at SeaTac/Airport at 6:09 AM. Allow 15–20 minutes to
+            walk to the terminal, arriving around 6:25–6:30 AM. Allow about 1 hour 45 minutes before
+            departure; confirm airline check-in and bag-drop guidance and check service alerts
+            before leaving.
           </p>
           <div className={linkGroupClasses}>
             <ExternalLink

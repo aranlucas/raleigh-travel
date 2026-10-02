@@ -58,14 +58,14 @@ export const days: Day[] = [
     activities: [
       {
         id: "sea-light-rail",
-        time: "4:45–5:41 AM PT",
+        time: "5:15–6:09 AM PT",
         category: "travel",
         title: "Capitol Hill → SeaTac by light rail",
-        description: "Be on the platform by 4:45 AM for the 4:59 AM southbound 1 Line train.",
+        description: "Be on the platform by 5:15 AM for the 5:28 AM southbound 1 Line train.",
         details: [
-          "Take the 1 Line toward Federal Way. Friday’s timetable lists Capitol Hill at 4:59 AM and SeaTac/Airport at 5:41 AM: a 42-minute ride.",
-          "Allow another 15–20 minutes to walk through the airport garage to the terminal. Estimated terminal arrival is around 6 AM, ahead of the 6:15 AM target for the revised 8:15 AM flight.",
-          "The next listed train is 5:28 AM → 6:09 AM, before the terminal walk; it leaves less than two hours at the terminal. Check service alerts and live arrivals before leaving home. Times checked October 1 for Friday, October 2, 2026.",
+          "Take the 1 Line toward Federal Way. Friday’s timetable lists Capitol Hill at 5:28 AM and SeaTac/Airport at 6:09 AM: a 41-minute ride.",
+          "Allow another 15–20 minutes to walk through the airport garage to the terminal. Estimated terminal arrival is around 6:25–6:30 AM for the revised 8:15 AM flight.",
+          "This plan allows about 1 hour 45 minutes at the terminal before departure. Confirm airline check-in and bag-drop guidance, and check service alerts and live arrivals before leaving home. Times checked October 1 for Friday, October 2, 2026.",
         ],
         links: [
           {
@@ -80,10 +80,10 @@ export const days: Day[] = [
       },
       {
         id: "sea-airport",
-        time: "6:15 AM PT",
+        time: "Around 6:30 AM PT",
         category: "travel",
         title: "Arrive at SEA",
-        description: "Suggested airport arrival, two hours before takeoff.",
+        description: "Estimated terminal arrival after the light rail ride and walk.",
         details: [
           "A planning buffer based on the revised departure, not an airline check-in deadline. Confirm airport arrival guidance with American before leaving; allow extra time to reach Capitol Hill station and for bags.",
           "Seattle is three hours behind Raleigh. Flight times use each airport’s local time.",
