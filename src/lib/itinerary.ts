@@ -38,6 +38,10 @@ export const sources = {
   midtownMarket: "https://www.visitnorthhills.com/signature-events/midtown-farmers-market",
   wideOpen: "https://raleighwideopen.com/event-info/",
   firstFriday: "https://raleighnc.gov/parks-and-recreation/events/first-friday-market-and-movie-2",
+  weather: "https://forecast.weather.gov/MapClick.php?lat=35.7796&lon=-78.6382",
+  snacks: "https://www.harristeeter.com/stores/grocery/nc/raleigh/north-hills/097/00422",
+  hotelDining:
+    "https://www.hyatt.com/hyatt-house/en-US/rduxn-hyatt-house-raleigh-north-hills/dining",
 };
 export function maps(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
@@ -140,6 +144,8 @@ export const days: Day[] = [
         details: [
           "Your confirmation lists October 2–6: four nights, two guests, one king bed. Check-in starts at 3 PM; Tuesday checkout is noon.",
           "Bring photo ID and a card for incidentals. Keep your booking confirmation handy.",
+          "Room and tax are prepaid through Chase Travel. Have the primary guest on the confirmation present for check-in; if arriving separately, arrange access with the hotel ahead of time.",
+          "If further flight delays push arrival very late, contact the hotel to confirm your arrival plans.",
         ],
       },
       {
@@ -152,6 +158,7 @@ export const days: Day[] = [
         details: [
           "Locally owned, at 4208 Six Forks Road. A burger or one roll keeps it around $20–30 per person.",
           "Keep dinner flexible if the flight or transfer runs later. First Friday is on downtown tonight; skip it and rest.",
+          "Cowfish lists Friday hours until 10 PM, checked October 1. Allow for a wait; if arrival runs late, choose a quick meal or takeaway instead.",
         ],
         links: [
           { label: "Cowfish menu & details", href: sources.cowfish },
@@ -160,6 +167,28 @@ export const days: Day[] = [
             label: "Directions",
             href: maps("The Cowfish, 4208 Six Forks Road, Raleigh NC"),
           },
+        ],
+      },
+      {
+        id: "friday-snacks",
+        time: "Around 9:00 PM",
+        category: "reset",
+        title: "Pick up a few snacks",
+        description: "A quick North Hills stop after dinner, or use the hotel market.",
+        optional: true,
+        details: [
+          "Harris Teeter North Hills is at 120 Saint Albans Drive, Suite 100, near the hotel. Allow about 15–20 minutes to shop; keep it flexible if dinner runs long.",
+          "Keep the haul small for two: a few pieces of fruit, four granola bars, a small bag of nuts or crackers, and water. Save some for study breaks and Tuesday’s tight airport connection.",
+          "The store’s detail section lists daily hours of 6 AM–11 PM, checked October 1. Confirm current hours before heading over.",
+          "If you are tired, arriving late, or the weather is poor, use Hyatt House’s 24-hour H Market for a few grab-and-go snacks. Selection varies; you can make the grocery stop Saturday morning instead.",
+        ],
+        links: [
+          { label: "Harris Teeter hours & details", href: sources.snacks },
+          {
+            label: "Grocery directions",
+            href: maps("Harris Teeter North Hills, 120 Saint Albans Drive Suite 100, Raleigh NC"),
+          },
+          { label: "Hotel H Market", href: sources.hotelDining },
         ],
       },
       {
@@ -233,8 +262,24 @@ export const days: Day[] = [
         ],
       },
       {
+        id: "sat-downtown-transfer",
+        time: "12:15–12:45 PM",
+        category: "travel",
+        title: "Head downtown",
+        description: "Close the notes, then take a rideshare to the science museum.",
+        details: [
+          "Allow 30 minutes to request a ride and reach 121 West Jones Street. Festival street closures and traffic may add time; shorten the museum visit if needed.",
+        ],
+        links: [
+          {
+            label: "Directions",
+            href: maps("Daily Planet Cafe, 121 West Jones Street, Raleigh NC"),
+          },
+        ],
+      },
+      {
         id: "sat-lunch",
-        time: "12:15–1:15 PM",
+        time: "12:45–1:45 PM",
         category: "reset",
         title: "Lunch at Daily Planet Cafe",
         description: "Inside the science museum, downtown.",
@@ -251,18 +296,20 @@ export const days: Day[] = [
       },
       {
         id: "science",
-        time: "1:15–3:00 PM",
+        time: "1:45–3:00 PM",
         category: "explore",
         title: "Museum of Natural Sciences",
         description: "Free. Stay as long as it holds your interest.",
-        minutes: 105,
+        minutes: 75,
         details: [
-          "A relaxed visit of about 1¾ hours, with permission to leave sooner. General admission is free; special exhibitions may cost extra.",
+          "A relaxed visit of about 1¼ hours, with permission to leave sooner. General admission is free; special exhibitions may cost extra.",
           "The downtown museum lists Tuesday–Sunday hours of 10 AM–5 PM. Address: 11 West Jones Street.",
           "Check current museum notices before visiting.",
+          "Use the live weather suggestions above to choose between a longer indoor visit and the outdoor stops. Skip the outdoor festival stops during storms.",
         ],
         links: [
           { label: "Hours & admission", href: sources.science },
+          { label: "Current Raleigh forecast", href: sources.weather },
           {
             label: "Directions",
             href: maps(
@@ -278,6 +325,7 @@ export const days: Day[] = [
         title: "State Capitol and a coffee",
         description: "One block from the museum.",
         minutes: 60,
+        optional: true,
         details: [
           "Self-guided visits, Saturday 10 AM–5 PM. Skip it if you would rather linger over coffee.",
           "Raleigh Wide Open, a free music festival, is on downtown today. Expect stages and some street closures.",
@@ -386,11 +434,12 @@ export const days: Day[] = [
         minutes: 120,
         details: [
           "Pick a few galleries and a short sculpture-park loop. Galleries Wed–Sun 10 AM–5 PM; park dawn to dusk. Free.",
-          "If it rains, stay indoors.",
+          "Use the live weather suggestions above to decide whether to include the sculpture park. Favor indoor galleries during rain and skip outdoor walks during storms.",
         ],
         links: [
           { label: "Museum visitor details", href: sources.art },
           { label: "Museum Park", href: sources.park },
+          { label: "Current Raleigh forecast", href: sources.weather },
           {
             label: "Directions",
             href: maps("North Carolina Museum of Art, 2110 Blue Ridge Road, Raleigh NC"),
@@ -437,12 +486,13 @@ export const days: Day[] = [
       },
       {
         id: "sun-dinner",
-        time: "6:00–9:30 PM",
+        time: "6:00–7:30 PM",
         category: "reset",
         title: "Dinner at Vivace",
         description: "Italian in North Hills. Eat early.",
         details: [
           "Pizza or pasta at 4209 Lassiter Mill Road · $20–30 per person. Eat around 6, in bed by 10.",
+          "Published Sunday dinner hours are 5–9 PM, checked October 1. Reserve an indoor table if you want a set dinner time; this itinerary is a suggestion, not a reservation.",
         ],
         links: [
           { label: "Vivace menu", href: sources.vivace },
@@ -644,6 +694,7 @@ export const days: Day[] = [
         details: [
           "AA 2693: RDU 2:13 PM ET → DFW 4:30 PM CT. AA 1483: DFW 5:21 PM CT → SEA 7:44 PM PT.",
           "The DFW connection is 51 minutes. Eat at RDU and go straight to the next gate.",
+          "These are the saved return-flight times. Recheck both flights, seats, and gates in the American app before travel; delays or a gate change can make this connection tighter.",
         ],
         links: [{ label: "American Airlines", href: "https://www.aa.com/" }],
       },

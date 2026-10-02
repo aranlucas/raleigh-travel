@@ -120,7 +120,7 @@ export const places: readonly Place[] = [
     cost: "Free general admission",
     hours: "Tue–Sun 10 AM–5 PM",
     fit: "half-day",
-    planned: { dayId: "saturday", label: "Sat 1:15 PM" },
+    planned: { dayId: "saturday", label: "Sat 1:45 PM" },
     href: sources.science,
     directions: maps("North Carolina Museum of Natural Sciences, 11 West Jones Street, Raleigh NC"),
   },

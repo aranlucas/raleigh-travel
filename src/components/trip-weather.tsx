@@ -14,6 +14,7 @@ import { getWeatherCode, isRainWeatherCode, isSnowOrStormWeatherCode } from "@/l
 
 import { Timeline, type Filter } from "./timeline";
 import { useLiveWeather } from "./use-live-weather";
+import { WeatherSuggestions } from "./weather-suggestions";
 
 type Unit = "F" | "C";
 function localTime(value: string | null): string {
@@ -69,7 +70,7 @@ export function TripWeather({
   const [unit, setUnit] = useState<Unit>("F");
   const isoDate = TRIP_DATES.find((date) => date.slice(8) === day.date);
   const selected = (weather?.days ?? fallbackDays()).find((entry) => entry.isoDate === isoDate);
-  const f = selected?.forecast ?? null;
+  const f = selected?.status === "forecast" ? selected.forecast : null;
   const code = getWeatherCode(f?.code);
   const hints = f === null ? [] : guidance(f);
   const temp = (c: number | null) =>
@@ -204,6 +205,7 @@ export function TripWeather({
           </details>
         </>
       )}
+      <WeatherSuggestions day={day} forecast={f} />
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3 text-xs text-muted">
         <span>
           Forecast by{" "}

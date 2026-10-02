@@ -223,7 +223,8 @@ export function TripDetails() {
           />
           <p className="mt-6 border-t border-line pt-4 text-[0.9375rem] leading-relaxed text-muted">
             Leave the hotel around 11 AM; target RDU by 11:45 AM. At DFW, head to your onward gate
-            first.
+            first. These are saved flight times; recheck both legs, seats, and gates in the American
+            app before travel.
           </p>
         </DetailCard>
         <DetailCard icon={<House {...icon} />} title="A comfortable home base">
@@ -242,6 +243,11 @@ export function TripDetails() {
               ["Bring", "Photo ID and a card for incidentals"],
             ]}
           />
+          <p className="text-[0.9375rem] leading-relaxed text-muted">
+            Room and tax are prepaid through Chase Travel. Have the primary guest on the
+            confirmation present for check-in, or arrange access with the hotel beforehand. Contact
+            the hotel if further flight delays push arrival very late.
+          </p>
           <div className={linkGroupClasses}>
             <ExternalLink label="Directions" href={maps(hotelAddress)} />
           </div>
