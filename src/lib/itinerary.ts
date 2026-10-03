@@ -41,6 +41,11 @@ export const sources = {
   happyHale: "https://www.happyandhale.com/locations",
   midtownMarket: "https://www.visitnorthhills.com/signature-events/midtown-farmers-market",
   wideOpen: "https://raleighwideopen.com/event-info/",
+  wideOpenSchedule: "https://raleighwideopen.com/",
+  wideOpenMap:
+    "https://raleighwideopen.com/wp-content/uploads/2026/09/RWO26-SiteMap-092426-scaled.png",
+  gators:
+    "https://floridagators.com/news/2026/9/29/football-broadcast-information-no-8-florida-vs-no-25-missouri",
   firstFriday: "https://raleighnc.gov/parks-and-recreation/events/first-friday-market-and-movie-2",
   weather: "https://forecast.weather.gov/MapClick.php?lat=35.7796&lon=-78.6382",
   snacks: "https://www.harristeeter.com/stores/grocery/nc/raleigh/north-hills/097/00422",
@@ -217,8 +222,10 @@ export const days: Day[] = [
     date: "03",
     label: "Study, then downtown",
     title: "Saturday, October 3",
-    description: "Two study blocks in the morning, downtown in the afternoon.",
-    takeaway: "Stop studying at 12:15. The afternoon is off.",
+    description:
+      "Two morning study blocks, lunch and the museum, then optional music, coffee, or Florida at Missouri at 3:30 PM EDT on ABC.",
+    takeaway:
+      "Stop studying at 12:15. Florida at Missouri kicks off at 3:30 PM EDT on ABC; choose your afternoon around it.",
     activities: [
       {
         id: "sat-market",
@@ -274,9 +281,10 @@ export const days: Day[] = [
         time: "12:15–12:45 PM",
         category: "travel",
         title: "Head downtown",
-        description: "Close the notes, then take a rideshare to the science museum.",
+        description: "Close the notes at 12:15, then take Uber or Lyft to Daily Planet Cafe.",
         details: [
-          "Allow 30 minutes to request a ride and reach 121 West Jones Street. Festival street closures and traffic may add time; shorten the museum visit if needed.",
+          "Set the destination to Daily Planet Cafe, 121 W Jones St, Raleigh, NC 27603, in the Nature Research Center. Check that the dropoff pin is at the café’s Jones Street address.",
+          "Request the ride at 12:15. The 12:15–12:45 window allows 30 minutes for pickup, the drive, and traffic; it is a planning buffer, not a guaranteed arrival time. Festival closures can add delays. Check the app’s pickup estimate and fare before booking; shorten the museum visit if lunch runs late.",
         ],
         links: [
           {
@@ -330,17 +338,17 @@ export const days: Day[] = [
         id: "capitol",
         time: "3:00–4:00 PM",
         category: "explore",
-        title: "State Capitol and a coffee",
-        description: "One block from the museum.",
+        title: "Optional: State Capitol and a coffee",
+        description: "One block from the museum; an alternative to the festival or football.",
         minutes: 60,
         optional: true,
         details: [
           "Self-guided visits, Saturday 10 AM–5 PM. Skip it if you would rather linger over coffee.",
-          "Raleigh Wide Open, a free music festival, is on downtown today. Expect stages and some street closures.",
+          "If watching Florida at Missouri matters today, leave time to get settled before the 3:30 PM EDT kickoff on ABC. A watch location has not been chosen.",
         ],
         links: [
           { label: "Capitol visitor details", href: sources.capitol },
-          { label: "Raleigh Wide Open", href: sources.wideOpen },
+          { label: "Gators broadcast details", href: sources.gators },
           {
             label: "Directions",
             href: maps("North Carolina State Capitol, 1 East Edenton Street, Raleigh NC"),
@@ -348,12 +356,51 @@ export const days: Day[] = [
         ],
       },
       {
+        id: "sat-festival",
+        time: "3:00–4:00 PM",
+        category: "explore",
+        title: "Optional: Raleigh Wide Open",
+        description:
+          "Swap Capitol/coffee for a festival walk. Staying past 3:30 overlaps the Gators kickoff.",
+        optional: true,
+        details: [
+          "From the museum, walk south toward Fayetteville Street at Hargett Street, about 10–15 minutes estimated. PineCone Stage is the northernmost festival stage, just south of Hargett.",
+          "Arriving around 3:10–3:15 leaves the end of The Onlies’ 2:45–3:30 PM set at PineCone Stage, then time to browse. Saturday’s festival runs noon–11 PM along Fayetteville Street; admission is free, with no tickets or wristbands.",
+          "This is a choice, not an added commitment. The full set ends at Florida’s 3:30 PM EDT kickoff on ABC, so allow time to leave earlier if you choose the game. Capitol/coffee is another option.",
+          "Schedule checked October 3, 2026 on the live official page, which flags Saturday changes. Recheck it before walking over; skip outdoor stops during storms.",
+        ],
+        links: [
+          { label: "Live festival schedule", href: sources.wideOpenSchedule },
+          { label: "Festival info", href: sources.wideOpen },
+          { label: "Festival map", href: sources.wideOpenMap },
+          {
+            label: "Walk toward PineCone Stage",
+            href: maps("Fayetteville Street and Hargett Street, Raleigh NC"),
+          },
+        ],
+      },
+      {
+        id: "sat-gators",
+        time: "3:30 PM EDT",
+        category: "reset",
+        title: "Optional: Florida at Missouri · ABC",
+        description: "Kickoff at 3:30. Choose football or the downtown afternoon options.",
+        optional: true,
+        details: [
+          "Florida’s official broadcast notice confirms Saturday, October 3 kickoff at 3:30 PM Eastern on ABC. Raleigh is on EDT today (America/New_York). Checked October 3, 2026.",
+          "If you choose to watch, plan where and allow time to get there before kickoff. No watch venue or reservation is assumed. The game may run into the 4:00–6:30 hotel rest block; keep that block flexible.",
+        ],
+        links: [{ label: "Official kickoff & broadcast details", href: sources.gators }],
+      },
+      {
         id: "sat-rest",
         time: "4:00–6:30 PM",
         category: "reset",
         title: "Back to the hotel",
         description: "Rest before dinner.",
-        details: ["Keep this as open time. There is no additional study assignment today."],
+        details: [
+          "Keep this as open time, or adjust it if you choose to watch the game. There is no additional study assignment today.",
+        ],
       },
       {
         id: "sat-dinner",
@@ -371,6 +418,27 @@ export const days: Day[] = [
           {
             label: "Directions",
             href: maps("The BBQ Lab North Hills Raleigh NC"),
+          },
+        ],
+      },
+      {
+        id: "sat-festival-evening",
+        time: "7:45–8:45 PM",
+        category: "explore",
+        title: "Optional: The Po’ Ramblin’ Boys",
+        description: "City Plaza Stage after BBQ Lab, if you feel like another trip downtown.",
+        optional: true,
+        details: [
+          "The live Saturday schedule lists The Po’ Ramblin’ Boys at City Plaza Stage from 7:45–8:45 PM. Checked October 3, 2026.",
+          "Keep the 6:30 PM BBQ Lab dinner. If you choose this set, check your ride estimate after dinner and allow time for pickup, traffic, and the walk to City Plaza. The festival’s suggested rideshare dropoff near City Plaza is Fayetteville Street just north of Lenoir Street, across from the Marriott.",
+          "This adds a second downtown trip and pushes back the 9 PM wind-down. Skip it for hotel rest; attending is optional and nothing is reserved.",
+        ],
+        links: [
+          { label: "Live festival schedule", href: sources.wideOpenSchedule },
+          { label: "Festival map", href: sources.wideOpenMap },
+          {
+            label: "City Plaza directions",
+            href: maps("City Plaza, Fayetteville Street, Raleigh NC"),
           },
         ],
       },

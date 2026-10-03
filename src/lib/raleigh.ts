@@ -250,14 +250,25 @@ export const happenings: readonly Happening[] = [
   {
     id: "wide-open",
     name: "Raleigh Wide Open",
-    when: "Oct 1–3 · downtown streets",
-    where: "Downtown Raleigh",
+    when: "Sat, Oct 3 · noon–11 PM EDT",
+    where: "Fayetteville Street, downtown",
     blurb:
-      "A free festival of bluegrass and roots music across downtown stages, plus food and craft vendors.",
+      "Free, no tickets. The Onlies play PineCone Stage 2:45–3:30 PM; The Po’ Ramblin’ Boys play City Plaza 7:45–8:45 PM. Live schedule checked October 3; Saturday changes are posted.",
     verdict:
-      "It overlaps Saturday’s downtown afternoon. Listen for a few songs between the museum and the Capitol.",
+      "Optional instead of Capitol/coffee: walk about 10–15 minutes south from the museum. Florida’s 3:30 PM ABC kickoff overlaps browsing. The evening set after BBQ Lab trades hotel rest for another downtown trip.",
     dayId: "saturday",
-    href: sources.wideOpen,
+    href: sources.wideOpenSchedule,
+  },
+  {
+    id: "gators-missouri",
+    name: "Florida at Missouri · ABC",
+    when: "Sat, Oct 3 · 3:30 PM EDT kickoff",
+    where: "TV broadcast; watch location undecided",
+    blurb: "Official Florida broadcast notice checked October 3, 2026. All times are Eastern.",
+    verdict:
+      "An optional afternoon choice. Leave time to get settled before kickoff if you choose the game; adjust festival, Capitol/coffee, and hotel rest accordingly.",
+    dayId: "saturday",
+    href: sources.gators,
   },
   {
     id: "midtown-market",
