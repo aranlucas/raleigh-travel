@@ -13,6 +13,7 @@ afterEach(() => {
   for (const cleanup of cleanups.splice(0)) {
     cleanup();
   }
+
   vi.unstubAllGlobals();
 });
 
@@ -24,12 +25,14 @@ function externalChange(key: string | null, value: string | null, storage = wind
   } else {
     storage.setItem(key, value);
   }
+
   window.dispatchEvent(new StorageEvent("storage", { key, newValue: value, storageArea: storage }));
 }
 
 test("failed writes keep the newest state despite an older readable saved value", () => {
   window.localStorage.setItem(PACKING_STORAGE_KEY, '["tops"]');
   const store = createPackingStore();
+
   const save = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
     throw new DOMException("Storage full", "QuotaExceededError");
   });
@@ -160,9 +163,11 @@ test("changes made while unsubscribed also replace an unsaved fallback", () => {
 
 test("the first readable saved value does not discard changes made while storage was blocked", () => {
   const storage = window.localStorage;
+
   const access = vi.spyOn(window, "localStorage", "get").mockImplementation(() => {
     throw new DOMException("Blocked", "SecurityError");
   });
+
   const store = createPackingStore();
   store.toggle("tops");
   access.mockRestore();

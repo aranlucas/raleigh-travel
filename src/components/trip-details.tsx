@@ -31,6 +31,7 @@ function RouteLine({
 }>) {
   const [origin, via, destination] = stops;
   const [first, second] = legs;
+
   return (
     <div className="mt-6">
       <p className="sr-only">
@@ -141,6 +142,7 @@ const icon = { size: 18, strokeWidth: 1.75, "aria-hidden": true } as const;
 function shortDuration(minutes: number) {
   const hours = Math.floor(minutes / 60);
   const rest = minutes % 60;
+
   return [hours > 0 ? `${hours}h` : "", rest > 0 ? `${rest}m` : ""].filter(Boolean).join(" ");
 }
 
@@ -153,6 +155,7 @@ const keyMoments = [
 
 export function TripDetails() {
   const totalStudy = days.reduce((total, day) => total + studyMinutes(day), 0);
+
   return (
     <section className="animate-fade-up" aria-labelledby="details-heading">
       <div className="pb-8">

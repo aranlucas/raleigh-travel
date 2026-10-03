@@ -12,16 +12,19 @@
     "format:check": "oxfmt --check --threads=2 .",
     "typecheck": "next typegen && tsc --noEmit",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
-    "test": "vitest run"
+    "test": "vitest run",
+    "lint:plugin": "node tools/oxlint/verify-anti-slop.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
     "lucide-react": "^1.47.0",
     "next": "16.3.6",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "zod": "4.6.5"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.85.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/leaflet": "^1.9.22",
     "@types/node": "^26",

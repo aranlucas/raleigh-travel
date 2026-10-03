@@ -10,6 +10,7 @@ import {
 import { resolveWeather } from "@/lib/weather-service";
 
 export const dynamic = "force-dynamic";
+
 const getWeather = unstable_cache(
   async (_localDate: string) => ({
     days: await resolveWeather(),
@@ -23,6 +24,7 @@ const getWeather = unstable_cache(
   ],
   { revalidate: WEATHER_REFRESH_MS / 1000 },
 );
+
 export async function GET() {
   try {
     return Response.json(await getWeather(localToday()), {

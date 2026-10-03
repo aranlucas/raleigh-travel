@@ -10,6 +10,7 @@ export function DayTabs({
 }: Readonly<{ selectedId: string; onSelect: (id: string) => void }>) {
   function handleKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next: number;
+
     if (event.key === "ArrowRight") {
       next = (index + 1) % days.length;
     } else if (event.key === "ArrowLeft") {
@@ -21,6 +22,7 @@ export function DayTabs({
     } else {
       return;
     }
+
     event.preventDefault();
     onSelect(days[next].id);
     document.querySelector<HTMLButtonElement>(`#tab-${days[next].id}`)?.focus();
@@ -35,6 +37,7 @@ export function DayTabs({
       <div className="mt-3 grid grid-cols-5 gap-1.5 sm:gap-2" role="tablist" aria-label="Trip day">
         {days.map((item, index) => {
           const isExam = item.id === "monday";
+
           return (
             <button
               type="button"

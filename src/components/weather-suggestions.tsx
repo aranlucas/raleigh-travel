@@ -9,9 +9,11 @@ export function WeatherSuggestions({
   forecast,
 }: Readonly<{ day: Day; forecast: ForecastEntry | null }>) {
   const suggestion = weatherSuggestion(day, forecast);
+
   if (suggestion === null) {
     return null;
   }
+
   return (
     <div className="mt-4 rounded-md border border-line bg-surface p-4" aria-live="polite">
       <p className="eyebrow text-pine">Ideas for this weather</p>

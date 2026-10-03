@@ -7,6 +7,7 @@ export type PackingItem = Readonly<{
   detail: string;
   optional?: boolean;
 }>;
+
 export const PACKING_GROUPS: readonly Readonly<{ title: string; items: readonly PackingItem[] }>[] =
   [
     {
@@ -119,27 +120,36 @@ export const PACKING_GROUPS: readonly Readonly<{ title: string; items: readonly 
       ],
     },
   ];
+
 /** Guidance follows the currently loaded trip forecast; no permanent trip temperatures. */
 export function packingWeatherNotes(weather: Readonly<WeatherResponse> | null): string[] {
   if (weather === null) {
     return [];
   }
+
   const notes: string[] = [];
+
   for (const day of weather.days) {
     const f = day.forecast;
+
     if (f === null) {
       continue;
     }
+
     const date = formatTripDate(day.isoDate);
+
     if (f.maxC >= 27) {
       notes.push(`${date}: breathable tops and shorts will be useful in the heat.`);
     }
+
     if (isRainWeatherCode(f.code) || (f.precipPct ?? 0) >= 35 || (f.precipMm ?? 0) >= 1) {
       notes.push(`${date}: keep your hooded jacket and spare socks ready for rain.`);
     }
+
     if ((f.feelsMinC ?? f.minC) <= 15) {
       notes.push(`${date}: keep the light layer handy for cooler mornings and evenings.`);
     }
   }
+
   return notes;
 }

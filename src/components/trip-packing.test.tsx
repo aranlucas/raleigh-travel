@@ -6,21 +6,21 @@ import { PACKING_STORAGE_KEY } from "@/lib/packing-store";
 
 import { TripPacking } from "./trip-packing";
 
-vi.mock("./use-live-weather", () => ({
-  useLiveWeather: () => ({ weather: null, loading: false, error: null }),
-}));
-
 let container: HTMLDivElement;
+
 let root: ReturnType<typeof createRoot>;
 
 async function update(action: () => void) {
   await act(() => {
     action();
+
     return Promise.resolve();
   });
 }
 
 beforeEach(() => {
+  vi.useFakeTimers();
+  vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("No network in packing test")));
   vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
   window.localStorage.clear();
   container = document.createElement("div");
@@ -34,13 +34,16 @@ afterEach(async () => {
   });
   container.remove();
   vi.unstubAllGlobals();
+  vi.useRealTimers();
 });
 
 function checkbox(label: string): HTMLInputElement {
   const input = container.querySelector<HTMLInputElement>(`label[aria-label="${label}"] input`);
+
   if (input === null) {
     throw new Error(`Missing checkbox: ${label}`);
   }
+
   return input;
 }
 
