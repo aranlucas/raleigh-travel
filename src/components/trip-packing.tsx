@@ -10,13 +10,16 @@ import { useLiveWeather } from "./use-live-weather";
 
 export function TripPacking() {
   const { weather, loading, error: forecastError } = useLiveWeather();
+
   const packed = useSyncExternalStore(
     packingStore.subscribe,
     packingStore.getSnapshot,
     packingStore.getServerSnapshot,
   );
+
   const total = PACKING_GROUPS.reduce((count, group) => count + group.items.length, 0);
   const notes = packingWeatherNotes(weather);
+
   return (
     <section id="packing" aria-labelledby="packing-heading" className="scroll-mt-6 py-10">
       <div className="flex flex-wrap items-end justify-between gap-4">

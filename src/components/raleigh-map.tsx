@@ -8,6 +8,7 @@ import { examCoords, fits, hotelCoords, places, type Fit, type Place } from "@/l
 
 // Tailwind picks these class names up from this file; Leaflet renders them as marker HTML.
 const fitOrder: readonly Fit[] = ["break", "half-day", "evening"];
+
 const dotClass: Readonly<Record<Fit, string>> = {
   break: "bg-pine",
   "half-day": "bg-sky-bright",
@@ -16,6 +17,7 @@ const dotClass: Readonly<Record<Fit, string>> = {
 
 const osmAttribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
 const cartoKey = process.env.NEXT_PUBLIC_CARTO_KEY ?? "";
 
 /**
@@ -49,6 +51,7 @@ function escapeHtml(text: string) {
 
 function placeMarkerHtml(place: Place) {
   const ring = place.planned === undefined ? "" : "ring-2 ring-ink ring-offset-2";
+
   return `<span class="block size-4 rounded-full border-2 border-white shadow-card ${dotClass[place.fit]} ${ring}"></span>`;
 }
 
@@ -57,6 +60,7 @@ function popupHtml(place: Place) {
     place.planned === undefined
       ? ""
       : `<span class="mt-1 block text-xs font-semibold text-pine-deep">In your plan · ${escapeHtml(place.planned.label)}</span>`;
+
   return `<span class="block font-sans">
     <strong class="block font-display text-base font-normal leading-snug text-ink">${escapeHtml(place.name)}</strong>
     <span class="block text-xs text-muted">${escapeHtml(place.fromHotel)} · ${escapeHtml(fits[place.fit])}</span>
@@ -79,10 +83,13 @@ export function RaleighMap() {
       if (container === null) {
         return;
       }
+
       const { default: L } = await import("leaflet");
+
       if (cancelled) {
         return;
       }
+
       {
         map = new L.Map(container, {
           scrollWheelZoom: false,
@@ -154,6 +161,7 @@ export function RaleighMap() {
         );
       }
     }
+
     mount().catch(() => {
       if (container !== null) {
         container.dataset.failed = "true";

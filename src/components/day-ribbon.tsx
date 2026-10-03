@@ -53,10 +53,13 @@ function hourLabel(hour: number) {
 export function DayOfTimeline({ day }: Readonly<{ day: Day }>) {
   const from = 8 * 60;
   const to = 20 * 60;
+
   const milestones = (day.milestones ?? []).flatMap((milestone) => {
     const parsed = parseTime(milestone.time);
+
     return parsed === null ? [] : [{ ...milestone, at: parsed.start }];
   });
+
   return (
     <figure className="card mt-6 p-5 sm:p-6">
       <figcaption className="flex items-baseline justify-between gap-4">

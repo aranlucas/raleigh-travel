@@ -23,9 +23,11 @@ const fitTones = {
 
 function dayShort(dayId: string) {
   const day = days.find((item) => item.id === dayId);
+
   if (day === undefined) {
     throw new Error(`Unknown trip day: ${dayId}`);
   }
+
   return `${day.short} ${Number(day.date)}`;
 }
 

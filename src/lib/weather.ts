@@ -1,7 +1,11 @@
 export const TRIP_TIME_ZONE = "America/New_York";
+
 export const WEATHER_REFRESH_MS = 30 * 60 * 1000;
+
 export const FORECAST_WINDOW_DAYS = 16;
+
 export const FORECAST_LOCATION = { name: "Raleigh", latitude: 35.7796, longitude: -78.6382 };
+
 export const TRIP_DATES = [
   "2026-10-02",
   "2026-10-03",
@@ -26,6 +30,7 @@ export type ForecastEntry = Readonly<{
   sunrise: string | null;
   sunset: string | null;
 }>;
+
 export type WeatherDay = Readonly<{
   isoDate: string;
   leadDays: number;
@@ -33,6 +38,7 @@ export type WeatherDay = Readonly<{
   status: "forecast" | "upcoming" | "past" | "unavailable";
   liveForecastOpens: string | null;
 }>;
+
 export type WeatherResponse = Readonly<{ days: readonly WeatherDay[]; refreshedAt: string }>;
 
 export function localToday(now = new Date()): string {
@@ -42,19 +48,24 @@ export function localToday(now = new Date()): string {
     month: "2-digit",
     day: "2-digit",
   }).formatToParts(now);
+
   const part = (type: string) => parts.find((item) => item.type === type)?.value;
+
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
+
 export function daysUntil(isoDate: string, now = new Date()): number {
   return Math.round(
     (Date.parse(`${isoDate}T00:00:00Z`) - Date.parse(`${localToday(now)}T00:00:00Z`)) / 86400000,
   );
 }
+
 export function fallbackDays(now = new Date()): WeatherDay[] {
   return TRIP_DATES.map((isoDate) => {
     const leadDays = daysUntil(isoDate, now);
     const unlock = new Date(`${isoDate}T00:00:00Z`);
     unlock.setUTCDate(unlock.getUTCDate() - (FORECAST_WINDOW_DAYS - 1));
+
     return {
       isoDate,
       leadDays,
@@ -65,6 +76,7 @@ export function fallbackDays(now = new Date()): WeatherDay[] {
     };
   });
 }
+
 export function formatTripDate(isoDate: string): string {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",

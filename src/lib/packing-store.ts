@@ -1,16 +1,18 @@
+import { z } from "zod";
+
 import { PACKING_GROUPS } from "./packing";
 
 export const PACKING_STORAGE_KEY = "raleigh-packing-lucas-2026-10-02-v1";
 
 const itemIds = new Set(PACKING_GROUPS.flatMap((group) => group.items.map((item) => item.id)));
+
 const emptySnapshot: ReadonlySet<string> = new Set();
 
 function readPackedItems(raw: string | null): string[] {
   try {
-    const value: unknown = JSON.parse(raw ?? "[]");
-    return Array.isArray(value)
-      ? [...new Set(value.filter((id): id is string => typeof id === "string" && itemIds.has(id)))]
-      : [];
+    const parsed = z.array(z.string().catch("")).safeParse(JSON.parse(raw ?? "[]"));
+
+    return parsed.success ? [...new Set(parsed.data.filter((id) => itemIds.has(id)))] : [];
   } catch {
     return [];
   }
@@ -26,6 +28,7 @@ export function createPackingStore() {
 
   function accept(items: readonly string[]) {
     const next = JSON.stringify(items);
+
     if (next !== serialized) {
       serialized = next;
       packed = new Set(items);
@@ -38,6 +41,7 @@ export function createPackingStore() {
       // Detect changes made while there were no subscribers, without replaying an old saved value.
       const changedElsewhere = persisted !== undefined && raw !== persisted;
       persisted = raw;
+
       if (!memoryOnly || changedElsewhere) {
         memoryOnly = false;
         accept(readPackedItems(raw));
@@ -45,6 +49,7 @@ export function createPackingStore() {
     } catch {
       // A failed read keeps the latest accepted snapshot, including a successful prior save.
     }
+
     return packed;
   }
 
@@ -60,6 +65,7 @@ export function createPackingStore() {
     if (event.key !== null && event.key !== PACKING_STORAGE_KEY) {
       return;
     }
+
     try {
       if (event.storageArea !== window.localStorage) {
         return;
@@ -67,6 +73,7 @@ export function createPackingStore() {
     } catch {
       return;
     }
+
     // Cross-tab changes are newer intent. Removal and clear explicitly reset memory too.
     memoryOnly = false;
     persisted = event.newValue;
@@ -78,9 +85,12 @@ export function createPackingStore() {
     if (listeners.size === 0) {
       window.addEventListener("storage", onStorage);
     }
+
     listeners.add(listener);
+
     return () => {
       listeners.delete(listener);
+
       if (listeners.size === 0) {
         window.removeEventListener("storage", onStorage);
       }
@@ -91,13 +101,17 @@ export function createPackingStore() {
     if (!itemIds.has(id)) {
       return;
     }
+
     const items = new Set(getSnapshot());
+
     if (items.has(id)) {
       items.delete(id);
     } else {
       items.add(id);
     }
+
     accept([...items]);
+
     try {
       window.localStorage.setItem(PACKING_STORAGE_KEY, serialized);
       persisted = serialized;
@@ -105,6 +119,7 @@ export function createPackingStore() {
     } catch {
       memoryOnly = true;
     }
+
     notify();
   }
 

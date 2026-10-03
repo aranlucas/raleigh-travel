@@ -1,6 +1,7 @@
 import { maps, sources } from "./itinerary";
 
 export type Area = "north-hills" | "downtown" | "west";
+
 export type Fit = "break" | "half-day" | "evening";
 
 export type Place = Readonly<{
@@ -34,6 +35,7 @@ export type Happening = Readonly<{
 }>;
 
 export const hotelCoords = [35.8364, -78.6381] as const;
+
 export const examCoords = [35.8369, -78.6399] as const;
 
 export const areaOrder: readonly Area[] = ["north-hills", "downtown", "west"];

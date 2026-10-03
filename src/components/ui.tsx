@@ -25,6 +25,7 @@ export function ExternalLink({ href, label }: PlanLink) {
       </Link>
     );
   }
+
   return (
     <a className="link" href={href} target="_blank" rel="noopener noreferrer">
       {label}

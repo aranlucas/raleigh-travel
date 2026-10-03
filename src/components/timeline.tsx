@@ -7,6 +7,7 @@ import { DayOfTimeline } from "./day-ribbon";
 import { ExternalLink } from "./ui";
 
 export type Filter = "all" | "study" | "explore";
+
 const filters: { value: Filter; label: string }[] = [
   { value: "all", label: "All plans" },
   { value: "study", label: "Study" },
@@ -77,6 +78,7 @@ export function Timeline({
   const activities = day.activities.filter(
     (activity) => filter === "all" || activity.category === filter,
   );
+
   return (
     <section
       className="min-w-0 animate-fade-up"

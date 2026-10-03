@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -17,36 +18,49 @@ import { useLiveWeather } from "./use-live-weather";
 import { WeatherSuggestions } from "./weather-suggestions";
 
 type Unit = "F" | "C";
+
 function localTime(value: string | null): string {
   const match = value?.match(/T(\d{2}):(\d{2})/u);
+
   if (!match) {
     return "—";
   }
+
   const hour = Number(match[1]);
+
   return `${hour % 12 || 12}:${match[2]} ${hour >= 12 ? "PM" : "AM"}`;
 }
+
 function guidance(f: Readonly<ForecastEntry>): string[] {
   const hints: string[] = [];
+
   if (isSnowOrStormWeatherCode(f.code)) {
     hints.push("Recheck conditions before outdoor plans.");
   }
+
   if (isRainWeatherCode(f.code) || (f.precipPct ?? 0) >= 35 || (f.precipMm ?? 0) >= 1) {
     hints.push("Carry a rain jacket or umbrella.");
   }
+
   if ((f.feelsMinC ?? f.minC) <= 15) {
     hints.push("Bring a light layer for cool mornings and evenings.");
   }
+
   if (f.maxC >= 27) {
     hints.push("Wear a breathable layer and carry water.");
   }
+
   if ((f.gustKph ?? 0) >= 40) {
     hints.push("Recheck wind before exposed outdoor walks.");
   }
+
   if ((f.uvMax ?? 0) >= 5) {
     hints.push("Pack sunscreen and sunglasses.");
   }
+
   return hints;
 }
+
 function Metric({
   label,
   value,
@@ -73,20 +87,24 @@ export function TripWeather({
   const f = selected?.status === "forecast" ? selected.forecast : null;
   const code = getWeatherCode(f?.code);
   const hints = f === null ? [] : guidance(f);
+
   const temp = (c: number | null) =>
     c === null ? "—" : `${Math.round(unit === "C" ? c : (c * 9) / 5 + 32)}°${unit}`;
+
   const wind = (kph: number | null) =>
     kph === null
       ? "—"
       : unit === "C"
         ? `${Math.round(kph)} km/h`
         : `${Math.round(kph / 1.609344)} mph`;
+
   const precip = (mm: number | null) =>
     mm === null
       ? "Amount n/a"
       : unit === "C"
         ? `${mm.toFixed(1)} mm`
         : `${(mm / 25.4).toFixed(2)} in`;
+
   const weatherPanel = (
     <section className="panel mt-5 p-4 sm:p-5" aria-labelledby="day-weather-heading">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -225,6 +243,7 @@ export function TripWeather({
       </div>
     </section>
   );
+
   return (
     <Timeline
       key={day.id}

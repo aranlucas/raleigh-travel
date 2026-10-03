@@ -1,5 +1,7 @@
 export type Category = "study" | "explore" | "reset" | "travel" | "exam";
+
 export type PlanLink = Readonly<{ label: string; href: string }>;
+
 export type Activity = Readonly<{
   id: string;
   time: string;
@@ -11,6 +13,7 @@ export type Activity = Readonly<{
   optional?: boolean;
   links?: readonly PlanLink[];
 }>;
+
 export type Day = Readonly<{
   id: string;
   short: string;
@@ -22,6 +25,7 @@ export type Day = Readonly<{
   activities: readonly Activity[];
   milestones?: readonly Readonly<{ time: string; label: string }>[];
 }>;
+
 export const sources = {
   abpd: "https://www.abpd.org/become-certified/oral-clinical-examination",
   science: "https://www.naturalsciences.org/visit/hours-admission",
@@ -43,12 +47,16 @@ export const sources = {
   hotelDining:
     "https://www.hyatt.com/hyatt-house/en-US/rduxn-hyatt-house-raleigh-north-hills/dining",
 };
+
 export function maps(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 }
+
 export const hotelAddress =
   "Hyatt House Raleigh North Hills, 160 Park at North Hills Street, Raleigh, NC 27609";
+
 export const examAddress = "AIME Center, 4208 Six Forks Road, Raleigh, NC 27609";
+
 export const days: Day[] = [
   {
     id: "friday",
@@ -709,6 +717,7 @@ export const days: Day[] = [
     ],
   },
 ];
+
 export function studyMinutes(day: Day) {
   return day.activities.reduce(
     (total, event) =>
@@ -716,38 +725,51 @@ export function studyMinutes(day: Day) {
     0,
   );
 }
+
 export function duration(minutes: number) {
   const hours = Math.floor(minutes / 60),
     rest = minutes % 60;
+
   return [hours ? `${hours} ${hours === 1 ? "hr" : "hrs"}` : "", rest ? `${rest} mins` : ""]
     .filter(Boolean)
     .join(" ");
 }
-const zoneOffsets: Record<string, number> = { PT: 180, CT: 60, ET: 0 };
+
+const zoneOffsets = new Map([
+  ["PT", 180],
+  ["CT", 60],
+  ["ET", 0],
+]);
 
 function parseClock(text: string, fallbackMeridiem: string | undefined) {
   const match = /(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?/u.exec(text);
+
   if (match === null) {
     return null;
   }
+
   const meridiem = match[3] ?? fallbackMeridiem;
   const hours = (Number(match[1]) % 12) + (meridiem === "PM" ? 12 : 0);
+
   return { minutes: hours * 60 + Number(match[2] ?? 0), explicit: match[3] !== undefined };
 }
 
 /** Minutes after midnight, Eastern time. Returns null for untimed entries. */
 export function parseTime(time: string): { start: number; end?: number } | null {
-  const offset = zoneOffsets[/\b(PT|CT|ET)\b/u.exec(time)?.[1] ?? "ET"];
+  const offset = zoneOffsets.get(/\b(PT|CT|ET)\b/u.exec(time)?.[1] ?? "ET") ?? 0;
   const [startText, endText] = time.split("–");
   const end = endText === undefined ? null : parseClock(endText, "AM");
   const start = parseClock(startText, /(AM|PM)/u.exec(endText ?? "")?.[1]);
+
   if (start === null) {
     return null;
   }
+
   const startMinutes =
     end !== null && !start.explicit && start.minutes > end.minutes
       ? start.minutes - 720
       : start.minutes;
+
   return end === null
     ? { start: startMinutes + offset }
     : { start: startMinutes + offset, end: end.minutes + offset };
@@ -759,11 +781,14 @@ export type Span = Readonly<{ id: string; category: Category; start: number; end
 export function daySpans(day: Day): Span[] {
   const timed = day.activities.flatMap((activity) => {
     const parsed = parseTime(activity.time);
+
     return parsed === null ? [] : [{ activity, ...parsed }];
   });
+
   return timed.map((item, index) => {
     const nextStart = timed.at(index + 1)?.start;
     const end = item.end ?? nextStart ?? item.start + 60;
+
     return {
       id: item.activity.id,
       category: item.activity.category,
@@ -775,10 +800,12 @@ export function daySpans(day: Day): Span[] {
 
 export function daySummary(day: Day) {
   const study = studyMinutes(day);
+
   const exploring = day.activities.reduce(
     (total, event) => total + (event.category === "explore" ? (event.minutes ?? 0) : 0),
     0,
   );
+
   return (
     [study ? `${duration(study)} study` : "", exploring ? `${duration(exploring)} exploring` : ""]
       .filter(Boolean)
@@ -791,10 +818,13 @@ export function daySummary(day: Day) {
 export function activityContext(activityId: string) {
   for (const day of days) {
     const index = day.activities.findIndex((activity) => activity.id === activityId);
+
     if (index !== -1) {
       const after = day.activities.slice(index + 1).find((item) => item.category !== "study");
+
       return { day, after };
     }
   }
+
   return null;
 }

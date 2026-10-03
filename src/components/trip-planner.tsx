@@ -17,20 +17,25 @@ import { TripWeather } from "./trip-weather";
 
 function subscribeToHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
+
   return () => {
     window.removeEventListener("hashchange", onChange);
   };
 }
+
 const readHash = () => window.location.hash.slice(1);
+
 const noHash = () => "";
 
 /** The selected day lives in the URL hash (`/#monday`) so other pages can link to a day. */
 function useSelectedDay() {
   const hash = useSyncExternalStore(subscribeToHash, readHash, noHash);
   const day = days.find((item) => item.id === hash) ?? days.find((item) => item.id === "saturday");
+
   if (day === undefined) {
     throw new Error("Selected trip day is unavailable.");
   }
+
   return day;
 }
 
@@ -52,6 +57,7 @@ export function TripPlanner({ view }: Readonly<{ view: "itinerary" | "details" }
       }),
     );
   }
+
   // Arriving from another page's day link: bring the day into view.
   useEffect(() => {
     if (days.some((item) => item.id === readHash())) {
@@ -63,10 +69,12 @@ export function TripPlanner({ view }: Readonly<{ view: "itinerary" | "details" }
     setDayHash(id);
     setFilter("all");
   }
+
   function showMonday() {
     selectDay("monday");
     scrollToDay();
   }
+
   return (
     <>
       <div className="print:hidden">
