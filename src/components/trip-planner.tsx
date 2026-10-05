@@ -3,17 +3,15 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { days } from "@/lib/itinerary";
+import { selectedDayId } from "@/lib/selected-day";
 
-import { DayTabs } from "./day-tabs";
 import { PrintItinerary } from "./print-itinerary";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 import type { Filter } from "./timeline";
+import { TripDayPlan } from "./trip-day-plan";
 import { TripDetails } from "./trip-details";
 import { TripHero } from "./trip-hero";
-import { TripSidebar } from "./trip-sidebar";
-// oxlint-disable-next-line import/max-dependencies -- This page composes the itinerary and independent weather section.
-import { TripWeather } from "./trip-weather";
 
 function subscribeToHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
@@ -25,12 +23,15 @@ function subscribeToHash(onChange: () => void) {
 
 const readHash = () => window.location.hash.slice(1);
 
-const noHash = () => "";
+const readSelectedDay = () => selectedDayId(readHash());
+
+// Keep the prerender and initial hydration consistent; resolve today's date in the browser.
+const serverSelectedDay = () => "saturday";
 
 /** The selected day lives in the URL hash (`/#monday`) so other pages can link to a day. */
 function useSelectedDay() {
-  const hash = useSyncExternalStore(subscribeToHash, readHash, noHash);
-  const day = days.find((item) => item.id === hash) ?? days.find((item) => item.id === "saturday");
+  const id = useSyncExternalStore(subscribeToHash, readSelectedDay, serverSelectedDay);
+  const day = days.find((item) => item.id === id);
 
   if (day === undefined) {
     throw new Error("Selected trip day is unavailable.");
@@ -86,13 +87,13 @@ export function TripPlanner({ view }: Readonly<{ view: "itinerary" | "details" }
           <TripHero />
           <div ref={contentRef} id="trip-content" className="scroll-mt-6" tabIndex={-1}>
             {view === "itinerary" ? (
-              <>
-                <DayTabs selectedId={day.id} onSelect={selectDay} />
-                <div className="mt-10 grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,1fr)_19rem] lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-14">
-                  <TripWeather day={day} filter={filter} onFilterChange={setFilter} />
-                  <TripSidebar onMonday={showMonday} />
-                </div>
-              </>
+              <TripDayPlan
+                day={day}
+                filter={filter}
+                onSelectDay={selectDay}
+                onFilterChange={setFilter}
+                onMonday={showMonday}
+              />
             ) : (
               <TripDetails />
             )}
