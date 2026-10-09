@@ -30,33 +30,10 @@ The app has no environment variables and uses the committed pnpm lockfile.
 ```bash
 corepack enable
 pnpm install --frozen-lockfile
-npm install -g portless@0.15.7
 pnpm dev
 ```
 
-Open <https://raleigh-travel.localhost>. Use the exact URL printed at startup if you have customized the proxy.
-
-### Named local URL with Portless
-
-After the normal project setup, use [Portless](https://github.com/vercel-labs/portless/tree/v0.15.7)
-to run this app alongside other repositories without choosing a port. Use Node.js
-24 or newer, within this project's supported Node version, and install the CLI once:
-
-```sh
-npm install -g portless@0.15.7
-pnpm dev
-```
-
-With default proxy settings, the primary checkout is available at
-[https://raleigh-travel.localhost](https://raleigh-travel.localhost). Portless starts
-Next.js on an available `PORT`. Linked Git worktrees get a branch
-prefix; use the exact URL printed at startup. The proxy reuses its most recent
-settings, so a custom port or domain can change that URL.
-
-Run the first launch in an interactive terminal: the default HTTPS setup may ask
-to trust a local certificate authority and request administrator access for port
-443 and local hostname entries. Use `portless list` to see routes and
-`portless doctor` for connection or certificate problems.
+Open <https://raleigh-travel.localhost>. `pnpm dev` runs through [Portless](https://github.com/vercel-labs/portless) (a dev dependency); its first run may ask for `sudo` to bind port 443 and trust a local certificate.
 
 ## Checks and build
 
