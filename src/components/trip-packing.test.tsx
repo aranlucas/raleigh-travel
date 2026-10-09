@@ -1,76 +1,46 @@
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { act } from "react";
-import { createRoot } from "react-dom/client";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
 import { PACKING_STORAGE_KEY } from "@/lib/packing-store";
 
 import { TripPacking } from "./trip-packing";
 
-let container: HTMLDivElement;
-
-let root: ReturnType<typeof createRoot>;
-
-async function update(action: () => void) {
-  await act(() => {
-    action();
-
-    return Promise.resolve();
-  });
-}
-
 beforeEach(() => {
   vi.useFakeTimers();
   vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("No network in packing test")));
   vi.stubGlobal("IS_REACT_ACT_ENVIRONMENT", true);
   window.localStorage.clear();
-  container = document.createElement("div");
-  document.body.append(container);
-  root = createRoot(container);
 });
 
-afterEach(async () => {
-  await update(() => {
-    root.unmount();
-  });
-  container.remove();
+afterEach(() => {
+  cleanup();
   vi.unstubAllGlobals();
   vi.useRealTimers();
 });
 
 function checkbox(label: string): HTMLInputElement {
-  const input = container.querySelector<HTMLInputElement>(`label[aria-label="${label}"] input`);
-
-  if (input === null) {
-    throw new Error(`Missing checkbox: ${label}`);
-  }
-
-  return input;
+  return screen.getByRole<HTMLInputElement>("checkbox", { name: label });
 }
 
-test("a failed save does not undo checkbox changes or the packed count", async () => {
+test("a failed save does not undo checkbox changes or the packed count", () => {
   window.localStorage.setItem(PACKING_STORAGE_KEY, '["tops"]');
   vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
     throw new DOMException("Storage full", "QuotaExceededError");
   });
-  await update(() => {
-    root.render(<TripPacking />);
-  });
+  const { container } = render(<TripPacking />);
 
   expect(checkbox("5 lightweight tops").checked).toBe(true);
-  await update(() => {
-    checkbox("2 lightweight pants").click();
-  });
+  fireEvent.click(checkbox("2 lightweight pants"));
   expect(checkbox("2 lightweight pants").checked).toBe(true);
   expect(container.querySelector('[aria-live="polite"]')?.textContent).toBe("2 of 18 packed");
 
-  await update(() => {
-    checkbox("5 lightweight tops").click();
-  });
+  fireEvent.click(checkbox("5 lightweight tops"));
   expect(checkbox("5 lightweight tops").checked).toBe(false);
   expect(checkbox("2 lightweight pants").checked).toBe(true);
   expect(container.querySelector('[aria-live="polite"]')?.textContent).toBe("1 of 18 packed");
 
-  await update(() => {
+  act(() => {
     window.localStorage.removeItem(PACKING_STORAGE_KEY);
     window.dispatchEvent(
       new StorageEvent("storage", {
