@@ -13,7 +13,7 @@ beforeEach(() => {
   window.localStorage.clear();
 });
 
-afterEach(async () => {
+afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
   vi.useRealTimers();
@@ -23,7 +23,7 @@ function checkbox(label: string): HTMLInputElement {
   return screen.getByRole<HTMLInputElement>("checkbox", { name: label });
 }
 
-test("a failed save does not undo checkbox changes or the packed count", async () => {
+test("a failed save does not undo checkbox changes or the packed count", () => {
   window.localStorage.setItem(PACKING_STORAGE_KEY, '["tops"]');
   vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
     throw new DOMException("Storage full", "QuotaExceededError");
@@ -40,7 +40,7 @@ test("a failed save does not undo checkbox changes or the packed count", async (
   expect(checkbox("2 lightweight pants").checked).toBe(true);
   expect(container.querySelector('[aria-live="polite"]')?.textContent).toBe("1 of 18 packed");
 
-  await act(async () => {
+  act(() => {
     window.localStorage.removeItem(PACKING_STORAGE_KEY);
     window.dispatchEvent(
       new StorageEvent("storage", {
