@@ -48,8 +48,8 @@ pnpm dev
 ```
 
 With default proxy settings, the primary checkout is available at
-[https://raleigh-travel.localhost](https://raleigh-travel.localhost). Portless runs the
-existing `dev` script with an available `PORT`. Linked Git worktrees get a branch
+[https://raleigh-travel.localhost](https://raleigh-travel.localhost). Portless starts
+Next.js on an available `PORT`. Linked Git worktrees get a branch
 prefix; use the exact URL printed at startup. The proxy reuses its most recent
 settings, so a custom port or domain can change that URL.
 
@@ -57,8 +57,6 @@ Run the first launch in an interactive terminal: the default HTTPS setup may ask
 to trust a local certificate authority and request administrator access for port
 443 and local hostname entries. Use `portless list` to see routes and
 `portless doctor` for connection or certificate problems.
-
-Use `pnpm dev:direct` for the localhost workflow.
 
 ## Checks and build
 

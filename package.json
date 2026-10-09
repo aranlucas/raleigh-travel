@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "portless",
+    "dev": "portless run --name raleigh-travel next dev",
     "build": "next build",
     "start": "next start",
     "lint": "oxlint --type-aware --deny-warnings --report-unused-disable-directives-severity error --threads=2 .",
@@ -13,8 +13,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
     "test": "vitest run",
-    "lint:plugin": "node tools/oxlint/verify-anti-slop.ts",
-    "dev:direct": "next dev"
+    "lint:plugin": "node tools/oxlint/verify-anti-slop.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -39,9 +38,5 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^7",
     "vitest": "^5.0.3"
-  },
-  "portless": {
-    "name": "raleigh-travel",
-    "script": "dev:direct"
   }
 }
