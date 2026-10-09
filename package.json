@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev:portless": "portless",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -38,5 +39,9 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^7",
     "vitest": "^5.0.3"
+  },
+  "portless": {
+    "name": "raleigh-travel",
+    "script": "dev"
   }
 }
