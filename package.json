@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "portless run next dev",
     "build": "next build",
     "start": "next start",
     "lint": "oxlint --type-aware --deny-warnings --report-unused-disable-directives-severity error --threads=2 .",
@@ -34,6 +34,7 @@
     "oxfmt": "0.70.0",
     "oxlint": "1.85.0",
     "oxlint-tsgolint": "7.0.2002",
+    "portless": "0.15.7",
     "postcss": "^8.5.28",
     "tailwindcss": "^4.3.3",
     "typescript": "^7",

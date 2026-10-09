@@ -33,7 +33,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open <http://localhost:3000>. If that port is busy, use `pnpm dev --port 3001`.
+Open <https://raleigh-travel.localhost>. `pnpm dev` runs through [Portless](https://github.com/vercel-labs/portless) (a dev dependency); its first run may ask for `sudo` to bind port 443 and trust a local certificate.
 
 ## Checks and build
 
