@@ -1,2 +1,5 @@
 allowBuilds:
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@aranlucas/*'
+  - '@oxlint/plugins@1.88.0'

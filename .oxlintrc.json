@@ -21,7 +21,6 @@
     "build/**",
     "coverage/**",
     "next-env.d.ts",
-    "tools/oxlint/anti-slop/**",
     "node_modules/**",
     "dist/**",
     ".snapshot*",
@@ -99,7 +98,7 @@
   "jsPlugins": [
     {
       "name": "anti-slop",
-      "specifier": "./tools/oxlint/anti-slop/index.ts"
+      "specifier": "@aranlucas/oxlint-plugin-anti-slop"
     }
   ]
 }
