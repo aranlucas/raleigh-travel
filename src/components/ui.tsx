@@ -3,7 +3,9 @@ import Link from "next/link";
 
 import type { PlanLink } from "@/lib/itinerary";
 
-export function Wordmark({ className = "" }: Readonly<{ className?: string }>) {
+type WordmarkProps = Readonly<{ className?: string }>;
+
+export function Wordmark({ className = "" }: WordmarkProps) {
   return (
     <Link
       className={`inline-flex shrink-0 items-center gap-3 text-ink no-underline ${className}`}

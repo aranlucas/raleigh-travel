@@ -4,28 +4,28 @@ import Image from "next/image";
 export function TripHero() {
   return (
     <section
-      className="grid items-center gap-8 pt-10 pb-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:pt-14 md:pb-14"
+      className="grid items-center gap-8 py-10 md:grid-cols-2 md:py-14"
       aria-label="Raleigh trip"
     >
       <div>
-        <p className="eyebrow">
+        <p className="eyebrow text-label text-muted">
           <MapPin size={14} aria-hidden="true" />
           Raleigh, NC · Oct 2–6, 2026
         </p>
-        <h1 className="type-display mt-5">
+        <h1 className="mbs-5 type-display">
           A few days
           <br />
           <span className="text-pine">in Raleigh.</span>
         </h1>
-        <p className="type-lead mt-6 max-w-[26rem]">
+        <p className="mbs-6 max-w-104 type-lead">
           Your flights, a place to settle in, and time to explore. Five days of good food, city
           walks, and a little celebrating.
         </p>
       </div>
       <figure className="relative -mx-5 sm:mx-0">
-        <div className="relative aspect-[5/2]">
+        <div className="relative aspect-5/2">
           <Image
-            className="object-cover [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent),linear-gradient(to_bottom,transparent,black_8%,black_88%,transparent)] [mask-composite:intersect]"
+            className="mask-hero-fade mask-intersect object-cover"
             src="/raleigh-watercolor.png"
             alt="Watercolor illustration of Raleigh’s skyline framed by oak trees in soft autumn colors"
             fill

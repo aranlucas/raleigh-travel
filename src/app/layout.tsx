@@ -24,7 +24,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+type RootLayoutProps = Readonly<{ children: React.ReactNode }>;
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${figtree.variable} ${youngSerif.variable} ${plexMono.variable}`}>
       <body>{children}</body>

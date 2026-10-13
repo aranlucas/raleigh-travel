@@ -10,7 +10,6 @@ import {
 } from "./weather";
 
 // Zod catch configures parse fallback; none of these schema expressions is a Promise.
-/* eslint-disable unicorn/prefer-top-level-await */
 const metricSeries = z.array(z.number().nullable().catch(null)).nullish().catch(null);
 
 const timestampSeries = z.array(z.string().nullable().catch(null)).nullish().catch(null);
@@ -35,8 +34,6 @@ const dailyPayload = z
   })
   .nullish()
   .catch(null);
-
-/* eslint-enable unicorn/prefer-top-level-await */
 
 const DAILY_FIELDS =
   "temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max,precipitation_sum,precipitation_hours,weather_code,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,uv_index_max,sunrise,sunset";
@@ -76,9 +73,9 @@ function buildDaily(daily: Daily | null | undefined): Map<string, ForecastEntry>
     return byDate;
   }
 
-  daily.time.forEach((isoDate, i) => {
+  for (const [i, isoDate] of daily.time.entries()) {
     if (isoDate === null) {
-      return;
+      continue;
     }
 
     const maxC = daily.temperature_2m_max?.[i];
@@ -92,7 +89,7 @@ function buildDaily(daily: Daily | null | undefined): Map<string, ForecastEntry>
       minC === undefined ||
       !Number.isFinite(minC)
     ) {
-      return;
+      continue;
     }
 
     byDate.set(isoDate, {
@@ -111,7 +108,7 @@ function buildDaily(daily: Daily | null | undefined): Map<string, ForecastEntry>
       sunrise: localTimestamp(daily.sunrise?.[i]),
       sunset: localTimestamp(daily.sunset?.[i]),
     });
-  });
+  }
 
   return byDate;
 }

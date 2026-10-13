@@ -1,6 +1,8 @@
 import type { Category } from "@/lib/itinerary";
 
-export const categoryTones: Record<Category, { label: string; text: string; fill: string }> = {
+type CategoryTone = { label: string; text: string; fill: string };
+
+export const categoryTones: Record<Category, CategoryTone> = {
   study: { label: "Study", text: "text-pine", fill: "bg-pine" },
   explore: { label: "Explore", text: "text-sky", fill: "bg-sky-bright" },
   reset: { label: "Reset", text: "text-ochre", fill: "bg-ochre-bright" },

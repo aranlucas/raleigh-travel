@@ -61,25 +61,25 @@ function guidance(f: Readonly<ForecastEntry>): string[] {
   return hints;
 }
 
-function Metric({
-  label,
-  value,
-  detail,
-}: Readonly<{ label: string; value: string; detail?: string }>) {
+type MetricProps = Readonly<{ label: string; value: string; detail?: string }>;
+
+function Metric({ label, value, detail }: MetricProps) {
   return (
     <div className="min-w-0 rounded-md bg-sunk p-3">
-      <dt className="eyebrow">{label}</dt>
-      <dd className="type-data mt-1 text-sm">{value}</dd>
-      {detail !== undefined && <dd className="mt-1 text-xs text-muted">{detail}</dd>}
+      <dt className="eyebrow text-label text-muted">{label}</dt>
+      <dd className="mbs-1 type-data text-sm">{value}</dd>
+      {detail !== undefined && <dd className="mbs-1 text-xs text-muted">{detail}</dd>}
     </div>
   );
 }
 
-export function TripWeather({
-  day,
-  filter,
-  onFilterChange,
-}: Readonly<{ day: Day; filter: Filter; onFilterChange: (filter: Filter) => void }>) {
+type TripWeatherProps = Readonly<{
+  day: Day;
+  filter: Filter;
+  onFilterChange: (filter: Filter) => void;
+}>;
+
+export function TripWeather({ day, filter, onFilterChange }: TripWeatherProps) {
   const { weather, loading, refreshing, error, refresh } = useLiveWeather();
   const [unit, setUnit] = useState<Unit>("F");
   const isoDate = TRIP_DATES.find((date) => date.slice(8) === day.date);
@@ -106,7 +106,7 @@ export function TripWeather({
         : `${(mm / 25.4).toFixed(2)} in`;
 
   const weatherPanel = (
-    <section className="panel mt-5 p-4 sm:p-5" aria-labelledby="day-weather-heading">
+    <section className="mbs-5 panel p-4 sm:p-5" aria-labelledby="day-weather-heading">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 id="day-weather-heading" className="type-subhead">
           Weather & what to wear
@@ -137,16 +137,16 @@ export function TripWeather({
           </button>
         </div>
       </div>
-      <div aria-live="polite" className="mt-2 text-xs text-muted">
+      <div aria-live="polite" className="mbs-2 text-xs text-muted">
         {loading
           ? "Loading the latest forecast…"
           : weather
             ? `Checked ${new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: TRIP_TIME_ZONE, timeZoneName: "short" }).format(new Date(weather.refreshedAt))}`
             : "General clothing guidance"}
-        {error !== null && <p className="mt-1 text-cardinal">{error}</p>}
+        {error !== null && <p className="mbs-1 text-cardinal">{error}</p>}
       </div>
       {f === null ? (
-        <div className="mt-3 text-sm text-muted">
+        <div className="mbs-3 text-sm text-muted">
           <p>
             {selected?.status === "past"
               ? "This trip day has passed; live forecasts do not cover past dates."
@@ -156,17 +156,17 @@ export function TripWeather({
                   ? "Checking forecast availability…"
                   : "Live forecast temporarily unavailable."}
           </p>
-          <p className="mt-2">
+          <p className="mbs-2">
             Comfortable walking shoes, a light layer, and rain protection are the base plan. This is
             general guidance, not a forecast.
           </p>
         </div>
       ) : (
         <>
-          <p className="mt-3 text-sm font-semibold">
+          <p className="mbs-3 text-sm font-semibold">
             {code?.emoji ?? ""} {temp(f.maxC)} / {temp(f.minC)} · {code?.label ?? "Conditions n/a"}
           </p>
-          <p className="mt-1 text-xs text-muted">
+          <p className="mbs-1 text-xs text-muted">
             {f.precipPct === null
               ? "Precipitation chance n/a"
               : `${Math.round(f.precipPct)}% max precipitation chance`}{" "}
@@ -176,17 +176,17 @@ export function TripWeather({
               : `${selected?.leadDays ?? 0}-day ${(selected?.leadDays ?? 0) > 7 ? "early outlook" : "forecast"}`}
           </p>
           {hints.length > 0 && (
-            <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-ink-soft">
+            <ul className="mbs-3 flex list-disc flex-col gap-1 ps-4 text-sm text-ink-soft">
               {hints.map((hint) => (
                 <li key={hint}>{hint}</li>
               ))}
             </ul>
           )}
-          <details key={isoDate} className="mt-3">
+          <details key={isoDate} className="mbs-3">
             <summary className="min-h-11 cursor-pointer text-sm font-semibold text-pine">
               Detailed forecast ▾
             </summary>
-            <dl className="mt-4 grid grid-cols-2 gap-2">
+            <dl className="mbs-4 grid grid-cols-2 gap-2">
               <Metric
                 label="Feels like"
                 value={`${temp(f.feelsMaxC)} / ${temp(f.feelsMinC)}`}
@@ -216,7 +216,7 @@ export function TripWeather({
               </div>
             </dl>
 
-            <p className="mt-3 text-xs text-muted">
+            <p className="mbs-3 text-xs text-muted">
               Full-day values for Raleigh. Daylight uses Eastern time. Recheck outdoor plans 24–48
               hours ahead.
             </p>
@@ -224,7 +224,7 @@ export function TripWeather({
         </>
       )}
       <WeatherSuggestions day={day} forecast={f} />
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3 text-xs text-muted">
+      <div className="mbs-3 flex flex-wrap items-center justify-between gap-2 border-bs border-line pbs-3 text-xs text-muted">
         <span>
           Forecast by{" "}
           <a

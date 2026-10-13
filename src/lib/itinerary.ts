@@ -795,8 +795,8 @@ export function studyMinutes(day: Day) {
 }
 
 export function duration(minutes: number) {
-  const hours = Math.floor(minutes / 60),
-    rest = minutes % 60;
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
 
   return [hours ? `${hours} ${hours === 1 ? "hr" : "hrs"}` : "", rest ? `${rest} mins` : ""]
     .filter(Boolean)
@@ -822,8 +822,10 @@ function parseClock(text: string, fallbackMeridiem: string | undefined) {
   return { minutes: hours * 60 + Number(match[2] ?? 0), explicit: match[3] !== undefined };
 }
 
+type ParsedTime = { start: number; end?: number };
+
 /** Minutes after midnight, Eastern time. Returns null for untimed entries. */
-export function parseTime(time: string): { start: number; end?: number } | null {
+export function parseTime(time: string): ParsedTime | null {
   const offset = zoneOffsets.get(/\b(PT|CT|ET)\b/u.exec(time)?.[1] ?? "ET") ?? 0;
   const [startText, endText] = time.split("–");
   const end = endText === undefined ? null : parseClock(endText, "AM");

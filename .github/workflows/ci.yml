@@ -32,7 +32,7 @@ jobs:
 
       - parallel:
           - name: Lint
-            run: pnpm format:check && pnpm lint && pnpm lint:plugin
+            run: pnpm format:check && pnpm lint
 
           - name: Typecheck
             run: pnpm typecheck

@@ -8,51 +8,55 @@ import { ExternalLink } from "./ui";
 
 export type Filter = "all" | "study" | "explore";
 
-const filters: { value: Filter; label: string }[] = [
+type FilterOption = { value: Filter; label: string };
+
+const filters: FilterOption[] = [
   { value: "all", label: "All plans" },
   { value: "study", label: "Study" },
   { value: "explore", label: "Explore" },
 ];
 
-function ActivityRow({ activity }: Readonly<{ activity: Activity }>) {
+type ActivityRowProps = Readonly<{ activity: Activity }>;
+
+function ActivityRow({ activity }: ActivityRowProps) {
   const category = categoryTones[activity.category];
   const [start, end] = activity.time.split("–");
 
   return (
-    <li className="relative border-b border-line before:pointer-events-none before:absolute before:top-0 before:bottom-0 before:left-[calc(5.5rem+5.5px)] before:w-px before:bg-line before:content-[''] first:before:top-8 last:border-b-0 last:before:bottom-auto last:before:h-8 sm:before:left-[calc(9.25rem+5.5px)]">
+    <li className="relative border-be border-line before:pointer-events-none before:absolute before:inset-y-0 before:timeline-axis before:w-px before:bg-line before:content-empty first:before:inset-bs-8 last:border-be-0 last:before:inset-be-auto last:before:h-8 sm:before:timeline-axis-wide">
       <details className="group/details">
-        <summary className="group/summary grid grid-cols-[4.75rem_0.75rem_minmax(0,1fr)_1rem] items-start gap-x-3 py-5 sm:grid-cols-[8rem_0.75rem_minmax(0,1fr)_1rem] sm:gap-x-5 sm:py-6">
-          <span className="type-data flex flex-col pt-1.5 text-[0.8125rem] leading-snug text-ink-soft sm:text-sm">
+        <summary className="group/summary grid grid-activity items-start gap-x-3 py-5 sm:grid-activity-wide sm:gap-x-5 sm:py-6">
+          <span className="flex flex-col pbs-1.5 type-data text-meta leading-snug text-ink-soft sm:text-sm">
             <span>{start}</span>
             {end === undefined ? null : <span className="text-muted">–{end}</span>}
           </span>
           <span
-            className={`relative z-[1] mt-2.5 size-3 rounded-full ring-4 ${activity.category === "exam" ? "ring-cardinal-wash" : "ring-canvas"} ${category.fill}`}
+            className={`relative z-1 mbs-2.5 size-3 rounded-full ring-4 ${activity.category === "exam" ? "ring-cardinal-wash" : "ring-canvas"} ${category.fill}`}
             aria-hidden="true"
           />
           <span className="flex min-w-0 flex-col">
-            <span className={`eyebrow ${category.text}`}>{activity.category}</span>
-            <span className="mt-1 font-display text-xl leading-snug tracking-tight transition-colors group-hover/summary:text-pine sm:text-2xl">
+            <span className={`eyebrow text-label ${category.text}`}>{activity.category}</span>
+            <span className="mbs-1 font-display text-xl leading-snug tracking-tight transition-colors group-hover/summary:text-pine sm:text-2xl">
               {activity.title}
             </span>
-            <span className="mt-1 text-[0.9375rem] leading-normal text-muted">
+            <span className="mbs-1 text-body-sm leading-normal text-muted">
               {activity.description}
             </span>
           </span>
           <ChevronRight
-            className="mt-7 text-muted transition-transform duration-200 group-open/details:rotate-90"
+            className="mbs-7 text-muted transition-transform duration-200 group-open/details:rotate-90"
             size={16}
             aria-hidden="true"
           />
         </summary>
-        <div className="pr-4 pb-6 pl-[7rem] text-[0.9375rem] leading-relaxed text-ink-soft sm:pl-[11.25rem]">
+        <div className="ps-28 pe-4 pbe-6 text-body-sm leading-relaxed text-ink-soft sm:ps-45">
           {activity.details.map((detail, index) => (
-            <p className={index > 0 ? "mt-2" : undefined} key={detail}>
+            <p className={index > 0 ? "mbs-2" : undefined} key={detail}>
               {detail}
             </p>
           ))}
           {activity.links ? (
-            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+            <div className="mbs-4 flex flex-wrap gap-x-6 gap-y-2">
               {activity.links.map((link) => (
                 <ExternalLink key={link.href} {...link} />
               ))}
@@ -64,17 +68,14 @@ function ActivityRow({ activity }: Readonly<{ activity: Activity }>) {
   );
 }
 
-export function Timeline({
-  day,
-  filter,
-  onFilterChange,
-  weather,
-}: Readonly<{
+type TimelineProps = Readonly<{
   day: Day;
   filter: Filter;
   onFilterChange: (filter: Filter) => void;
   weather?: React.ReactNode;
-}>) {
+}>;
+
+export function Timeline({ day, filter, onFilterChange, weather }: TimelineProps) {
   const activities = day.activities.filter(
     (activity) => filter === "all" || activity.category === filter,
   );
@@ -87,12 +88,12 @@ export function Timeline({
       aria-labelledby={`tab-${day.id}`}
       tabIndex={0}
     >
-      <p className="eyebrow">{daySummary(day)}</p>
-      <h2 className="type-title mt-3">{day.title}</h2>
-      <p className="type-lead mt-2">{day.description}</p>
+      <p className="eyebrow text-label text-muted">{daySummary(day)}</p>
+      <h2 className="mbs-3 type-title">{day.title}</h2>
+      <p className="mbs-2 type-lead">{day.description}</p>
       {day.milestones === undefined ? null : <DayOfTimeline day={day} />}
       {weather}
-      <fieldset className="mt-6 mb-4 flex min-w-0 flex-wrap gap-2">
+      <fieldset className="mbs-6 mbe-4 flex min-w-0 flex-wrap gap-2">
         <legend className="sr-only">Filter activities</legend>
         {filters.map((option) => (
           <button
@@ -118,12 +119,12 @@ export function Timeline({
           ))}
         </ol>
       ) : (
-        <div className="panel mt-4 px-6 py-12 text-center">
+        <div className="mbs-4 panel px-6 py-12 text-center">
           <Leaf className="mx-auto text-pine" size={24} aria-hidden="true" />
-          <h3 className="type-heading mt-3">
+          <h3 className="mbs-3 type-heading">
             {filter === "study" ? "No study blocks today." : "No sightseeing today."}
           </h3>
-          <div className="mt-5" />
+          <div className="mbs-5" />
           <button
             className="btn btn-secondary"
             type="button"
@@ -135,8 +136,8 @@ export function Timeline({
           </button>
         </div>
       )}
-      <div className="mt-6 flex items-start gap-3 border-t border-line pt-6 text-pine-deep">
-        <Leaf className="mt-1.5" size={18} aria-hidden="true" />
+      <div className="mbs-6 flex items-start gap-3 border-bs border-line pbs-6 text-pine-deep">
+        <Leaf className="mbs-1.5" size={18} aria-hidden="true" />
         <p className="font-display text-xl leading-snug text-balance">{day.takeaway}</p>
       </div>
     </section>

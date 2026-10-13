@@ -57,6 +57,18 @@
       transform: none;
     }
   }
+
+  --text-2xs: 0.6875rem;
+  --text-label: 0.75rem;
+  --text-meta: 0.8125rem;
+  --text-body-sm: 0.9375rem;
+
+  --text-print-sm: 9pt;
+  --text-print: 10pt;
+  --text-print-lg: 14pt;
+  --text-print-xl: 28pt;
+
+  --tracking-label: 0.12em;
 }
 
 @theme inline {
@@ -170,18 +182,15 @@
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-muted);
 }
 
 @utility type-data {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
 }
 
 /* Components */
@@ -334,4 +343,76 @@
   &:focus {
     top: 0.75rem;
   }
+}
+
+/* Layout shapes reused across screens */
+
+@utility grid-route {
+  grid-template-columns: auto minmax(1.5rem, 1fr) auto minmax(1.5rem, 1fr) auto;
+}
+
+@utility grid-facts {
+  grid-template-columns: 8rem 1fr;
+}
+
+@utility grid-facts-wide {
+  grid-template-columns: 9rem 1fr;
+}
+
+@utility grid-shift {
+  grid-template-columns: 5rem 1fr;
+}
+
+@utility grid-activity {
+  grid-template-columns: 4.75rem 0.75rem minmax(0, 1fr) 1rem;
+}
+
+@utility grid-activity-wide {
+  grid-template-columns: 8rem 0.75rem minmax(0, 1fr) 1rem;
+}
+
+@utility grid-study {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+@utility grid-editorial {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+@utility grid-plan {
+  grid-template-columns: minmax(0, 1fr) 19rem;
+}
+
+@utility grid-plan-wide {
+  grid-template-columns: minmax(0, 1fr) 22rem;
+}
+
+@utility bleed-inline {
+  width: calc(100% + 2.5rem);
+}
+
+@utility mask-hero-fade {
+  mask-image:
+    linear-gradient(to right, transparent, black 8%, black 92%, transparent),
+    linear-gradient(to bottom, transparent, black 8%, black 88%, transparent);
+}
+
+@utility transition-panel {
+  transition-property: background-color, border-color, box-shadow;
+}
+
+@utility timeline-axis {
+  inset-inline-start: calc(5.5rem + 5.5px);
+}
+
+@utility timeline-axis-wide {
+  inset-inline-start: calc(9.25rem + 5.5px);
+}
+
+@utility content-empty {
+  content: "";
+}
+
+@utility map-error-message {
+  content: "The map could not load. Every place is listed below with directions.";
 }

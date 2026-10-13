@@ -4,10 +4,9 @@ import { days } from "@/lib/itinerary";
 
 import { DayRibbon, DayRibbonLegend } from "./day-ribbon";
 
-export function DayTabs({
-  selectedId,
-  onSelect,
-}: Readonly<{ selectedId: string; onSelect: (id: string) => void }>) {
+type DayTabsProps = Readonly<{ selectedId: string; onSelect: (id: string) => void }>;
+
+export function DayTabs({ selectedId, onSelect }: DayTabsProps) {
   function handleKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let next: number;
 
@@ -31,10 +30,10 @@ export function DayTabs({
   return (
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <p className="eyebrow">October 2026</p>
+        <p className="eyebrow text-label text-muted">October 2026</p>
         <DayRibbonLegend />
       </div>
-      <div className="mt-3 grid grid-cols-5 gap-1.5 sm:gap-2" role="tablist" aria-label="Trip day">
+      <div className="mbs-3 grid grid-cols-5 gap-1.5 sm:gap-2" role="tablist" aria-label="Trip day">
         {days.map((item, index) => {
           const isExam = item.id === "monday";
 
@@ -43,7 +42,7 @@ export function DayTabs({
               type="button"
               id={`tab-${item.id}`}
               key={item.id}
-              className={`group relative flex flex-col items-start overflow-hidden rounded-lg border bg-surface px-2.5 pt-2.5 pb-3 text-left text-ink transition-[background-color,border-color,box-shadow] duration-200 ease-out-soft hover:border-line-strong hover:shadow-card aria-selected:border-ink aria-selected:bg-ink aria-selected:text-white aria-selected:shadow-lift sm:px-4 sm:pt-3.5 sm:pb-4 ${isExam ? "border-cardinal/40" : "border-line"}`}
+              className={`group relative flex flex-col items-start overflow-hidden rounded-lg border bg-surface px-2.5 pbs-2.5 pbe-3 text-start text-ink transition-panel duration-200 ease-out-soft hover:border-line-strong hover:shadow-card aria-selected:border-ink aria-selected:bg-ink aria-selected:text-white aria-selected:shadow-lift sm:px-4 sm:pbs-3.5 sm:pbe-4 ${isExam ? "border-cardinal/40" : "border-line"}`}
               role="tab"
               aria-selected={item.id === selectedId}
               aria-controls="daily-panel"
@@ -56,25 +55,28 @@ export function DayTabs({
               }}
             >
               {isExam ? (
-                <span className="absolute inset-x-0 top-0 h-1 bg-cardinal" aria-hidden="true" />
+                <span
+                  className="absolute inset-x-0 inset-bs-0 h-1 bg-cardinal"
+                  aria-hidden="true"
+                />
               ) : null}
-              <span className="type-data text-[0.6875rem] font-medium tracking-[0.12em] text-muted group-aria-selected:text-white/70 sm:text-xs">
+              <span className="type-data text-2xs font-medium tracking-label text-muted group-aria-selected:text-white/70 sm:text-xs">
                 {item.short}
               </span>
               <span
-                className={`mt-1 font-display text-4xl leading-none tracking-tight sm:text-5xl lg:text-6xl ${isExam ? "text-cardinal group-aria-selected:text-white" : ""}`}
+                className={`mbs-1 font-display text-4xl leading-none tracking-tight sm:text-5xl lg:text-6xl ${isExam ? "text-cardinal group-aria-selected:text-white" : ""}`}
               >
                 {Number(item.date)}
               </span>
-              <span className="mt-2 hidden text-sm leading-snug text-ink-soft group-aria-selected:text-white/80 sm:block">
+              <span className="mbs-2 hidden text-sm leading-snug text-ink-soft group-aria-selected:text-white/80 sm:block">
                 {item.label}
               </span>
               {isExam ? (
-                <span className="type-data mt-1 text-[0.6875rem] font-medium tracking-wider text-cardinal uppercase group-aria-selected:text-cardinal-wash sm:hidden">
+                <span className="mbs-1 type-data text-2xs font-medium tracking-wider text-cardinal uppercase group-aria-selected:text-cardinal-wash sm:hidden">
                   Boards
                 </span>
               ) : null}
-              <DayRibbon day={item} className="mt-auto w-full pt-3 sm:pt-4" />
+              <DayRibbon day={item} className="mbs-auto w-full pbs-3 sm:pbs-4" />
             </button>
           );
         })}

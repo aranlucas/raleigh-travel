@@ -27,6 +27,9 @@ importers:
         specifier: 4.6.7
         version: 4.6.7
     devDependencies:
+      '@aranlucas/oxforge':
+        specifier: ^0.1.1
+        version: 0.1.1(oxfmt@0.73.0)(oxlint-tailwindcss@1.16.0)(oxlint-tsgolint@7.0.2004)(oxlint@1.88.0(oxlint-tsgolint@7.0.2004))
       '@aranlucas/oxlint-plugin-anti-slop':
         specifier: 0.1.0
         version: 0.1.0(oxlint@1.88.0(oxlint-tsgolint@7.0.2004))
@@ -63,6 +66,9 @@ importers:
       oxlint:
         specifier: 1.88.0
         version: 1.88.0(oxlint-tsgolint@7.0.2004)
+      oxlint-tailwindcss:
+        specifier: ^1.16.0
+        version: 1.16.0
       oxlint-tsgolint:
         specifier: 7.0.2004
         version: 7.0.2004
@@ -87,6 +93,24 @@ packages:
   '@alloc/quick-lru@5.3.0':
     resolution: {integrity: sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA==}
     engines: {node: '>=10'}
+
+  '@aranlucas/oxforge@0.1.1':
+    resolution: {integrity: sha512-LEr/hD1wF505sHRhSqg57fjptzdARm3mkbYmoKH7XlavfnxDDUCESCYZHQQVzICXp53QpUSgPOydZRqaXb/a2Q==}
+    engines: {node: '>=22.18.0'}
+    hasBin: true
+    peerDependencies:
+      '@shadcn/lint': ^0.2.1
+      oxfmt: ^0.73.0
+      oxlint: ^1.88.0
+      oxlint-tailwindcss: ^1.16.0
+      oxlint-tsgolint: ^7.0.2004
+    peerDependenciesMeta:
+      '@shadcn/lint':
+        optional: true
+      oxlint-tailwindcss:
+        optional: true
+      oxlint-tsgolint:
+        optional: true
 
   '@aranlucas/oxlint-plugin-anti-slop@0.1.0':
     resolution: {integrity: sha512-tu5zQVkzsF6Td/jqD2OEQnDEw5Xo3YLEU+bm3FLxsKf4PnOcvZEyEtudVZVVCBXGhO4YprGRdWrxr+/m4MDfUg==}
@@ -1414,6 +1438,10 @@ packages:
       vite-plus:
         optional: true
 
+  oxlint-tailwindcss@1.16.0:
+    resolution: {integrity: sha512-qwkw3gahMiLOVkZAInULbvnFaFceanEnk+GxpMyNZU4bq2nRmZd3xD4En0EhIakEBiIt15RiGwQ7AuhrllNoNw==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+
   oxlint-tsgolint@7.0.2004:
     resolution: {integrity: sha512-vQ9WDF3fiZJvRdSDosNOflerOCOpwol6vWzVDxW76RcU19cjTh7engvkHLvmv+tzedR8fAiJUVUGr6IVZdkzXQ==}
     hasBin: true
@@ -1696,6 +1724,16 @@ packages:
 snapshots:
 
   '@alloc/quick-lru@5.3.0': {}
+
+  '@aranlucas/oxforge@0.1.1(oxfmt@0.73.0)(oxlint-tailwindcss@1.16.0)(oxlint-tsgolint@7.0.2004)(oxlint@1.88.0(oxlint-tsgolint@7.0.2004))':
+    dependencies:
+      '@aranlucas/oxlint-plugin-anti-slop': 0.1.0(oxlint@1.88.0(oxlint-tsgolint@7.0.2004))
+      '@oxlint/plugins': 1.88.0
+      oxfmt: 0.73.0
+      oxlint: 1.88.0(oxlint-tsgolint@7.0.2004)
+    optionalDependencies:
+      oxlint-tailwindcss: 1.16.0
+      oxlint-tsgolint: 7.0.2004
 
   '@aranlucas/oxlint-plugin-anti-slop@0.1.0(oxlint@1.88.0(oxlint-tsgolint@7.0.2004))':
     dependencies:
@@ -2574,6 +2612,11 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.73.0
       '@oxfmt/binding-win32-ia32-msvc': 0.73.0
       '@oxfmt/binding-win32-x64-msvc': 0.73.0
+
+  oxlint-tailwindcss@1.16.0:
+    dependencies:
+      '@tailwindcss/node': 4.3.3
+      tailwindcss: 4.3.3
 
   oxlint-tsgolint@7.0.2004:
     optionalDependencies:

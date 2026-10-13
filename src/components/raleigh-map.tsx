@@ -37,7 +37,9 @@ const tiles =
         carto: true,
       };
 
-function toLatLng(coords: readonly [number, number]): LatLngTuple {
+type Coords = readonly [number, number];
+
+function toLatLng(coords: Coords): LatLngTuple {
   return [coords[0], coords[1]];
 }
 
@@ -178,10 +180,10 @@ export function RaleighMap() {
     <figure className="relative">
       <section
         ref={containerRef}
-        className={`group/map relative z-0 aspect-[4/3] w-full overflow-hidden rounded-xl border border-line bg-sunk shadow-card data-[failed=true]:after:absolute data-[failed=true]:after:inset-0 data-[failed=true]:after:grid data-[failed=true]:after:place-items-center data-[failed=true]:after:p-6 data-[failed=true]:after:text-center data-[failed=true]:after:text-sm data-[failed=true]:after:text-muted data-[failed=true]:after:content-['The_map_could_not_load._Every_place_is_listed_below_with_directions.'] ${tiles.carto ? "" : "[&_.leaflet-tile-pane]:[filter:grayscale(1)_sepia(0.25)_hue-rotate(95deg)_saturate(0.6)_brightness(1.04)_contrast(0.9)]"} [&_.leaflet-popup-content-wrapper]:rounded-lg [&_.leaflet-popup-content-wrapper]:shadow-lift`}
+        className={`group/map relative z-0 aspect-4/3 w-full overflow-hidden rounded-xl border border-line bg-sunk shadow-card data-[failed=true]:after:absolute data-[failed=true]:after:inset-0 data-[failed=true]:after:grid data-[failed=true]:after:place-items-center data-[failed=true]:after:p-6 data-[failed=true]:after:text-center data-[failed=true]:after:text-sm data-[failed=true]:after:text-muted data-[failed=true]:after:map-error-message ${tiles.carto ? "" : "[&_.leaflet-tile-pane]:[filter:grayscale(1)_sepia(0.25)_hue-rotate(95deg)_saturate(0.6)_brightness(1.04)_contrast(0.9)]"} [&_.leaflet-popup-content-wrapper]:rounded-lg [&_.leaflet-popup-content-wrapper]:shadow-lift`}
         aria-label="Map of places in this guide around Raleigh"
       />
-      <figcaption className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft">
+      <figcaption className="mbs-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft">
         <span className="inline-flex items-center gap-2">
           <span className="size-3 rounded-full bg-ink" aria-hidden="true" /> Hotel
         </span>

@@ -2,19 +2,19 @@
   "name": "raleigh-travel",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "portless run next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "oxlint --type-aware --deny-warnings --report-unused-disable-directives-severity error --threads=2 .",
-    "lint:fix": "oxlint --type-aware --deny-warnings --report-unused-disable-directives-severity error --fix --threads=2 .",
-    "format": "oxfmt --write --threads=2 .",
-    "format:check": "oxfmt --check --threads=2 .",
+    "lint": "oxlint --type-aware --deny-warnings --report-unused-disable-directives-severity error .",
+    "lint:fix": "oxlint --type-aware --deny-warnings --report-unused-disable-directives-severity error --fix .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
     "typecheck": "next typegen && tsc --noEmit",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
     "test": "vitest",
-    "test:run": "vitest run",
-    "lint:plugin": "node tools/oxlint/verify-anti-slop.ts"
+    "test:run": "vitest run"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -25,6 +25,7 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@aranlucas/oxforge": "^0.1.1",
     "@aranlucas/oxlint-plugin-anti-slop": "0.1.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/dom": "^10.4.2",
@@ -37,6 +38,7 @@
     "jsdom": "^30.1.2",
     "oxfmt": "0.73.0",
     "oxlint": "1.88.0",
+    "oxlint-tailwindcss": "^1.16.0",
     "oxlint-tsgolint": "7.0.2004",
     "portless": "0.15.7",
     "postcss": "^8.5.30",

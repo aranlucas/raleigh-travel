@@ -7,10 +7,11 @@ import { Wordmark } from "./ui";
 
 export type Section = "itinerary" | "raleigh" | "details" | "packing";
 
-const groups: readonly Readonly<{
-  label: string;
-  items: readonly { id: Section; href: string; label: string }[];
-}>[] = [
+type NavItem = Readonly<{ id: Section; href: string; label: string }>;
+
+type NavGroup = Readonly<{ label: string; items: readonly NavItem[] }>;
+
+const groups: readonly NavGroup[] = [
   {
     label: "Trip",
     items: [
@@ -22,19 +23,21 @@ const groups: readonly Readonly<{
   },
 ];
 
-export function SiteHeader({ current }: Readonly<{ current: Section }>) {
+type SiteHeaderProps = Readonly<{ current: Section }>;
+
+export function SiteHeader({ current }: SiteHeaderProps) {
   return (
-    <header className="border-b border-line print:hidden">
+    <header className="border-be border-line print:hidden">
       <div className="page-shell flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-4">
         <Wordmark />
         <nav
-          className="order-last -mx-5 flex w-[calc(100%+2.5rem)] items-center gap-1 overflow-x-auto px-4 [scrollbar-width:none] lg:order-none lg:mx-0 lg:w-auto lg:overflow-visible lg:px-0"
+          className="order-last -mx-5 flex bleed-inline scrollbar-none items-center gap-1 overflow-x-auto px-4 lg:order-0 lg:mx-0 lg:w-auto lg:overflow-visible lg:px-0"
           aria-label="Main navigation"
         >
           {groups.map((group, index) => (
             <div className="flex shrink-0 items-center gap-1" key={group.label}>
               {index > 0 ? <span className="mx-2 h-5 w-px bg-line" aria-hidden="true" /> : null}
-              <span className="eyebrow mr-1 text-[0.6875rem]" aria-hidden="true">
+              <span className="me-1 eyebrow text-2xs text-muted" aria-hidden="true">
                 {group.label}
               </span>
               {group.items.map((item) => (
@@ -49,7 +52,7 @@ export function SiteHeader({ current }: Readonly<{ current: Section }>) {
               ))}
             </div>
           ))}
-          <a className="link ml-4 shrink-0" href="https://oral-boards.vercel.app/study">
+          <a className="ms-4 link shrink-0" href="https://oral-boards.vercel.app/study">
             Oral Boards ↗
           </a>
         </nav>
