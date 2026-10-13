@@ -795,8 +795,8 @@ export function studyMinutes(day: Day) {
 }
 
 export function duration(minutes: number) {
-  const hours = Math.floor(minutes / 60),
-    rest = minutes % 60;
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
 
   return [hours ? `${hours} ${hours === 1 ? "hr" : "hrs"}` : "", rest ? `${rest} mins` : ""]
     .filter(Boolean)

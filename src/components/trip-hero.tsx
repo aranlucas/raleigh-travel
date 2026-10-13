@@ -4,7 +4,7 @@ import Image from "next/image";
 export function TripHero() {
   return (
     <section
-      className="grid items-center gap-8 pt-10 pb-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:pt-14 md:pb-14"
+      className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 py-10 md:py-14"
       aria-label="Raleigh trip"
     >
       <div>

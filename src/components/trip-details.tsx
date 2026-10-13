@@ -69,7 +69,7 @@ function RouteLine({
           <span>{second.depart}</span>
         </span>
         <span />
-        <span className="type-data mt-2 text-right text-[0.6875rem] whitespace-nowrap text-muted sm:text-xs">
+        <span className="type-data mt-2 text-end text-[0.6875rem] whitespace-nowrap text-muted sm:text-xs">
           {second.arrive}
         </span>
       </div>
@@ -85,7 +85,7 @@ function FlightPath({ flight }: Readonly<{ flight: string }>) {
       </span>
       <span className="relative h-px w-full bg-line-strong">
         <Plane
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-surface px-0.5 text-pine"
+          className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-surface px-0.5 text-pine"
           size={16}
           strokeWidth={1.75}
         />

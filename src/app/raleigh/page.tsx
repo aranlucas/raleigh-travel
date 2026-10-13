@@ -85,7 +85,7 @@ export default function RaleighPage() {
       </a>
       <SiteHeader current="raleigh" />
       <main className="page-shell" id="raleigh-content">
-        <header className="grid items-center gap-8 pt-10 pb-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12 md:pt-14">
+        <header className="grid items-center gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-12 md:pt-14 py-10">
           <div>
             <p className="eyebrow">
               <Compass size={15} aria-hidden="true" /> Raleigh, NC · Oct 2–6, 2026

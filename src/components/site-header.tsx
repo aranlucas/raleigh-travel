@@ -34,7 +34,7 @@ export function SiteHeader({ current }: Readonly<{ current: Section }>) {
           {groups.map((group, index) => (
             <div className="flex shrink-0 items-center gap-1" key={group.label}>
               {index > 0 ? <span className="mx-2 h-5 w-px bg-line" aria-hidden="true" /> : null}
-              <span className="eyebrow mr-1 text-[0.6875rem]" aria-hidden="true">
+              <span className="eyebrow me-1 text-[0.6875rem]" aria-hidden="true">
                 {group.label}
               </span>
               {group.items.map((item) => (
@@ -49,7 +49,7 @@ export function SiteHeader({ current }: Readonly<{ current: Section }>) {
               ))}
             </div>
           ))}
-          <a className="link ml-4 shrink-0" href="https://oral-boards.vercel.app/study">
+          <a className="link ms-4 shrink-0" href="https://oral-boards.vercel.app/study">
             Oral Boards ↗
           </a>
         </nav>

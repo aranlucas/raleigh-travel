@@ -176,7 +176,7 @@ export function TripWeather({
               : `${selected?.leadDays ?? 0}-day ${(selected?.leadDays ?? 0) > 7 ? "early outlook" : "forecast"}`}
           </p>
           {hints.length > 0 && (
-            <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-ink-soft">
+            <ul className="mt-3 list-disc space-y-1 ps-4 text-sm text-ink-soft">
               {hints.map((hint) => (
                 <li key={hint}>{hint}</li>
               ))}

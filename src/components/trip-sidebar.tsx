@@ -13,12 +13,12 @@ export function TripSidebar({ onMonday }: Readonly<{ onMonday: () => void }>) {
         <h2 className="type-title mt-4">Exam day</h2>
         <p className="mt-3 text-lg leading-snug font-semibold">Pediatric dental oral boards</p>
         <p className="mt-1 text-sm text-white/70">ABPD Oral Clinical Examination</p>
-        <ol className="mt-6 list-none space-y-3 border-l border-white/20 pl-5">
-          <li className="relative grid grid-cols-[5rem_1fr] gap-2 text-sm before:absolute before:top-1.5 before:-left-[1.5625rem] before:size-2 before:rounded-full before:bg-ochre-bright before:content-['']">
+        <ol className="mt-6 list-none space-y-3 border-s border-white/20 ps-5">
+          <li className="relative grid grid-cols-[5rem_1fr] gap-2 text-sm before:absolute before:top-1.5 before:start-[-1.5625rem] before:size-2 before:rounded-full before:bg-ochre-bright before:content-['']">
             <span className="type-data text-white/80">2:45 PM</span>
             <span>Registration · Session 3</span>
           </li>
-          <li className="relative grid grid-cols-[5rem_1fr] gap-2 text-sm before:absolute before:top-1.5 before:-left-[1.5625rem] before:size-2 before:rounded-full before:bg-white/60 before:content-['']">
+          <li className="relative grid grid-cols-[5rem_1fr] gap-2 text-sm before:absolute before:top-1.5 before:start-[-1.5625rem] before:size-2 before:rounded-full before:bg-white/60 before:content-['']">
             <span className="type-data text-white/80">~6:30 PM</span>
             <span>Back at the hotel</span>
           </li>

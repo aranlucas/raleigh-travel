@@ -19,7 +19,7 @@ function ActivityRow({ activity }: Readonly<{ activity: Activity }>) {
   const [start, end] = activity.time.split("–");
 
   return (
-    <li className="relative border-b border-line before:pointer-events-none before:absolute before:top-0 before:bottom-0 before:left-[calc(5.5rem+5.5px)] before:w-px before:bg-line before:content-[''] first:before:top-8 last:border-b-0 last:before:bottom-auto last:before:h-8 sm:before:left-[calc(9.25rem+5.5px)]">
+    <li className="relative border-b border-line before:pointer-events-none before:absolute before:start-[calc(5.5rem+5.5px)] before:w-px before:bg-line before:content-[''] first:before:top-8 last:border-b-0 last:before:bottom-auto last:before:h-8 sm:before:start-[calc(9.25rem+5.5px)] before:inset-y-0">
       <details className="group/details">
         <summary className="group/summary grid grid-cols-[4.75rem_0.75rem_minmax(0,1fr)_1rem] items-start gap-x-3 py-5 sm:grid-cols-[8rem_0.75rem_minmax(0,1fr)_1rem] sm:gap-x-5 sm:py-6">
           <span className="type-data flex flex-col pt-1.5 text-[0.8125rem] leading-snug text-ink-soft sm:text-sm">
@@ -45,7 +45,7 @@ function ActivityRow({ activity }: Readonly<{ activity: Activity }>) {
             aria-hidden="true"
           />
         </summary>
-        <div className="pr-4 pb-6 pl-[7rem] text-[0.9375rem] leading-relaxed text-ink-soft sm:pl-[11.25rem]">
+        <div className="pe-4 pb-6 ps-[7rem] text-[0.9375rem] leading-relaxed text-ink-soft sm:ps-[11.25rem]">
           {activity.details.map((detail, index) => (
             <p className={index > 0 ? "mt-2" : undefined} key={detail}>
               {detail}

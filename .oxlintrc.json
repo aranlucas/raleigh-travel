@@ -7,16 +7,7 @@
     "./node_modules/@aranlucas/oxforge/configs/tailwind.json",
     "./node_modules/@aranlucas/oxforge/configs/type-aware.json"
   ],
-  "plugins": [
-    "typescript",
-    "unicorn",
-    "oxc",
-    "react",
-    "jsx-a11y",
-    "nextjs",
-    "import",
-    "promise"
-  ],
+  "plugins": ["typescript", "unicorn", "oxc", "react", "jsx-a11y", "nextjs", "import", "promise"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
@@ -43,10 +34,7 @@
     }
   },
   "rules": {
-    "eslint/eqeqeq": [
-      "error",
-      "always"
-    ],
+    "eslint/eqeqeq": ["error", "always"],
     "eslint/curly": "off",
     "eslint/no-console": "off",
     "eslint/no-debugger": "error",
@@ -67,9 +55,7 @@
     "import/no-unassigned-import": [
       "error",
       {
-        "allow": [
-          "**/*.css"
-        ]
+        "allow": ["**/*.css"]
       }
     ],
     "eslint/max-lines": "off",
@@ -78,11 +64,7 @@
       "error",
       {
         "ignoreInferredTypes": true,
-        "allow": [
-          "ReactNode",
-          "KeyboardEvent",
-          "Promise"
-        ]
+        "allow": ["ReactNode", "KeyboardEvent", "Promise"]
       }
     ],
     "oxc/no-accumulating-spread": "error",

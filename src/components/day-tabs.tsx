@@ -43,7 +43,7 @@ export function DayTabs({
               type="button"
               id={`tab-${item.id}`}
               key={item.id}
-              className={`group relative flex flex-col items-start overflow-hidden rounded-lg border bg-surface px-2.5 pt-2.5 pb-3 text-left text-ink transition-[background-color,border-color,box-shadow] duration-200 ease-out-soft hover:border-line-strong hover:shadow-card aria-selected:border-ink aria-selected:bg-ink aria-selected:text-white aria-selected:shadow-lift sm:px-4 sm:pt-3.5 sm:pb-4 ${isExam ? "border-cardinal/40" : "border-line"}`}
+              className={`group relative flex flex-col items-start overflow-hidden rounded-lg border bg-surface px-2.5 pt-2.5 pb-3 text-start text-ink transition-[background-color,border-color,box-shadow] duration-200 ease-out-soft hover:border-line-strong hover:shadow-card aria-selected:border-ink aria-selected:bg-ink aria-selected:text-white aria-selected:shadow-lift sm:px-4 sm:pt-3.5 sm:pb-4 ${isExam ? "border-cardinal/40" : "border-line"}`}
               role="tab"
               aria-selected={item.id === selectedId}
               aria-controls="daily-panel"

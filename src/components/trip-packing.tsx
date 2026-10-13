@@ -68,7 +68,7 @@ export function TripPacking() {
                     >
                       {item.label}
                       {item.optional === true && (
-                        <span className="ml-2 font-normal text-muted">· optional</span>
+                        <span className="ms-2 font-normal text-muted">· optional</span>
                       )}
                     </span>
                     <span className="mt-1 block text-xs leading-relaxed text-muted">
@@ -90,7 +90,7 @@ export function TripPacking() {
                 ? "Based on the latest loaded trip forecast; recheck before departure."
                 : "Based on the last loaded forecast; the latest update is unavailable."}
             </p>
-            <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-ink-soft">
+            <ul className="mt-3 list-disc space-y-1 ps-4 text-sm text-ink-soft">
               {notes.map((note) => (
                 <li key={note}>{note}</li>
               ))}

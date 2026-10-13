@@ -10,7 +10,7 @@ function Segments({ day, from, to }: Readonly<{ day: Day; from: number; to: numb
   return daySpans(day).map((span) => (
     <span
       key={span.id}
-      className={`absolute inset-y-0 border-r-2 border-surface group-aria-selected:border-ink ${categoryTones[span.category].fill}`}
+      className={`absolute inset-y-0 border-e-2 border-surface group-aria-selected:border-ink ${categoryTones[span.category].fill}`}
       style={{
         left: position(span.start, from, to),
         width: `calc(${position(span.end, from, to)} - ${position(span.start, from, to)})`,
