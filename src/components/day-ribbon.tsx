@@ -6,7 +6,9 @@ function position(minutes: number, from: number, to: number) {
   return `${(Math.min(Math.max(minutes, from), to) - from) / ((to - from) / 100)}%`;
 }
 
-function Segments({ day, from, to }: Readonly<{ day: Day; from: number; to: number }>) {
+type SegmentProps = Readonly<{ day: Day; from: number; to: number }>;
+
+function Segments({ day, from, to }: SegmentProps) {
   return daySpans(day).map((span) => (
     <span
       key={span.id}
@@ -19,8 +21,10 @@ function Segments({ day, from, to }: Readonly<{ day: Day; from: number; to: numb
   ));
 }
 
+type DayRibbonProps = Readonly<{ day: Day; className?: string }>;
+
 /** A compact, decorative shape of the day from 7 AM to 11 PM. */
-export function DayRibbon({ day, className = "" }: Readonly<{ day: Day; className?: string }>) {
+export function DayRibbon({ day, className = "" }: DayRibbonProps) {
   return (
     <span className={`block ${className}`} aria-hidden="true">
       <span className="relative block h-1.5 overflow-hidden rounded-full bg-sunk group-aria-selected:bg-white/15">
@@ -34,7 +38,7 @@ export function DayRibbonLegend() {
   return (
     <ul className="flex flex-wrap items-center gap-x-4 gap-y-1" aria-label="Activity colors">
       {Object.values(categoryTones).map((tone) => (
-        <li className="eyebrow gap-1.5 text-[0.6875rem]" key={tone.label}>
+        <li className="eyebrow text-2xs text-muted" key={tone.label}>
           <span className={`size-2 rounded-full ${tone.fill}`} aria-hidden="true" />
           {tone.label}
         </li>
@@ -49,8 +53,10 @@ function hourLabel(hour: number) {
   return `${hour % 12 === 0 ? 12 : hour % 12}${hour < 12 ? "a" : "p"}`;
 }
 
+type DayOfTimelineProps = Readonly<{ day: Day }>;
+
 /** Full-width day-of timeline with labeled milestones, 8 AM to 8 PM. */
-export function DayOfTimeline({ day }: Readonly<{ day: Day }>) {
+export function DayOfTimeline({ day }: DayOfTimelineProps) {
   const from = 8 * 60;
   const to = 20 * 60;
 
@@ -61,16 +67,16 @@ export function DayOfTimeline({ day }: Readonly<{ day: Day }>) {
   });
 
   return (
-    <figure className="card mt-6 p-5 sm:p-6">
+    <figure className="mbs-6 card p-5 sm:p-6">
       <figcaption className="flex items-baseline justify-between gap-4">
-        <span className="eyebrow text-cardinal">Your day at a glance</span>
-        <span className="eyebrow">Eastern time</span>
+        <span className="eyebrow text-label text-cardinal">Your day at a glance</span>
+        <span className="eyebrow text-label text-muted">Eastern time</span>
       </figcaption>
-      <div className="relative mt-4 h-14" aria-hidden="true">
+      <div className="relative mbs-4 h-14" aria-hidden="true">
         {milestones.map((milestone, index) => (
           <span
             key={milestone.label}
-            className={`absolute bottom-0 flex flex-col ${index % 2 === 0 ? "-translate-x-1/2 items-center" : "-translate-x-full items-end"}`}
+            className={`absolute inset-be-0 flex flex-col ${index % 2 === 0 ? "-translate-x-1/2 items-center" : "-translate-x-full items-end"}`}
             style={{ left: position(milestone.at, from, to) }}
           >
             <span
@@ -85,18 +91,18 @@ export function DayOfTimeline({ day }: Readonly<{ day: Day }>) {
       <div className="relative h-3 overflow-hidden rounded-full bg-sunk" aria-hidden="true">
         <Segments day={day} from={from} to={to} />
       </div>
-      <div className="relative mt-2 h-4" aria-hidden="true">
+      <div className="relative mbs-2 h-4" aria-hidden="true">
         {hourTicks.map((hour, index) => (
           <span
             key={hour}
-            className={`type-data absolute text-[0.6875rem] text-muted ${index === 0 ? "" : index === hourTicks.length - 1 ? "-translate-x-full" : "-translate-x-1/2"}`}
+            className={`absolute type-data text-2xs text-muted ${index === 0 ? "" : index === hourTicks.length - 1 ? "-translate-x-full" : "-translate-x-1/2"}`}
             style={{ left: position(hour * 60, from, to) }}
           >
             {hourLabel(hour)}
           </span>
         ))}
       </div>
-      <ol className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line pt-4 sm:grid-cols-4">
+      <ol className="mbs-5 grid grid-cols-2 gap-x-4 gap-y-3 border-bs border-line pbs-4 sm:grid-cols-4">
         {milestones.map((milestone) => (
           <li key={milestone.label}>
             <p className="type-data text-sm font-medium">{milestone.time}</p>

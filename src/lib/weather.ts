@@ -49,7 +49,7 @@ export function localToday(now = new Date()): string {
     day: "2-digit",
   }).formatToParts(now);
 
-  const part = (type: string) => parts.find((item) => item.type === type)?.value;
+  const part = (type: string) => parts.find((item) => item.type === type)?.value ?? "";
 
   return `${part("year")}-${part("month")}-${part("day")}`;
 }

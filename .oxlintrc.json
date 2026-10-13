@@ -31,6 +31,9 @@
       "components": {
         "Link": "a"
       }
+    },
+    "tailwindcss": {
+      "entryPoint": "src/app/globals.css"
     }
   },
   "rules": {
@@ -52,6 +55,12 @@
     "typescript/no-unsafe-return": "error",
     "typescript/switch-exhaustiveness-check": "error",
     "react/react-in-jsx-scope": "off",
+    "react/only-export-components": [
+      "error",
+      {
+        "allowExportNames": ["metadata", "generateMetadata", "generateStaticParams"]
+      }
+    ],
     "import/no-unassigned-import": [
       "error",
       {

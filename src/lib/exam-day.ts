@@ -1,5 +1,7 @@
 /** Facts from ABPD's OCE pages and candidate guide (updated February 2026), checked September 23, 2026. */
-export const examFacts: readonly Readonly<{ label: string; value: string }>[] = [
+type ExamFact = Readonly<{ label: string; value: string }>;
+
+export const examFacts: readonly ExamFact[] = [
   {
     label: "Format",
     value: "Two successive one-hour segments, two examiners each, clinical vignettes",

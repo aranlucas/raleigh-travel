@@ -8,6 +8,12 @@ const itemIds = new Set(PACKING_GROUPS.flatMap((group) => group.items.map((item)
 
 const emptySnapshot: ReadonlySet<string> = new Set();
 
+type StorageChange = Readonly<{
+  key: string | null;
+  newValue: string | null;
+  storageArea: unknown;
+}>;
+
 function readPackedItems(raw: string | null): string[] {
   try {
     const parsed = z.array(z.string().catch("")).safeParse(JSON.parse(raw ?? "[]"));
@@ -59,9 +65,7 @@ export function createPackingStore() {
     }
   }
 
-  function onStorage(
-    event: Readonly<{ key: string | null; newValue: string | null; storageArea: unknown }>,
-  ) {
+  function onStorage(event: StorageChange) {
     if (event.key !== null && event.key !== PACKING_STORAGE_KEY) {
       return;
     }

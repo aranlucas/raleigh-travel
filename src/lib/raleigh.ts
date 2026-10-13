@@ -40,7 +40,9 @@ export const examCoords = [35.8369, -78.6399] as const;
 
 export const areaOrder: readonly Area[] = ["north-hills", "downtown", "west"];
 
-export const areas: Readonly<Record<Area, { label: string; note: string }>> = {
+type AreaInfo = { label: string; note: string };
+
+export const areas: Readonly<Record<Area, AreaInfo>> = {
   "north-hills": {
     label: "North Hills",
     note: "Your neighborhood. Everything here is a short walk from the hotel and the exam.",

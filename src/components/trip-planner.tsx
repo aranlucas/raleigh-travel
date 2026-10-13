@@ -45,7 +45,9 @@ function setDayHash(id: string) {
   window.dispatchEvent(new HashChangeEvent("hashchange"));
 }
 
-export function TripPlanner({ view }: Readonly<{ view: "itinerary" | "details" }>) {
+type TripPlannerProps = Readonly<{ view: "itinerary" | "details" }>;
+
+export function TripPlanner({ view }: TripPlannerProps) {
   const day = useSelectedDay();
   const [filter, setFilter] = useState<Filter>("all");
   const contentRef = useRef<HTMLDivElement>(null);
@@ -85,7 +87,7 @@ export function TripPlanner({ view }: Readonly<{ view: "itinerary" | "details" }
         <SiteHeader current={view} />
         <main className="page-shell">
           <TripHero />
-          <div ref={contentRef} id="trip-content" className="scroll-mt-6" tabIndex={-1}>
+          <div ref={contentRef} id="trip-content" className="scroll-mbs-6" tabIndex={-1}>
             {view === "itinerary" ? (
               <TripDayPlan
                 day={day}

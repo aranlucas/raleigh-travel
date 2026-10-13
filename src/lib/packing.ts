@@ -8,118 +8,119 @@ export type PackingItem = Readonly<{
   optional?: boolean;
 }>;
 
-export const PACKING_GROUPS: readonly Readonly<{ title: string; items: readonly PackingItem[] }>[] =
-  [
-    {
-      title: "Clothes · totals include what you wear",
-      items: [
-        {
-          id: "tops",
-          label: "5 lightweight tops",
-          detail:
-            "Include one polo or button-down. Make one top workout-friendly if you plan to run.",
-        },
-        {
-          id: "pants",
-          label: "2 lightweight pants",
-          detail: "Wear one pair on the plane; pack one.",
-        },
-        {
-          id: "shorts",
-          label: "1 pair of shorts",
-          detail: "Choose workout-friendly shorts if you plan to run.",
-        },
-        {
-          id: "layer",
-          label: "1 light hoodie or fleece",
-          detail:
-            "Wear your bulkier layer on the plane; useful for cool mornings and air conditioning.",
-        },
-        {
-          id: "jacket",
-          label: "1 packable waterproof hooded jacket",
-          detail: "Keep it accessible for rainy walks.",
-        },
-        {
-          id: "underwear",
-          label: "5 pairs of underwear",
-          detail: "One for each trip day, including the pair worn on departure.",
-        },
-        {
-          id: "socks",
-          label: "6 pairs of socks",
-          detail: "Five days plus a spare for rain or a run.",
-        },
-        { id: "sleepwear", label: "Sleepwear", detail: "One light set for four hotel nights." },
-      ],
-    },
-    {
-      title: "Walking & weather",
-      items: [
-        {
-          id: "shoes",
-          label: "Comfortable, grippy sneakers",
-          detail: "Wear them on the plane. One versatile pair keeps the bag light.",
-        },
-        {
-          id: "umbrella",
-          label: "Compact umbrella",
-          detail: "Optional extra rain coverage alongside your jacket.",
-          optional: true,
-        },
-        {
-          id: "sun",
-          label: "Sunglasses & sunscreen",
-          detail: "Keep sun protection handy for outdoor breaks.",
-        },
-        {
-          id: "wet-bag",
-          label: "Small wet-clothes bag",
-          detail: "Separate damp socks, rain gear, or workout clothes.",
-        },
-      ],
-    },
-    {
-      title: "Toiletries & essentials",
-      items: [
-        {
-          id: "toiletries",
-          label: "Travel toiletries",
-          detail:
-            "Pack your toothbrush, toothpaste, deodorant, and usual personal care items in carry-on sizes.",
-        },
-        {
-          id: "medications",
-          label: "Any usual medications",
-          detail: "Keep what you use in your personal item; skip this if none are needed.",
-          optional: true,
-        },
-        {
-          id: "chargers",
-          label: "Phone & device chargers",
-          detail: "Bring the cables and adapter you actually use.",
-        },
-        {
-          id: "wallet",
-          label: "Photo ID & wallet",
-          detail:
-            "Bring a REAL ID or passport for the flights, plus a card for hotel incidentals. Keep them in your personal item.",
-        },
-        {
-          id: "boarding-passes",
-          label: "Updated boarding passes for both travelers",
-          detail:
-            "Refresh them after the rebooking: AA 381 and AA 1904 outbound. Verify seats and save the new passes before leaving.",
-        },
-        {
-          id: "confirmations",
-          label: "Hotel confirmation & candidate exam email",
-          detail:
-            "Save accessible copies for check-in and Monday’s 2:45 PM registration. The latest candidate email takes precedence.",
-        },
-      ],
-    },
-  ];
+type PackingGroup = Readonly<{ title: string; items: readonly PackingItem[] }>;
+
+export const PACKING_GROUPS: readonly PackingGroup[] = [
+  {
+    title: "Clothes · totals include what you wear",
+    items: [
+      {
+        id: "tops",
+        label: "5 lightweight tops",
+        detail:
+          "Include one polo or button-down. Make one top workout-friendly if you plan to run.",
+      },
+      {
+        id: "pants",
+        label: "2 lightweight pants",
+        detail: "Wear one pair on the plane; pack one.",
+      },
+      {
+        id: "shorts",
+        label: "1 pair of shorts",
+        detail: "Choose workout-friendly shorts if you plan to run.",
+      },
+      {
+        id: "layer",
+        label: "1 light hoodie or fleece",
+        detail:
+          "Wear your bulkier layer on the plane; useful for cool mornings and air conditioning.",
+      },
+      {
+        id: "jacket",
+        label: "1 packable waterproof hooded jacket",
+        detail: "Keep it accessible for rainy walks.",
+      },
+      {
+        id: "underwear",
+        label: "5 pairs of underwear",
+        detail: "One for each trip day, including the pair worn on departure.",
+      },
+      {
+        id: "socks",
+        label: "6 pairs of socks",
+        detail: "Five days plus a spare for rain or a run.",
+      },
+      { id: "sleepwear", label: "Sleepwear", detail: "One light set for four hotel nights." },
+    ],
+  },
+  {
+    title: "Walking & weather",
+    items: [
+      {
+        id: "shoes",
+        label: "Comfortable, grippy sneakers",
+        detail: "Wear them on the plane. One versatile pair keeps the bag light.",
+      },
+      {
+        id: "umbrella",
+        label: "Compact umbrella",
+        detail: "Optional extra rain coverage alongside your jacket.",
+        optional: true,
+      },
+      {
+        id: "sun",
+        label: "Sunglasses & sunscreen",
+        detail: "Keep sun protection handy for outdoor breaks.",
+      },
+      {
+        id: "wet-bag",
+        label: "Small wet-clothes bag",
+        detail: "Separate damp socks, rain gear, or workout clothes.",
+      },
+    ],
+  },
+  {
+    title: "Toiletries & essentials",
+    items: [
+      {
+        id: "toiletries",
+        label: "Travel toiletries",
+        detail:
+          "Pack your toothbrush, toothpaste, deodorant, and usual personal care items in carry-on sizes.",
+      },
+      {
+        id: "medications",
+        label: "Any usual medications",
+        detail: "Keep what you use in your personal item; skip this if none are needed.",
+        optional: true,
+      },
+      {
+        id: "chargers",
+        label: "Phone & device chargers",
+        detail: "Bring the cables and adapter you actually use.",
+      },
+      {
+        id: "wallet",
+        label: "Photo ID & wallet",
+        detail:
+          "Bring a REAL ID or passport for the flights, plus a card for hotel incidentals. Keep them in your personal item.",
+      },
+      {
+        id: "boarding-passes",
+        label: "Updated boarding passes for both travelers",
+        detail:
+          "Refresh them after the rebooking: AA 381 and AA 1904 outbound. Verify seats and save the new passes before leaving.",
+      },
+      {
+        id: "confirmations",
+        label: "Hotel confirmation & candidate exam email",
+        detail:
+          "Save accessible copies for check-in and Monday’s 2:45 PM registration. The latest candidate email takes precedence.",
+      },
+    ],
+  },
+];
 
 /** Guidance follows the currently loaded trip forecast; no permanent trip temperatures. */
 export function packingWeatherNotes(weather: Readonly<WeatherResponse> | null): string[] {

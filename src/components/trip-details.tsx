@@ -17,36 +17,34 @@ const linkGroupClasses = "mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-5";
 
 type Leg = Readonly<{ flight: string; depart: string; arrive: string }>;
 
-/** Origin, connection, destination on one line; the connection is flagged when it is tight. */
-function RouteLine({
-  stops,
-  legs,
-  connection,
-  tight = false,
-}: Readonly<{
-  stops: readonly [string, string, string];
-  legs: readonly [Leg, Leg];
+type Stops = readonly [string, string, string];
+
+type Legs = readonly [Leg, Leg];
+
+type RouteLineProps = Readonly<{
+  stops: Stops;
+  legs: Legs;
   connection: string;
   tight?: boolean;
-}>) {
+}>;
+
+/** Origin, connection, destination on one line; the connection is flagged when it is tight. */
+function RouteLine({ stops, legs, connection, tight = false }: RouteLineProps) {
   const [origin, via, destination] = stops;
   const [first, second] = legs;
 
   return (
-    <div className="mt-6">
+    <div className="mbs-6">
       <p className="sr-only">
         {first.flight} departs {origin} {first.depart}, arrives {via} {first.arrive}. {connection}{" "}
         connection. {second.flight} departs {via} {second.depart}, arrives {destination}{" "}
         {second.arrive}.
       </p>
-      <div
-        className="grid grid-cols-[auto_minmax(1.5rem,1fr)_auto_minmax(1.5rem,1fr)_auto] items-center gap-x-2 sm:gap-x-3"
-        aria-hidden="true"
-      >
+      <div className="grid grid-route items-center gap-x-2 sm:gap-x-3" aria-hidden="true">
         <span className="type-data text-2xl leading-none font-medium sm:text-3xl">{origin}</span>
         <FlightPath flight={first.flight} />
         <span
-          className={`type-data rounded-md px-2 py-1 text-2xl leading-none font-medium sm:text-3xl ${tight ? "bg-ochre-wash text-ochre" : "bg-sunk"}`}
+          className={`rounded-md px-2 py-1 type-data text-2xl leading-none font-medium sm:text-3xl ${tight ? "bg-ochre-wash text-ochre" : "bg-sunk"}`}
         >
           {via}
         </span>
@@ -54,11 +52,11 @@ function RouteLine({
         <span className="type-data text-2xl leading-none font-medium sm:text-3xl">
           {destination}
         </span>
-        <span className="type-data mt-2 text-[0.6875rem] whitespace-nowrap text-muted sm:text-xs">
+        <span className="mbs-2 type-data text-2xs whitespace-nowrap text-muted sm:text-xs">
           {first.depart}
         </span>
         <span />
-        <span className="type-data mt-2 flex flex-col items-center text-center text-xs text-muted">
+        <span className="mbs-2 flex flex-col items-center text-center type-data text-xs text-muted">
           <span>{first.arrive}</span>
           <span
             className={`my-1 rounded-full px-2 py-0.5 font-medium whitespace-nowrap ${tight ? "bg-ochre-bright text-white" : "bg-sunk text-ink-soft"}`}
@@ -69,7 +67,7 @@ function RouteLine({
           <span>{second.depart}</span>
         </span>
         <span />
-        <span className="type-data mt-2 text-end text-[0.6875rem] whitespace-nowrap text-muted sm:text-xs">
+        <span className="mbs-2 text-end type-data text-2xs whitespace-nowrap text-muted sm:text-xs">
           {second.arrive}
         </span>
       </div>
@@ -77,15 +75,17 @@ function RouteLine({
   );
 }
 
-function FlightPath({ flight }: Readonly<{ flight: string }>) {
+type FlightPathProps = Readonly<{ flight: string }>;
+
+function FlightPath({ flight }: FlightPathProps) {
   return (
     <span className="relative flex flex-col items-center">
-      <span className="type-data absolute bottom-3 text-[0.6875rem] tracking-wider whitespace-nowrap text-muted">
+      <span className="absolute inset-be-3 type-data text-2xs tracking-wider whitespace-nowrap text-muted">
         {flight}
       </span>
       <span className="relative h-px w-full bg-line-strong">
         <Plane
-          className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-surface px-0.5 text-pine"
+          className="absolute inset-s-1/2 inset-bs-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-surface px-0.5 text-pine"
           size={16}
           strokeWidth={1.75}
         />
@@ -94,26 +94,25 @@ function FlightPath({ flight }: Readonly<{ flight: string }>) {
   );
 }
 
-function DetailCard({
-  icon,
-  title,
-  meta,
-  children,
-}: Readonly<{
+type DetailCardProps = Readonly<{
   icon: React.ReactNode;
   title: string;
   meta?: string;
   children: React.ReactNode;
-}>) {
+}>;
+
+function DetailCard({ icon, title, meta, children }: DetailCardProps) {
   return (
-    <section className="card flex min-w-0 flex-col p-6 sm:p-8">
+    <section className="flex min-w-0 flex-col card p-6 sm:p-8">
       <div className="flex items-center gap-3">
         <span className="grid size-10 place-items-center rounded-full bg-sunk text-pine-deep">
           {icon}
         </span>
         <div>
           <h3 className="type-heading">{title}</h3>
-          {meta === undefined ? null : <p className="eyebrow mt-1">{meta}</p>}
+          {meta === undefined ? null : (
+            <p className="mbs-1 eyebrow text-label text-muted">{meta}</p>
+          )}
         </div>
       </div>
       {children}
@@ -121,12 +120,16 @@ function DetailCard({
   );
 }
 
-function Facts({ rows }: Readonly<{ rows: readonly (readonly [string, string])[] }>) {
+type FactRow = readonly [string, string];
+
+type FactsProps = Readonly<{ rows: readonly FactRow[] }>;
+
+function Facts({ rows }: FactsProps) {
   return (
-    <dl className="mt-6 mb-5 border-t border-line">
+    <dl className="mbs-6 mbe-5 border-bs border-line">
       {rows.map(([term, value]) => (
         <div
-          className="grid grid-cols-[8rem_1fr] gap-4 border-b border-line py-2.5 text-[0.9375rem] sm:grid-cols-[9rem_1fr]"
+          className="grid grid-facts gap-4 border-be border-line py-2.5 text-body-sm sm:grid-facts-wide"
           key={term}
         >
           <dt className="text-muted">{term}</dt>
@@ -158,15 +161,15 @@ export function TripDetails() {
 
   return (
     <section className="animate-fade-up" aria-labelledby="details-heading">
-      <div className="pb-8">
-        <p className="eyebrow">Trip details</p>
-        <h2 id="details-heading" className="type-title mt-3">
+      <div className="pbe-8">
+        <p className="eyebrow text-label text-muted">Trip details</p>
+        <h2 id="details-heading" className="mbs-3 type-title">
           Flights, hotel, and the exam
         </h2>
-        <p className="type-lead mt-2">Booked travel and the exam-day details in one place.</p>
+        <p className="mbs-2 type-lead">Booked travel and the exam-day details in one place.</p>
       </div>
       <ol
-        className="mb-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-4"
+        className="mbe-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-4"
         aria-label="Key moments"
       >
         {keyMoments.map((moment) => (
@@ -174,8 +177,8 @@ export function TripDetails() {
             className={`px-4 py-3 sm:px-5 sm:py-4 ${"milestone" in moment ? "bg-cardinal-wash" : "bg-surface"}`}
             key={moment.label}
           >
-            <span className="eyebrow">{moment.day}</span>
-            <p className="type-data mt-1 text-xl font-medium">{moment.time}</p>
+            <span className="eyebrow text-label text-muted">{moment.day}</span>
+            <p className="mbs-1 type-data text-xl font-medium">{moment.time}</p>
             <p
               className={`text-sm ${"milestone" in moment ? "font-medium text-cardinal" : "text-muted"}`}
             >
@@ -194,13 +197,13 @@ export function TripDetails() {
             ]}
             connection="1h 20m"
           />
-          <p className="mt-6 border-t border-line pt-4 text-[0.9375rem] leading-relaxed text-muted">
+          <p className="mbs-6 border-bs border-line pbs-4 text-body-sm leading-relaxed text-muted">
             AA 381 delayed; AA 1904 replaces AA 1894. Updated from American’s October 1 emails
             (latest at 4:07 PM Pacific). Get new boarding passes for each passenger. Suggested SEA
             arrival: around 6:30 AM Pacific, subject to airline guidance. Hotel arrival around 7:45
             PM Eastern. Check the American app for current status and gates.
           </p>
-          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">
+          <p className="mbs-3 text-body-sm leading-relaxed text-muted">
             Light rail: reach Capitol Hill’s southbound platform by 5:15 AM PT. Take the 5:28 AM 1
             Line toward Federal Way; arrive at SeaTac/Airport at 6:09 AM. Allow 15–20 minutes to
             walk to the terminal, arriving around 6:25–6:30 AM. Allow about 1 hour 45 minutes before
@@ -224,15 +227,15 @@ export function TripDetails() {
             connection="51m"
             tight
           />
-          <p className="mt-6 border-t border-line pt-4 text-[0.9375rem] leading-relaxed text-muted">
+          <p className="mbs-6 border-bs border-line pbs-4 text-body-sm leading-relaxed text-muted">
             Leave the hotel around 11 AM; target RDU by 11:45 AM. At DFW, head to your onward gate
             first. These are saved flight times; recheck both legs, seats, and gates in the American
             app before travel.
           </p>
         </DetailCard>
         <DetailCard icon={<House {...icon} />} title="A comfortable home base">
-          <h4 className="type-subhead mt-6">Hyatt House Raleigh North Hills</h4>
-          <p className="mt-1 text-[0.9375rem] text-muted">
+          <h4 className="mbs-6 type-subhead">Hyatt House Raleigh North Hills</h4>
+          <p className="mbs-1 text-body-sm text-muted">
             160 Park at North Hills Street
             <br />
             Raleigh, NC 27609
@@ -246,7 +249,7 @@ export function TripDetails() {
               ["Bring", "Photo ID and a card for incidentals"],
             ]}
           />
-          <p className="text-[0.9375rem] leading-relaxed text-muted">
+          <p className="text-body-sm leading-relaxed text-muted">
             Room and tax are prepaid through Chase Travel. Have the primary guest on the
             confirmation present for check-in, or arrange access with the hotel beforehand. Contact
             the hotel if further flight delays push arrival very late.
@@ -260,8 +263,8 @@ export function TripDetails() {
           title="The milestone"
           meta="Mon, Oct 5 · Session 3"
         >
-          <h4 className="type-subhead mt-6">ABPD Oral Clinical Examination</h4>
-          <p className="mt-1 text-[0.9375rem] text-muted">AIME Center · 4208 Six Forks Road</p>
+          <h4 className="mbs-6 type-subhead">ABPD Oral Clinical Examination</h4>
+          <p className="mbs-1 text-body-sm text-muted">AIME Center · 4208 Six Forks Road</p>
           <Facts
             rows={[
               ["Leave the hotel", "About 2:25 PM"],
@@ -270,7 +273,7 @@ export function TripDetails() {
               ["Bring", "Government photo ID"],
             ]}
           />
-          <p className="text-[0.9375rem] leading-relaxed text-muted">
+          <p className="text-body-sm leading-relaxed text-muted">
             Wait in the lobby for the ABPD representative; registration won’t open early.
           </p>
           <div className={linkGroupClasses}>
@@ -280,19 +283,21 @@ export function TripDetails() {
         </DetailCard>
       </div>
       <section
-        className="card mt-4 scroll-mt-6 p-6 sm:p-8 lg:mt-6 lg:p-10"
+        className="mbs-4 scroll-mbs-6 card p-6 sm:p-8 lg:mbs-6 lg:p-10"
         id="exam-day"
         aria-labelledby="exam-day-heading"
       >
-        <p className="eyebrow text-cardinal">Monday, October 5 · from ABPD’s candidate guide</p>
-        <h3 className="type-title mt-3" id="exam-day-heading">
+        <p className="eyebrow text-label text-cardinal">
+          Monday, October 5 · from ABPD’s candidate guide
+        </p>
+        <h3 className="mbs-3 type-title" id="exam-day-heading">
           How the exam afternoon runs
         </h3>
-        <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <dl className="border-t border-line">
+        <div className="mbs-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <dl className="border-bs border-line">
             {examFacts.map((fact) => (
               <div
-                className="grid grid-cols-[8rem_1fr] gap-4 border-b border-line py-2.5 text-[0.9375rem] sm:grid-cols-[9rem_1fr]"
+                className="grid grid-facts gap-4 border-be border-line py-2.5 text-body-sm sm:grid-facts-wide"
                 key={fact.label}
               >
                 <dt className="text-muted">{fact.label}</dt>
@@ -302,14 +307,11 @@ export function TripDetails() {
           </dl>
           <div>
             <h4 className="type-subhead">Bring, lock away, leave behind</h4>
-            <ul className="mt-3 space-y-2.5">
+            <ul className="mbs-3 flex flex-col gap-2.5">
               {examDayRules.map((rule) => (
-                <li
-                  className="flex gap-3 text-[0.9375rem] leading-relaxed text-ink-soft"
-                  key={rule}
-                >
+                <li className="flex gap-3 text-body-sm leading-relaxed text-ink-soft" key={rule}>
                   <CircleCheck
-                    className="mt-1 text-pine"
+                    className="mbs-1 text-pine"
                     size={16}
                     strokeWidth={1.75}
                     aria-hidden="true"
@@ -318,7 +320,7 @@ export function TripDetails() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-sm text-muted">
+            <p className="mbs-4 text-sm text-muted">
               Checked against ABPD on September 23, 2026. Your latest candidate email takes
               precedence.
             </p>
@@ -335,16 +337,16 @@ export function TripDetails() {
           />
         </div>
       </section>
-      <section className="panel mt-4 p-6 sm:p-8 lg:mt-6 lg:p-10">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-12">
+      <section className="mbs-4 panel p-6 sm:p-8 lg:mbs-6 lg:p-10">
+        <div className="grid gap-8 lg:grid-study lg:gap-12">
           <div>
-            <p className="eyebrow text-pine">
+            <p className="eyebrow text-label text-pine">
               <BookOpen size={14} aria-hidden="true" /> Study plan
             </p>
-            <h3 className="type-title mt-3">Study time</h3>
-            <p className="mt-3 text-lg">
+            <h3 className="mbs-3 type-title">Study time</h3>
+            <p className="mbs-3 text-lg">
               {duration(totalStudy)} of focused preparation
-              <span className="mt-1 block text-[0.9375rem] text-muted">
+              <span className="mbs-1 block text-body-sm text-muted">
                 + an optional 30 minutes on Friday’s flight
               </span>
             </p>
@@ -355,11 +357,11 @@ export function TripDetails() {
                 .filter((day) => studyMinutes(day) > 0)
                 .map((day) => (
                   <div className="rounded-md bg-surface p-4" key={day.id}>
-                    <span className="eyebrow">{day.short}</span>
-                    <p className="mt-1 font-display text-3xl leading-none whitespace-nowrap">
+                    <span className="eyebrow text-label text-muted">{day.short}</span>
+                    <p className="mbs-1 font-display text-3xl leading-none whitespace-nowrap">
                       {shortDuration(studyMinutes(day))}
                     </p>
-                    <p className="mt-2 text-sm text-muted">
+                    <p className="mbs-2 text-sm text-muted">
                       {day.id === "saturday"
                         ? "Clinical cases & weak areas"
                         : day.id === "sunday"
@@ -369,7 +371,7 @@ export function TripDetails() {
                   </div>
                 ))}
             </div>
-            <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink-soft">
+            <p className="mbs-5 text-body-sm leading-relaxed text-ink-soft">
               Practice your reasoning out loud, including how you would explain decisions to a
               child’s family.
             </p>

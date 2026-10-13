@@ -5,23 +5,25 @@ import type { Filter } from "./timeline";
 import { TripSidebar } from "./trip-sidebar";
 import { TripWeather } from "./trip-weather";
 
+type TripDayPlanProps = Readonly<{
+  day: Day;
+  filter: Filter;
+  onSelectDay: (id: string) => void;
+  onFilterChange: (filter: Filter) => void;
+  onMonday: () => void;
+}>;
+
 export function TripDayPlan({
   day,
   filter,
   onSelectDay,
   onFilterChange,
   onMonday,
-}: Readonly<{
-  day: Day;
-  filter: Filter;
-  onSelectDay: (id: string) => void;
-  onFilterChange: (filter: Filter) => void;
-  onMonday: () => void;
-}>) {
+}: TripDayPlanProps) {
   return (
     <>
       <DayTabs selectedId={day.id} onSelect={onSelectDay} />
-      <div className="mt-10 grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,1fr)_19rem] lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-14">
+      <div className="mbs-10 grid grid-cols-1 items-start gap-10 md:grid-plan lg:grid-plan-wide lg:gap-14">
         <TripWeather day={day} filter={filter} onFilterChange={onFilterChange} />
         <TripSidebar onMonday={onMonday} />
       </div>
