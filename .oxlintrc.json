@@ -120,6 +120,27 @@
     "node_modules/**",
     "dist/**",
     ".snapshot*",
-    "_site/**"
-  ]
+    "_site/**",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/.next/**",
+    "**/.expo/**",
+    "**/.vercel/**",
+    "**/.agent/**",
+    "**/.agents/**",
+    "**/.claude/**",
+    "**/.codex/**",
+    "**/.continue/**",
+    "**/.cursor/**",
+    "**/.gemini/**",
+    "**/.opencode/**",
+    "**/.pi/**",
+    "**/.roo/**",
+    "**/.windsurf/**"
+  ],
+  "options": {
+    "typeAware": true
+  }
 }
