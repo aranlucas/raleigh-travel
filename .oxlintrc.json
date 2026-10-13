@@ -1,34 +1,56 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "unicorn", "oxc", "react", "jsx-a11y", "nextjs", "import", "promise"],
+  "extends": [
+    "./node_modules/@aranlucas/oxforge/configs/recommended.json",
+    "./node_modules/@aranlucas/oxforge/configs/nextjs.json",
+    "./node_modules/@aranlucas/oxforge/configs/vitest.json",
+    "./node_modules/@aranlucas/oxforge/configs/tailwind.json",
+    "./node_modules/@aranlucas/oxforge/configs/type-aware.json"
+  ],
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "react",
+    "jsx-a11y",
+    "nextjs",
+    "import",
+    "promise"
+  ],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
     "pedantic": "error",
     "perf": "error"
   },
-  "options": {
-    "typeAware": true,
-    "maxWarnings": 0
-  },
   "env": {
     "browser": true,
     "es2022": true
   },
-  "ignorePatterns": [
-    ".next/**",
-    "out/**",
-    "build/**",
-    "coverage/**",
-    "next-env.d.ts",
-    "node_modules/**",
-    "dist/**",
-    ".snapshot*",
-    "_site/**"
-  ],
+  "settings": {
+    "react": {
+      "linkComponents": [
+        {
+          "name": "Link",
+          "linkAttribute": "href"
+        }
+      ]
+    },
+    "jsx-a11y": {
+      "components": {
+        "Link": "a"
+      }
+    }
+  },
   "rules": {
-    "eslint/eqeqeq": ["error", "always"],
-    "eslint/curly": ["error", "all"],
+    "eslint/eqeqeq": [
+      "error",
+      "always"
+    ],
+    "eslint/curly": [
+      "error",
+      "all"
+    ],
     "eslint/no-console": "error",
     "eslint/no-debugger": "error",
     "eslint/no-unused-vars": "error",
@@ -48,7 +70,9 @@
     "import/no-unassigned-import": [
       "error",
       {
-        "allow": ["**/*.css"]
+        "allow": [
+          "**/*.css"
+        ]
       }
     ],
     "eslint/max-lines": "off",
@@ -57,48 +81,24 @@
       "error",
       {
         "ignoreInferredTypes": true,
-        "allow": ["ReactNode", "KeyboardEvent", "Promise"]
+        "allow": [
+          "ReactNode",
+          "KeyboardEvent",
+          "Promise"
+        ]
       }
     ],
-    "oxc/no-accumulating-spread": "error",
-    "anti-slop/no-array-filter-map": "error",
-    "anti-slop/no-reduce-accumulator-copy": "error",
-    "anti-slop/no-chained-type-assertions": "error",
-    "anti-slop/no-conditional-empty-object-spread": "error",
-    "anti-slop/no-known-value-widening": "error",
-    "anti-slop/no-module-mocking": "error",
-    "anti-slop/no-object-parameters": "error",
-    "anti-slop/no-reflect-apply": "error",
-    "anti-slop/no-reflect-get": "error",
-    "anti-slop/no-runtime-typeof": "error",
-    "anti-slop/no-shape-in-symbol-names": "error",
-    "anti-slop/no-unknown-parameters": "error",
-    "anti-slop/no-unknown-returns": "error",
-    "anti-slop/no-unknown-type-aliases": "error",
-    "anti-slop/no-unsafe-dictionary-type": "error",
-    "anti-slop/no-widen-then-assert": "error",
-    "anti-slop/require-readable-spacing": "error",
-    "anti-slop/require-safety-comment-for-type-assertion": "error"
+    "oxc/no-accumulating-spread": "error"
   },
-  "settings": {
-    "react": {
-      "linkComponents": [
-        {
-          "name": "Link",
-          "linkAttribute": "href"
-        }
-      ]
-    },
-    "jsx-a11y": {
-      "components": {
-        "Link": "a"
-      }
-    }
-  },
-  "jsPlugins": [
-    {
-      "name": "anti-slop",
-      "specifier": "@aranlucas/oxlint-plugin-anti-slop"
-    }
+  "ignorePatterns": [
+    ".next/**",
+    "out/**",
+    "build/**",
+    "coverage/**",
+    "next-env.d.ts",
+    "node_modules/**",
+    "dist/**",
+    ".snapshot*",
+    "_site/**"
   ]
 }
