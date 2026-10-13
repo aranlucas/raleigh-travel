@@ -18,7 +18,6 @@
     "coverage/**",
     "next-env.d.ts",
     "pnpm-lock.yaml",
-    "tools/oxlint/anti-slop/**",
     "node_modules/**",
     "dist/**",
     ".snapshot*",
