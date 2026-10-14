@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 
-import { selectedDayId } from "./selected-day";
+import { selectedDayId } from "@/lib/selected-day";
 
 test.each([
   ["2026-10-02", "friday"],

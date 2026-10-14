@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
-import { createPackingStore, PACKING_STORAGE_KEY } from "./packing-store";
+import { createPackingStore, PACKING_STORAGE_KEY } from "@/lib/packing-store";
 
 const cleanups: (() => void)[] = [];
 

@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
 
-import { fallbackDays } from "./weather";
-import { weatherResponse } from "./weather-response";
-import { parseDaily } from "./weather-service";
+import { fallbackDays } from "@/lib/weather";
+import { weatherResponse } from "@/lib/weather-response";
+import { parseDaily } from "@/lib/weather-service";
 
 test("provider parsing keeps valid days and rejects malformed temperatures", () => {
   const days = parseDaily({
