@@ -67,5 +67,28 @@
   ],
   "options": {
     "typeAware": true
+  },
+  "rules": {
+    "eslint/eqeqeq": ["error", "always"],
+    "eslint/no-unused-vars": "error",
+    "typescript/prefer-readonly-parameter-types": [
+      "error",
+      {
+        "ignoreInferredTypes": true,
+        "allow": ["ReactNode", "KeyboardEvent", "Promise"]
+      }
+    ],
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": ["**/*.css"]
+      }
+    ],
+    "react/only-export-components": [
+      "error",
+      {
+        "allowExportNames": ["metadata", "generateMetadata", "generateStaticParams"]
+      }
+    ]
   }
 }
