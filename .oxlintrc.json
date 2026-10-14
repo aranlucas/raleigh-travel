@@ -70,7 +70,6 @@
   },
   "rules": {
     "eslint/eqeqeq": ["error", "always"],
-    "eslint/no-unused-vars": "error",
     "typescript/prefer-readonly-parameter-types": [
       "error",
       {
