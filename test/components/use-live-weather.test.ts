@@ -3,7 +3,7 @@ import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
 import { fallbackDays, WEATHER_REFRESH_MS } from "@/lib/weather";
 
-import { useLiveWeather } from "./use-live-weather";
+import { useLiveWeather } from "@/components/use-live-weather";
 
 const now = new Date("2026-10-02T12:00:00Z");
 

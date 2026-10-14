@@ -4,7 +4,7 @@ import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
 import { PACKING_STORAGE_KEY } from "@/lib/packing-store";
 
-import { TripPacking } from "./trip-packing";
+import { TripPacking } from "@/components/trip-packing";
 
 beforeEach(() => {
   vi.useFakeTimers();

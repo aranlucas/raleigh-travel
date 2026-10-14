@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 
-import { resolveWeather } from "./weather-service";
+import { resolveWeather } from "@/lib/weather-service";
 
 const now = new Date("2026-10-02T12:00:00Z");
 
