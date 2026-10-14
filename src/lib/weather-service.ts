@@ -139,7 +139,7 @@ export async function resolveWeather(now = new Date()): Promise<WeatherDay[]> {
     precipitation_unit: "mm",
   }).toString();
 
-  const byDate = await fetchForecast(url);
+  const byDate = await fetchForecast(url.href);
 
   return days.map((day) => {
     const forecast = day.status === "unavailable" ? byDate.get(day.isoDate) : undefined;
@@ -148,7 +148,7 @@ export async function resolveWeather(now = new Date()): Promise<WeatherDay[]> {
   });
 }
 
-async function requestForecast(url: URL) {
+async function requestForecast(url: string) {
   const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(2500) });
 
   if (!response.ok) {
@@ -165,7 +165,7 @@ async function requestForecast(url: URL) {
   return byDate;
 }
 
-async function fetchForecast(url: URL) {
+async function fetchForecast(url: string) {
   try {
     return await requestForecast(url);
   } catch {
