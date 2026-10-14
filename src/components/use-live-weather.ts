@@ -5,6 +5,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { WEATHER_REFRESH_MS, type WeatherResponse } from "@/lib/weather";
 import { weatherResponse } from "@/lib/weather-response";
 
+const weatherError =
+  "Latest weather is temporarily unavailable. Showing the last forecast or general packing guidance.";
+
 export function useLiveWeather() {
   const [weather, setWeather] = useState<WeatherResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -37,9 +40,7 @@ export function useLiveWeather() {
       setError(null);
       lastSuccess.current = Date.now();
     } catch {
-      setError(
-        "Latest weather is temporarily unavailable. Showing the last forecast or general packing guidance.",
-      );
+      setError(weatherError);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -48,27 +49,32 @@ export function useLiveWeather() {
   }, []);
 
   useEffect(() => {
-    const initial = window.setTimeout(() => void refresh(), 0);
-    const interval = window.setInterval(() => void refresh(), WEATHER_REFRESH_MS);
+    const onRefresh = () => {
+      refresh().catch(() => {
+        setError(weatherError);
+      });
+    };
+
+    const initial = window.setTimeout(onRefresh, 0);
+    const interval = window.setInterval(onRefresh, WEATHER_REFRESH_MS);
 
     const onVisible = () => {
       if (
         document.visibilityState === "visible" &&
         Date.now() - lastSuccess.current >= WEATHER_REFRESH_MS
       ) {
-        void refresh();
+        onRefresh();
       }
     };
 
-    const onOnline = () => void refresh();
     document.addEventListener("visibilitychange", onVisible);
-    window.addEventListener("online", onOnline);
+    window.addEventListener("online", onRefresh);
 
     return () => {
       window.clearTimeout(initial);
       window.clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisible);
-      window.removeEventListener("online", onOnline);
+      window.removeEventListener("online", onRefresh);
     };
   }, [refresh]);
 

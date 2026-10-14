@@ -139,37 +139,45 @@ export async function resolveWeather(now = new Date()): Promise<WeatherDay[]> {
     precipitation_unit: "mm",
   }).toString();
 
-  // Retries must be sequential; parallel calls would duplicate provider requests.
-  /* oxlint-disable eslint/no-await-in-loop */
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    try {
-      const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(2500) });
+  const byDate = await fetchForecast(url);
 
-      if (!response.ok) {
-        throw new Error("Forecast unavailable");
-      }
+  return days.map((day) => {
+    const forecast = day.status === "unavailable" ? byDate.get(day.isoDate) : undefined;
 
-      const payload = forecastPayload.parse(await response.json());
-      const byDate = parseDaily(payload.daily);
+    return forecast ? Object.assign(day, { status: "forecast" as const, forecast }) : day;
+  });
+}
 
-      if (byDate.size === 0) {
-        throw new Error("Empty forecast");
-      }
+async function requestForecast(url: URL) {
+  const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(2500) });
 
-      return days.map((day) => {
-        const forecast = day.status === "unavailable" ? byDate.get(day.isoDate) : undefined;
-
-        return forecast ? Object.assign(day, { status: "forecast" as const, forecast }) : day;
-      });
-    } catch {
-      if (attempt === 0) {
-        await new Promise((resolve) => {
-          setTimeout(resolve, 250);
-        });
-      }
-    }
+  if (!response.ok) {
+    throw new Error("Forecast unavailable");
   }
 
-  /* oxlint-enable eslint/no-await-in-loop */
-  throw new Error("Forecast unavailable");
+  const payload = forecastPayload.parse(await response.json());
+  const byDate = parseDaily(payload.daily);
+
+  if (byDate.size === 0) {
+    throw new Error("Empty forecast");
+  }
+
+  return byDate;
+}
+
+async function fetchForecast(url: URL) {
+  try {
+    return await requestForecast(url);
+  } catch {
+    // Retry once after the first request finishes, without duplicating provider requests.
+    await new Promise((resolve) => {
+      setTimeout(resolve, 250);
+    });
+  }
+
+  try {
+    return await requestForecast(url);
+  } catch (cause) {
+    throw new Error("Forecast unavailable", { cause });
+  }
 }
