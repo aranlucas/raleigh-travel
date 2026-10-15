@@ -48,29 +48,12 @@ export const WEATHER_CODES: readonly WeatherCodeInfo[] = [
 
 const WEATHER_CODE_BY_CODE = new Map(WEATHER_CODES.map((entry) => [entry.code, entry]));
 
-const WEATHER_CODE_NOTES: Record<WeatherCodeTone, string> = {
-  clear: "Clear conditions are most likely.",
-  "partly-cloudy": "Mostly clear to partly cloudy conditions are likely.",
-  overcast: "Cloud cover is likely for much of the day.",
-  fog: "Low cloud or fog is possible.",
-  drizzle: "Light rain or drizzle is possible.",
-  rain: "Rain is possible, so keep the shell handy.",
-  snow: "Snow or icy conditions are possible.",
-  storm: "Storm risk is present; recheck conditions before outdoor plans.",
-};
-
 export function getWeatherCode(code?: number | null): WeatherCodeInfo | undefined {
   if (code === null || code === undefined) {
     return undefined;
   }
 
   return WEATHER_CODE_BY_CODE.get(code);
-}
-
-export function describeWeatherCode(code?: number | null): string | undefined {
-  const entry = getWeatherCode(code);
-
-  return entry ? WEATHER_CODE_NOTES[entry.tone] : undefined;
 }
 
 export function isRainWeatherCode(code?: number | null): boolean {

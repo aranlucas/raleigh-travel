@@ -883,18 +883,3 @@ export function daySummary(day: Day) {
     (day.id === "friday" ? "Travel day · Early night" : "Travel day · No studying")
   );
 }
-
-/** Where an activity sits in the trip, and the first non-study activity after it. */
-export function activityContext(activityId: string) {
-  for (const day of days) {
-    const index = day.activities.findIndex((activity) => activity.id === activityId);
-
-    if (index !== -1) {
-      const after = day.activities.slice(index + 1).find((item) => item.category !== "study");
-
-      return { day, after };
-    }
-  }
-
-  return null;
-}
