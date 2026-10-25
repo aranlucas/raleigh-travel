@@ -39,12 +39,12 @@ Open <https://raleigh-travel.localhost>. `pnpm dev` runs through [Portless](http
 
 ```bash
 pnpm format:check
-pnpm test
+pnpm test:run
 pnpm check
 pnpm build
 ```
 
-`pnpm check` runs Oxfmt, strict type-aware Oxlint, TypeScript generation, and the offline Vitest suite. Packing-store tests cover browser storage failures, recovery, and cross-tab updates, with a React checkbox regression using mocked weather. `pnpm build` creates the production Next.js build. `pnpm format` writes the repository’s formatting when making source edits.
+`pnpm test:run` runs the offline tests once and exits; `pnpm test` keeps Vitest in watch mode for development. `pnpm check` uses the one-shot command and runs Oxfmt, strict type-aware Oxlint, TypeScript generation, and the offline Vitest suite. Packing-store tests cover browser storage failures, recovery, and cross-tab updates, with a React checkbox regression using mocked weather. `pnpm build` creates the production Next.js build. `pnpm format` writes the repository’s formatting when making source edits.
 
 ## Source map
 
