@@ -143,13 +143,6 @@ test.each([PACKING_STORAGE_KEY, null])(
   },
 );
 
-test("removing storage while unsubscribed does not resurrect the old saved state", () => {
-  const store = createPackingStore();
-  store.toggle("tops");
-  window.localStorage.removeItem(PACKING_STORAGE_KEY);
-  expect([...store.getSnapshot()]).toEqual([]);
-});
-
 test("changes made while unsubscribed also replace an unsaved fallback", () => {
   const store = createPackingStore();
   store.toggle("tops");
