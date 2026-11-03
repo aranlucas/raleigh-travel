@@ -1,66 +1,39 @@
 # Raleigh, together
 
-## A five-day Raleigh plan with room to study, wander, and breathe.
-
-[![Next.js 16](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=111827)](https://react.dev/)
-[![TypeScript 7](https://img.shields.io/badge/TypeScript-7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-
-This is a static Next.js itinerary for a pediatric dental oral boards trip to Raleigh, October 2–6, 2026. It turns a pile of flight, hotel, exam, food, and study notes into a plan you can actually follow: morning study blocks, a map of places that fit the gap between them, exam-day logistics, and a print-friendly recap.
+An itinerary for a pediatric dental oral boards trip to Raleigh, October 2–6, 2026, with study breaks, maps, exam logistics, and a printable recap. The trip has passed; see the [roadmap](ROADMAP.md) for archive and reuse priorities.
 
 ![Watercolor illustration of Raleigh](public/raleigh-watercolor.png)
 
 _The watercolor is an illustrative trip asset, not a documentary photograph or live map._
 
-## What the site helps with
-
-- **Five daily itineraries** cover flights, hotel, meals, local outings, study time, and exam-day logistics.
-- **Explore Raleigh** groups places and October 2–6 events by area, with an interactive map and suggestions sized for a study break or free afternoon.
-- **Study links** open the matching sessions, themes, flashcards, and recap on [Oral Boards](https://oral-boards.vercel.app/study). Old `/study` URLs permanently redirect there after the study app migration.
-- **Print mode** turns the plan into a compact itinerary for a phone, paper folder, or hotel desk.
-
-Try the flow: open the itinerary, pick Saturday’s study block, follow the nearby break suggestion, then use **Details** for the Monday exam logistics. The project keeps the trip humane by marking when to stop studying.
-
-The repository is a public-safe snapshot. It omits personal names, reservation and ticket identifiers, payment details, and Gmail links. It has no authentication, mailbox access, airline integration, or live booking feed.
+Study content lives in [Oral Boards](https://oral-boards.vercel.app/study); legacy `/study` URLs permanently redirect there.
 
 ## Run locally
 
-The app has no environment variables and uses the committed pnpm lockfile.
+Use the Node version in `.node-version` and pnpm version in `package.json`.
 
 ```bash
-corepack enable
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open <https://raleigh-travel.localhost>. `pnpm dev` runs through [Portless](https://github.com/vercel-labs/portless) (a dev dependency); its first run may ask for `sudo` to bind port 443 and trust a local certificate.
+Open the URL printed by [Portless](https://github.com/vercel-labs/portless): `https://raleigh-travel.localhost` in the main checkout, with a branch subdomain in linked worktrees. Its first run may ask for `sudo` to bind port 443 and trust a local certificate.
+
+No environment variables are required. The map uses OpenStreetMap tiles by default; optional `NEXT_PUBLIC_CARTO_KEY` selects CARTO Voyager tiles. Weather uses the server's `/api/weather` route and Open-Meteo, so a static export alone cannot serve it. Past trip dates have no live forecast.
 
 ## Checks and build
 
 ```bash
-pnpm format:check
-pnpm test:run
 pnpm check
 pnpm build
 ```
 
-`pnpm test:run` runs the offline tests once and exits; `pnpm test` keeps Vitest in watch mode for development. `pnpm check` uses the one-shot command and runs Oxfmt, strict type-aware Oxlint, TypeScript generation, and the offline Vitest suite. Packing-store tests cover browser storage failures, recovery, and cross-tab updates, with a React checkbox regression using mocked weather. `pnpm build` creates the production Next.js build. `pnpm format` writes the repository’s formatting when making source edits.
-
-## Source map
-
-| Path                       | Responsibility                                                    |
-| -------------------------- | ----------------------------------------------------------------- |
-| `src/lib/itinerary.ts`     | Five-day plan, schedule, study links, map links, and source URLs. |
-| `src/lib/raleigh.ts`       | Places, areas, events, and “fits a study break” guidance.         |
-| `src/lib/exam-day.ts`      | Candidate logistics used by the trip details page.                |
-| `src/app/page.tsx`         | Main itinerary and day-by-day experience.                         |
-| `src/app/raleigh/page.tsx` | Explore Raleigh page and map.                                     |
-| `src/app/details/page.tsx` | Exam, travel, and practical details.                              |
-| `src/components/`          | Timeline, map, print layout, navigation, and shared UI.           |
-| `next.config.ts`           | Redirects legacy `/study/:path*` URLs to Oral Boards.             |
+`pnpm check` includes formatting, lint, types, and offline tests. To run tests alone and exit, use `pnpm test:run`; `pnpm test` watches for changes.
 
 ## Editorial limits
 
-Sources were reviewed September 23, 2026. Monday registration is at 2:45 PM. The approximately 6:15–6:45 PM hotel return is an estimate; ABPD says to allow about four hours in total. Outings, meals, transfers, and study blocks are suggestions, not bookings. Hours, prices, events, and official candidate instructions can change, so confirm them before traveling; the latest ABPD candidate communication takes precedence.
+The initial source review was September 23, 2026; some itinerary entries record later checks. Outings, meals, transfers, and study blocks are suggestions, not bookings. Reconfirm date-specific information before reusing the plan; the latest ABPD candidate communication takes precedence over the itinerary.
 
-The watercolor asset in `public/raleigh-watercolor.png` was created with the built-in image generation tool. Official ABPD, AAPD, and Vimeo material is linked rather than redistributed. Search-engine indexing is disabled; that setting is not authentication.
+Keep personal names, reservation and ticket identifiers, payment details, and private mailbox links out of public copies. Search-engine indexing is disabled; the site has no authentication.
+
+The watercolor asset in `public/raleigh-watercolor.png` was created with the built-in image generation tool. Official ABPD, AAPD, and Vimeo material is linked rather than redistributed.
