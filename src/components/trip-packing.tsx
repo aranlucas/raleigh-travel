@@ -19,6 +19,7 @@ export function TripPacking() {
 
   const total = PACKING_GROUPS.reduce((count, group) => count + group.items.length, 0);
   const notes = packingWeatherNotes(weather);
+  const hasForecast = weather?.days.some((day) => day.status === "forecast") === true;
 
   return (
     <section id="packing" aria-labelledby="packing-heading" className="scroll-mbs-6 py-10">
@@ -83,26 +84,28 @@ export function TripPacking() {
       </div>
       <div className="mbs-4 panel p-5 sm:p-6">
         <h3 className="type-subhead">What the forecast suggests</h3>
+        {hasForecast && (
+          <p className="mbs-2 text-xs text-muted">
+            {forecastError === null
+              ? "Based on the latest loaded trip forecast; recheck before departure."
+              : "Based on the last loaded forecast; the latest update is unavailable."}
+          </p>
+        )}
         {notes.length > 0 ? (
-          <>
-            <p className="mbs-2 text-xs text-muted">
-              {forecastError === null
-                ? "Based on the latest loaded trip forecast; recheck before departure."
-                : "Based on the last loaded forecast; the latest update is unavailable."}
-            </p>
-            <ul className="mbs-3 flex list-disc flex-col gap-1 ps-4 text-sm text-ink-soft">
-              {notes.map((note) => (
-                <li key={note}>{note}</li>
-              ))}
-            </ul>
-          </>
+          <ul className="mbs-3 flex list-disc flex-col gap-1 ps-4 text-sm text-ink-soft">
+            {notes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
         ) : (
           <p className="mbs-2 text-sm text-muted">
             {weather === null
               ? loading
                 ? "Live weather is loading."
                 : "Live weather is unavailable."
-              : "No extra heat, rain, or cool-weather packing notes from the available forecast."}{" "}
+              : hasForecast
+                ? "No extra heat, rain, or cool-weather packing notes from the available forecast."
+                : "No trip forecast is available. This is general packing guidance."}{" "}
             Keep the base layers and rain protection; check each day’s forecast before departure.
           </p>
         )}
