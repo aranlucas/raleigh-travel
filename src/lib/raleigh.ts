@@ -1,4 +1,4 @@
-import { maps, sources } from "./itinerary";
+import { maps, sources } from "./trip-info";
 
 export type Area = "north-hills" | "downtown" | "west";
 
@@ -17,7 +17,6 @@ export type Place = Readonly<{
   cost: string;
   hours: string;
   fit: Fit;
-  /** Set when the itinerary already schedules this place. */
   planned?: Readonly<{ dayId: string; label: string }>;
   href: string;
   directions: string;

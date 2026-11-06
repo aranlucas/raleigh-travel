@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 
-import { TripPlanner } from "@/components/trip-planner";
+import { TripDetails } from "@/components/trip-details";
+import { TripShell } from "@/components/trip-shell";
 
 export const metadata: Metadata = {
   title: "Trip details · Raleigh, together",
 };
 
 export default function DetailsPage() {
-  return <TripPlanner view="details" />;
+  return (
+    <TripShell current="details">
+      <div id="trip-content" className="scroll-mbs-6" tabIndex={-1}>
+        <TripDetails />
+      </div>
+    </TripShell>
+  );
 }

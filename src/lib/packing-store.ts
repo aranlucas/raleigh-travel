@@ -130,5 +130,4 @@ export function createPackingStore() {
   return { subscribe, getSnapshot, getServerSnapshot: () => emptySnapshot, toggle };
 }
 
-// Construction and the server snapshot never access browser storage.
 export const packingStore = createPackingStore();

@@ -1,15 +1,8 @@
 import { BookOpen, CalendarDays, CircleCheck, House, Plane } from "lucide-react";
 
 import { examDayRules, examFacts } from "@/lib/exam-day";
-import {
-  days,
-  duration,
-  examAddress,
-  hotelAddress,
-  maps,
-  sources,
-  studyMinutes,
-} from "@/lib/itinerary";
+import { days, duration, studyMinutes } from "@/lib/itinerary";
+import { examAddress, hotelAddress, maps, sources } from "@/lib/trip-info";
 
 import { ExternalLink } from "./ui";
 
@@ -28,7 +21,6 @@ type RouteLineProps = Readonly<{
   tight?: boolean;
 }>;
 
-/** Origin, connection, destination on one line; the connection is flagged when it is tight. */
 function RouteLine({ stops, legs, connection, tight = false }: RouteLineProps) {
   const [origin, via, destination] = stops;
   const [first, second] = legs;
@@ -361,13 +353,7 @@ export function TripDetails() {
                     <p className="mbs-1 font-display text-3xl leading-none whitespace-nowrap">
                       {shortDuration(studyMinutes(day))}
                     </p>
-                    <p className="mbs-2 text-sm text-muted">
-                      {day.id === "saturday"
-                        ? "Clinical cases & weak areas"
-                        : day.id === "sunday"
-                          ? "Rehearsal & a final recap"
-                          : "Light review, then switch off"}
-                    </p>
+                    <p className="mbs-2 text-sm text-muted">{day.studySummary}</p>
                   </div>
                 ))}
             </div>

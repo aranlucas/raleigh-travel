@@ -9,34 +9,33 @@ import {
   type WeatherDay,
 } from "./weather";
 
-// Zod catch configures parse fallback; none of these schema expressions is a Promise.
-const metricSeries = z.array(z.number().nullable().catch(null)).nullish().catch(null);
+const metricSeries = z.array(z.number().nullable().catch(null)).readonly().nullish().catch(null);
 
-const timestampSeries = z.array(z.string().nullable().catch(null)).nullish().catch(null);
+const timestampSeries = z.array(z.string().nullable().catch(null)).readonly().nullish().catch(null);
 
-const dailyPayload = z
-  .object({
-    time: z.array(z.string().nullable().catch(null)),
-    temperature_2m_max: metricSeries,
-    temperature_2m_min: metricSeries,
-    apparent_temperature_max: metricSeries,
-    apparent_temperature_min: metricSeries,
-    precipitation_probability_max: metricSeries,
-    precipitation_sum: metricSeries,
-    precipitation_hours: metricSeries,
-    weather_code: metricSeries,
-    wind_speed_10m_max: metricSeries,
-    wind_gusts_10m_max: metricSeries,
-    wind_direction_10m_dominant: metricSeries,
-    uv_index_max: metricSeries,
-    sunrise: timestampSeries,
-    sunset: timestampSeries,
-  })
-  .nullish()
-  .catch(null);
+const dailyFields = z.object({
+  time: z.array(z.string().nullable().catch(null)).readonly(),
+  temperature_2m_max: metricSeries,
+  temperature_2m_min: metricSeries,
+  apparent_temperature_max: metricSeries,
+  apparent_temperature_min: metricSeries,
+  precipitation_probability_max: metricSeries,
+  precipitation_sum: metricSeries,
+  precipitation_hours: metricSeries,
+  weather_code: metricSeries,
+  wind_speed_10m_max: metricSeries,
+  wind_gusts_10m_max: metricSeries,
+  wind_direction_10m_dominant: metricSeries,
+  uv_index_max: metricSeries,
+  sunrise: timestampSeries,
+  sunset: timestampSeries,
+});
 
-const DAILY_FIELDS =
-  "temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max,precipitation_sum,precipitation_hours,weather_code,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,uv_index_max,sunrise,sunset";
+const dailyPayload = dailyFields.nullish().catch(null);
+
+const DAILY_FIELDS = Object.keys(dailyFields.shape)
+  .filter((key) => key !== "time")
+  .join(",");
 
 function metric(value: number | null | undefined): number | null {
   return value !== null && value !== undefined && Number.isFinite(value) ? value : null;
@@ -48,23 +47,7 @@ function localTimestamp(value: string | null | undefined): string | null {
     : null;
 }
 
-type Daily = Readonly<{
-  time: readonly (string | null)[];
-  temperature_2m_max?: readonly (number | null)[] | null;
-  temperature_2m_min?: readonly (number | null)[] | null;
-  apparent_temperature_max?: readonly (number | null)[] | null;
-  apparent_temperature_min?: readonly (number | null)[] | null;
-  precipitation_probability_max?: readonly (number | null)[] | null;
-  precipitation_sum?: readonly (number | null)[] | null;
-  precipitation_hours?: readonly (number | null)[] | null;
-  weather_code?: readonly (number | null)[] | null;
-  wind_speed_10m_max?: readonly (number | null)[] | null;
-  wind_gusts_10m_max?: readonly (number | null)[] | null;
-  wind_direction_10m_dominant?: readonly (number | null)[] | null;
-  uv_index_max?: readonly (number | null)[] | null;
-  sunrise?: readonly (string | null)[] | null;
-  sunset?: readonly (string | null)[] | null;
-}>;
+type Daily = Readonly<z.infer<typeof dailyFields>>;
 
 function buildDaily(daily: Daily | null | undefined): Map<string, ForecastEntry> {
   const byDate = new Map<string, ForecastEntry>();
@@ -113,12 +96,11 @@ function buildDaily(daily: Daily | null | undefined): Map<string, ForecastEntry>
   return byDate;
 }
 
-// Parse external arrays before callers can consume weather fields.
 const parsedDaily = dailyPayload.transform(buildDaily);
 
 export const parseDaily = parsedDaily.parse.bind(parsedDaily);
 
-const forecastPayload = z.object({ daily: dailyPayload });
+const forecastPayload = z.object({ daily: parsedDaily });
 
 export async function resolveWeather(now = new Date()): Promise<WeatherDay[]> {
   const days = fallbackDays(now);
@@ -156,7 +138,7 @@ async function requestForecast(url: string) {
   }
 
   const payload = forecastPayload.parse(await response.json());
-  const byDate = parseDaily(payload.daily);
+  const byDate = payload.daily;
 
   if (byDate.size === 0) {
     throw new Error("Empty forecast");
@@ -169,7 +151,6 @@ async function fetchForecast(url: string) {
   try {
     return await requestForecast(url);
   } catch {
-    // Retry once after the first request finishes, without duplicating provider requests.
     await new Promise((resolve) => {
       setTimeout(resolve, 250);
     });

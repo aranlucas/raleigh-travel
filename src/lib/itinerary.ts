@@ -1,6 +1,9 @@
+import { tripDays } from "./trip-calendar";
+import { maps, sources, hotelAddress, examAddress } from "./trip-info";
+
 export type Category = "study" | "explore" | "reset" | "travel" | "exam";
 
-export type PlanLink = Readonly<{ label: string; href: string }>;
+export type PlanLink = Readonly<{ label: string; href: string; weatherLabel?: string }>;
 
 export type Activity = Readonly<{
   id: string;
@@ -18,55 +21,21 @@ export type Day = Readonly<{
   id: string;
   short: string;
   date: string;
+  isoDate: string;
   label: string;
   title: string;
   description: string;
   takeaway: string;
   activities: readonly Activity[];
+  travelSummary?: string;
+  studySummary?: string;
   milestones?: readonly Readonly<{ time: string; label: string }>[];
 }>;
 
-export const sources = {
-  abpd: "https://www.abpd.org/become-certified/oral-clinical-examination",
-  science: "https://www.naturalsciences.org/visit/hours-admission",
-  capitol: "https://historicsites.nc.gov/all-sites/north-carolina-state-capitol",
-  art: "https://www.dncr.nc.gov/visit/museums/art-museums/north-carolina-museum-art",
-  park: "https://ncartmuseum.org/plan-your-visit/museum-park/",
-  cowfish: "https://thecowfish.com/",
-  dailyPlanet: "https://thedailyplanetcafe.com/",
-  bbqLab: "https://ncbbqlab.com/",
-  coquette: "https://coquetteraleigh.com/sunday-brunch",
-  vivace: "https://vivaceraleigh.com/menu",
-  sitti: "https://www.sitti-raleigh.com/contact",
-  happyHale: "https://www.happyandhale.com/locations",
-  midtownMarket: "https://www.visitnorthhills.com/signature-events/midtown-farmers-market",
-  wideOpen: "https://raleighwideopen.com/event-info/",
-  wideOpenSchedule: "https://raleighwideopen.com/",
-  wideOpenMap:
-    "https://raleighwideopen.com/wp-content/uploads/2026/09/RWO26-SiteMap-092426-scaled.png",
-  gators:
-    "https://floridagators.com/news/2026/9/29/football-broadcast-information-no-8-florida-vs-no-25-missouri",
-  firstFriday: "https://raleighnc.gov/parks-and-recreation/events/first-friday-market-and-movie-2",
-  weather: "https://forecast.weather.gov/MapClick.php?lat=35.7796&lon=-78.6382",
-  snacks: "https://www.harristeeter.com/stores/grocery/nc/raleigh/north-hills/097/00422",
-  hotelDining:
-    "https://www.hyatt.com/hyatt-house/en-US/rduxn-hyatt-house-raleigh-north-hills/dining",
-};
-
-export function maps(address: string) {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-}
-
-export const hotelAddress =
-  "Hyatt House Raleigh North Hills, 160 Park at North Hills Street, Raleigh, NC 27609";
-
-export const examAddress = "AIME Center, 4208 Six Forks Road, Raleigh, NC 27609";
-
 export const days: Day[] = [
   {
-    id: "friday",
-    short: "FRI",
-    date: "02",
+    ...tripDays[0],
+    travelSummary: "Travel day · Early night",
     label: "Arrive",
     title: "Friday, October 2",
     description: "Fly in, check in, eat nearby, sleep early.",
@@ -217,9 +186,8 @@ export const days: Day[] = [
     ],
   },
   {
-    id: "saturday",
-    short: "SAT",
-    date: "03",
+    ...tripDays[1],
+    studySummary: "Clinical cases & weak areas",
     label: "Study, then downtown",
     title: "Saturday, October 3",
     description:
@@ -324,10 +292,11 @@ export const days: Day[] = [
           "Use the live weather suggestions above to choose between a longer indoor visit and the outdoor stops. Skip the outdoor festival stops during storms.",
         ],
         links: [
-          { label: "Hours & admission", href: sources.science },
+          { label: "Hours & admission", weatherLabel: "Hours & admission", href: sources.science },
           { label: "Current Raleigh forecast", href: sources.weather },
           {
             label: "Directions",
+            weatherLabel: "Museum of Natural Sciences directions",
             href: maps(
               "North Carolina Museum of Natural Sciences, 11 West Jones Street, Raleigh NC",
             ),
@@ -351,6 +320,7 @@ export const days: Day[] = [
           { label: "Gators broadcast details", href: sources.gators },
           {
             label: "Directions",
+            weatherLabel: "Optional: State Capitol and a coffee directions",
             href: maps("North Carolina State Capitol, 1 East Edenton Street, Raleigh NC"),
           },
         ],
@@ -445,9 +415,8 @@ export const days: Day[] = [
     ],
   },
   {
-    id: "sunday",
-    short: "SUN",
-    date: "04",
+    ...tripDays[2],
+    studySummary: "Rehearsal & a final recap",
     label: "Rehearse, then art",
     title: "Sunday, October 4",
     description: "A mock run in the morning, the art museum in the afternoon.",
@@ -513,11 +482,16 @@ export const days: Day[] = [
           "Use the live weather suggestions above to decide whether to include the sculpture park. Favor indoor galleries during rain and skip outdoor walks during storms.",
         ],
         links: [
-          { label: "Museum visitor details", href: sources.art },
+          {
+            label: "Museum visitor details",
+            weatherLabel: "Museum visitor details",
+            href: sources.art,
+          },
           { label: "Museum Park", href: sources.park },
           { label: "Current Raleigh forecast", href: sources.weather },
           {
             label: "Directions",
+            weatherLabel: "NC Museum of Art directions",
             href: maps("North Carolina Museum of Art, 2110 Blue Ridge Road, Raleigh NC"),
           },
         ],
@@ -581,9 +555,8 @@ export const days: Day[] = [
     ],
   },
   {
-    id: "monday",
-    short: "MON",
-    date: "05",
+    ...tripDays[3],
+    studySummary: "Light review, then switch off",
     label: "Exam day",
     title: "Monday, October 5",
     description: "A short review in the morning. Registration at 2:45 PM.",
@@ -717,9 +690,8 @@ export const days: Day[] = [
     ],
   },
   {
-    id: "tuesday",
-    short: "TUE",
-    date: "06",
+    ...tripDays[4],
+    travelSummary: "Travel day · No studying",
     label: "Fly home",
     title: "Tuesday, October 6",
     description: "Breakfast, pack, and leave for RDU at 11.",
@@ -880,6 +852,6 @@ export function daySummary(day: Day) {
     [study ? `${duration(study)} study` : "", exploring ? `${duration(exploring)} exploring` : ""]
       .filter(Boolean)
       .join(" · ") ||
-    (day.id === "friday" ? "Travel day · Early night" : "Travel day · No studying")
+    (day.travelSummary ?? "Travel day · No studying")
   );
 }
