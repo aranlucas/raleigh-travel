@@ -43,3 +43,61 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Install Chromium
+        run: pnpm exec e2e-web install chromium --with-deps
+
+      - name: Browser journeys (no model credentials)
+        run: pnpm test:e2e
+        env:
+          E2E_TELEMETRY_DISABLED: "1"
+
+      - name: Upload browser failure evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: e2e-evidence
+          path: .e2e/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 7
+
+  regression-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/setup@a0881977cd8ea73b1ed212236c99ca10dcc80cf4 # v3.1.1
+        with:
+          node-version-file: .node-version
+          require-lockfile: true
+      - name: Prove packing regressions fail before the fix
+        shell: bash
+        run: |
+          git show 50311a60c967464da1d8be297908d6eb93553717:src/components/trip-packing.tsx > src/components/trip-packing.tsx
+          set +e
+          pnpm exec vitest run test/components/trip-packing.test.tsx --reporter=json --outputFile=baseline.json
+          result=$?
+          set -e
+          test "$result" -eq 1
+          node --input-type=module <<'JS'
+          import { readFileSync } from 'node:fs';
+          import assert from 'node:assert/strict';
+          const report = JSON.parse(readFileSync('baseline.json', 'utf8'));
+          const results = report.testResults.flatMap(file => file.assertionResults);
+          assert.equal(results.length, 3);
+          for (const result of results) {
+            const regression = ['a successful response without forecasts states that guidance is general',
+              'mild forecast notes disclose a subsequent failed refresh'].includes(result.title);
+            assert.equal(result.status, regression ? 'failed' : 'passed', result.title);
+          }
+          JS
+      - name: Upload baseline reproduction
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: baseline-reproduction
+          path: baseline.json
