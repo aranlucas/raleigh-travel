@@ -23,7 +23,6 @@ function Segments({ day, from, to }: SegmentProps) {
 
 type DayRibbonProps = Readonly<{ day: Day; className?: string }>;
 
-/** A compact, decorative shape of the day from 7 AM to 11 PM. */
 export function DayRibbon({ day, className = "" }: DayRibbonProps) {
   return (
     <span className={`block ${className}`} aria-hidden="true">
@@ -55,7 +54,6 @@ function hourLabel(hour: number) {
 
 type DayOfTimelineProps = Readonly<{ day: Day }>;
 
-/** Full-width day-of timeline with labeled milestones, 8 AM to 8 PM. */
 export function DayOfTimeline({ day }: DayOfTimelineProps) {
   const from = 8 * 60;
   const to = 20 * 60;

@@ -71,7 +71,6 @@ function popupHtml(place: Place) {
   </span>`;
 }
 
-/** A real street map of every place in the guide, with the hotel and exam center marked. */
 export function RaleighMap() {
   const containerRef = useRef<HTMLElement>(null);
 

@@ -5,13 +5,10 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { days } from "@/lib/itinerary";
 import { selectedDayId } from "@/lib/selected-day";
 
-import { PrintItinerary } from "./print-itinerary";
-import { SiteFooter } from "./site-footer";
-import { SiteHeader } from "./site-header";
+import { DayTabs } from "./day-tabs";
 import type { Filter } from "./timeline";
-import { TripDayPlan } from "./trip-day-plan";
-import { TripDetails } from "./trip-details";
-import { TripHero } from "./trip-hero";
+import { TripSidebar } from "./trip-sidebar";
+import { TripWeather } from "./trip-weather";
 
 function subscribeToHash(onChange: () => void) {
   window.addEventListener("hashchange", onChange);
@@ -45,9 +42,7 @@ function setDayHash(id: string) {
   window.dispatchEvent(new HashChangeEvent("hashchange"));
 }
 
-type TripPlannerProps = Readonly<{ view: "itinerary" | "details" }>;
-
-export function TripPlanner({ view }: TripPlannerProps) {
+export function TripPlanner() {
   const day = useSelectedDay();
   const [filter, setFilter] = useState<Filter>("all");
   const contentRef = useRef<HTMLDivElement>(null);
@@ -61,7 +56,6 @@ export function TripPlanner({ view }: TripPlannerProps) {
     );
   }
 
-  // Arriving from another page's day link: bring the day into view.
   useEffect(() => {
     if (days.some((item) => item.id === readHash())) {
       contentRef.current?.scrollIntoView({ behavior: "instant", block: "start" });
@@ -79,31 +73,12 @@ export function TripPlanner({ view }: TripPlannerProps) {
   }
 
   return (
-    <>
-      <div className="print:hidden">
-        <a className="skip-link" href="#trip-content">
-          Skip to itinerary
-        </a>
-        <SiteHeader current={view} />
-        <main className="page-shell">
-          <TripHero />
-          <div ref={contentRef} id="trip-content" className="scroll-mbs-6" tabIndex={-1}>
-            {view === "itinerary" ? (
-              <TripDayPlan
-                day={day}
-                filter={filter}
-                onSelectDay={selectDay}
-                onFilterChange={setFilter}
-                onMonday={showMonday}
-              />
-            ) : (
-              <TripDetails />
-            )}
-          </div>
-          <SiteFooter />
-        </main>
+    <div ref={contentRef} id="trip-content" className="scroll-mbs-6" tabIndex={-1}>
+      <DayTabs selectedId={day.id} onSelect={selectDay} />
+      <div className="mbs-10 grid grid-cols-1 items-start gap-10 md:grid-plan lg:grid-plan-wide lg:gap-14">
+        <TripWeather day={day} filter={filter} onFilterChange={setFilter} />
+        <TripSidebar onMonday={showMonday} />
       </div>
-      <PrintItinerary />
-    </>
+    </div>
   );
 }

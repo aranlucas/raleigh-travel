@@ -129,3 +129,25 @@ test("concurrent triggers share the in-flight request", async () => {
   expect(result.current.weather).toEqual(validWeather);
   expect(result.current.refreshing).toBe(false);
 });
+
+test("an invalid refresh retains the last valid forecast and reports the failure", async () => {
+  const fetcher = vi
+    .fn<typeof fetch>()
+    .mockResolvedValueOnce(Response.json(validWeather))
+    .mockResolvedValueOnce(Response.json({ days: [], refreshedAt: "invalid" }));
+
+  vi.stubGlobal("fetch", fetcher);
+  const { result } = renderHook(useLiveWeather);
+
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(0);
+  });
+  expect(result.current.weather).toEqual(validWeather);
+
+  await act(async () => {
+    await result.current.refresh();
+  });
+  expect(result.current.weather).toEqual(validWeather);
+  expect(result.current.error).toContain("temporarily unavailable");
+  expect(result.current.refreshing).toBe(false);
+});

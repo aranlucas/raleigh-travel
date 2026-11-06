@@ -58,25 +58,11 @@ export function weatherSuggestion(day: Day, f: ForecastEntry | null): WeatherSug
               ? "Rain indicators are low and temperatures look comfortable for a short outing."
               : "Rain or visibility details do not establish a comfortable outdoor window.";
 
-  const activityIds =
-    day.id === "saturday" ? ["science", "capitol"] : day.id === "sunday" ? ["art"] : [];
-
-  const links = day.activities
-    .filter((activity) => activityIds.includes(activity.id))
-    .flatMap((activity) =>
-      (activity.links ?? [])
-        .filter(
-          (link) =>
-            link.label === "Directions" ||
-            link.label === "Hours & admission" ||
-            link.label === "Museum visitor details",
-        )
-        .map((link) =>
-          link.label === "Directions"
-            ? { href: link.href, label: `${activity.title} directions` }
-            : link,
-        ),
-    );
+  const links = day.activities.flatMap((activity) =>
+    (activity.links ?? []).flatMap((link) =>
+      link.weatherLabel === undefined ? [] : [{ href: link.href, label: link.weatherLabel }],
+    ),
+  );
 
   const plans = new Map(
     Object.entries({

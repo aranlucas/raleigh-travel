@@ -4,13 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import type { Day } from "@/lib/itinerary";
-import {
-  fallbackDays,
-  formatTripDate,
-  TRIP_DATES,
-  TRIP_TIME_ZONE,
-  type ForecastEntry,
-} from "@/lib/weather";
+import { fallbackDays, formatTripDate, TRIP_TIME_ZONE, type ForecastEntry } from "@/lib/weather";
 import { getWeatherCode, isRainWeatherCode, isSnowOrStormWeatherCode } from "@/lib/weather-codes";
 
 import { Timeline, type Filter } from "./timeline";
@@ -82,7 +76,7 @@ type TripWeatherProps = Readonly<{
 export function TripWeather({ day, filter, onFilterChange }: TripWeatherProps) {
   const { weather, loading, refreshing, error, refresh } = useLiveWeather();
   const [unit, setUnit] = useState<Unit>("F");
-  const isoDate = TRIP_DATES.find((date) => date.slice(8) === day.date);
+  const isoDate = day.isoDate;
   const selected = (weather?.days ?? fallbackDays()).find((entry) => entry.isoDate === isoDate);
   const f = selected?.status === "forecast" ? selected.forecast : null;
   const code = getWeatherCode(f?.code);
